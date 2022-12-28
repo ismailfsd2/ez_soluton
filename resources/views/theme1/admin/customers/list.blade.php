@@ -14,7 +14,25 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Customers</h5>
+                        <!-- <h5 class="card-title mb-0">Customers</h5> -->
+                        <div class="flex-shrink-0">
+                            <ul class="nav nav-pills card-header-pills" role="tablist" style="float: left;">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link"href="{{ route('admin.employees.list') }}">Employees</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link"href="{{ route('admin.vendors.list') }}">Vendors</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active"href="{{ route('admin.customers.list') }}">Customers</a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-pills card-header-pills" role="tablist" style="float: right;">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active"href="{{ route('admin.customers.add') }}" style="background: #009edc;" ><i class="bx bx-user-plus"></i> Add Customer</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="card-body">
                         <table id="CustomerTable" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
@@ -26,7 +44,11 @@
                                     <th>Phone</th>
                                     <th>Email</th>
                                     <th>Type Payer</th>
+                                    <th>Country</th>
+                                    <th>State</th>
+                                    <th>City</th>
                                     <th>Address</th>
+                                    <th>Note</th>
                                     <th>Created At</th>
                                     <th>Status</th>
                                     <th>Action</th>

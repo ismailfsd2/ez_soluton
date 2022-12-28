@@ -6,7 +6,7 @@
     <title>EZ Solution</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('') }}assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('') }}assets/images/logo-sm.png">
     <!-- Layout config Js -->
     <script src="{{ asset('') }}assets/js/layout.js"></script>
     <!-- Bootstrap Css -->
@@ -35,10 +35,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="text-center mt-sm-5 mb-4 text-white-50">
+                        <div class="text-center mt-sm-5 text-white-50">
                             <div>
                                 <a href="index.html" class="d-inline-block auth-logo">
-                                    <img src="{{ asset('') }}assets/images/logo-light.png" alt="" height="20">
+                                    <img src="{{ asset('') }}assets/images/logo-light.png" alt="" width="150">
                                 </a>
                             </div>
                         </div>
@@ -53,6 +53,7 @@
                                     <h5 class="text-primary">Welcome Back !</h5>
                                     <p class="text-muted">Sign in to continue to EZ Solution.</p>
                                 </div>
+                                <div class="alert alert-danger mb-xl-0" role="alert" id="errordiv" style="display:none;"></div>
                                 <div class="p-2 mt-4">
                                     <form action="{{ route('login.submit') }}" method="post">
                                         @csrf
@@ -61,13 +62,13 @@
                                             <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username">
                                         </div>
                                         <div class="mb-3">
-                                            <div class="float-end">
-                                                <a href="{{ route('forget_password') }}" class="text-muted">Forgot password?</a>
-                                            </div>
                                             <label class="form-label" for="password-input">Password</label>
                                             <div class="position-relative auth-pass-inputgroup mb-3">
                                                 <input type="password" class="form-control pe-5 password-input" placeholder="Enter password" id="password-input" name="password">
                                                 <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                                            </div>
+                                            <div class="float-end">
+                                                <a href="{{ route('forget_password') }}" class="text-muted">Forgot password?</a>
                                             </div>
                                         </div>
 
@@ -112,6 +113,7 @@
     <!-- end auth-page-wrapper -->
 
     <!-- JAVASCRIPT -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="{{ asset('') }}assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('') }}assets/libs/simplebar/simplebar.min.js"></script>
     <script src="{{ asset('') }}assets/libs/node-waves/waves.min.js"></script>
@@ -146,7 +148,9 @@
             }).showToast();
         }
         @if ($message = Session::get('_error'))
-            ShowAlert('{{ $message }}','danger');
+            $('#errordiv').html('{{ $message }}');
+            $('#errordiv').show();
+            // ShowAlert('{{ $message }}','danger');
         @elseif  ($message = Session::get('_success'))
             ShowAlert('{{ $message }}','success');
         @endif

@@ -7,7 +7,7 @@
     <title>{{ $page_title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('') }}assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('') }}assets/images/logo-sm.png">
     <!-- jsvectormap css -->
     <link href="{{ asset('') }}assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css" />
     <!--Swiper slider css-->
@@ -36,19 +36,19 @@
                 <div class="navbar-brand-box horizontal-logo">
                     <a href="#" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="{{ asset('') }}assets/images/logo-sm.png" alt="" height="22">
+                            <img src="{{ asset('') }}assets/images/logo-sm.png" alt="" style="height: auto;width: 100%;max-width: 90px;">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{ asset('') }}assets/images/logo-dark.png" alt="" height="17">
+                            <img src="{{ asset('') }}assets/images/logo-dark.png" alt="" style="height: auto;width: 100%;max-width: 90px;">
                         </span>
                     </a>
 
                     <a href="#" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="{{ asset('') }}assets/images/logo-sm.png" alt="" height="22">
+                            <img src="{{ asset('') }}assets/images/logo-sm.png" alt="" style="height: auto;width: 100%;max-width: 90px;">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{ asset('') }}assets/images/logo-light.png" alt="" height="17">
+                            <img src="{{ asset('') }}assets/images/logo-light.png" alt="" style="height: auto;width: 100%;max-width: 90px;">
                         </span>
                     </a>
                 </div>
@@ -666,14 +666,14 @@
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
                         <h6 class="dropdown-header">Welcome Anna!</h6>
-                        <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
+                        <!-- <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
                         <a class="dropdown-item" href="#"><i class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Messages</span></a>
                         <a class="dropdown-item" href="#l"><i class="mdi mdi-calendar-check-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Taskboard</span></a>
                         <a class="dropdown-item" href="#"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Help</span></a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#"><i class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span></a>
                         <a class="dropdown-item" href="#"><span class="badge bg-soft-success text-success mt-1 float-end">New</span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Settings</span></a>
-                        <a class="dropdown-item" href="#"><i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Lock screen</span></a>
+                        <a class="dropdown-item" href="#"><i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Lock screen</span></a> -->
                         <a class="dropdown-item" href="{{ route('logout') }}"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
                     </div>
                 </div>
@@ -713,19 +713,19 @@
                 <!-- Dark Logo-->
                 <a href="#" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="{{ asset('') }}assets/images/logo-sm.png" alt="" height="22">
+                        <img src="{{ asset('') }}assets/images/logo-sm.png" alt="" style="height: auto;width: 100%;max-width: 90px;">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('') }}assets/images/logo-dark.png" alt="" height="17">
+                        <img src="{{ asset('') }}assets/images/logo-dark.png" alt="" style="height: auto;width: 100%;max-width: 90px;">
                     </span>
                 </a>
                 <!-- Light Logo-->
                 <a href="#" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{ asset('') }}assets/images/logo-sm.png" alt="" height="22">
+                        <img src="{{ asset('') }}assets/images/logo-sm.png" alt="" style="height: auto;width: 100%;max-width: 90px;">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('') }}assets/images/logo-light.png" alt="" height="17">
+                        <img src="{{ asset('') }}assets/images/logo-light.png" alt="" style="height: auto;width: 100%;max-width: 90px;">
                     </span>
                 </a>
                 <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
@@ -745,6 +745,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('admin.employees.list') }}">
+                            <i class="bx bx-user"></i> <span data-key="t-users">Users</span>
+                            </a>
+                        </li>
+
+
+                        <!-- <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarEmployees" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarEmployees">
                                 <i class="ri-honour-line"></i> <span data-key="t-employees">Employees</span>
                             </a>
@@ -782,7 +789,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> -->
                         
                     </ul>
                 </div>
@@ -810,11 +817,11 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
-                            <script>document.write(new Date().getFullYear())</script> © Velzon.
+                            <script>document.write(new Date().getFullYear())</script> © EZ Solution Portal.
                         </div>
                         <div class="col-sm-6">
                             <div class="text-sm-end d-none d-sm-block">
-                                Design & Develop by Themesbrand
+                                All right reservied <a href="http://ez-solutions.co/" target="_blank" rel="noopener noreferrer">EZ Solution</a>
                             </div>
                         </div>
                     </div>

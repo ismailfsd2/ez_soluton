@@ -41,7 +41,7 @@
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="phone" class="form-label">Phone</label>
-                                            <input type="text" class="form-control" id="phone" name="phone" required value="{{ $vendor[0]->phone}}">
+                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="(+44)000-000-0000" required value="{{ $vendor[0]->phone}}">
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
@@ -55,6 +55,36 @@
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
+                                            <label for="country" class="form-label">Country</label>
+                                            <select name="country" id="country" class="form-control">
+                                                <option value="United State" <?php if($vendor[0]->country == "United State"){ echo "selected"; } ?> >United State</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-md-6">
+                                        <div>
+                                            <label for="state" class="form-label">State</label>
+                                            <select name="state" id="state" class="form-control">
+                                                <option value="Florida" <?php if($vendor[0]->state == "Florida"){ echo "selected"; } ?> >Florida</option>
+                                                <option value="Washington" <?php if($vendor[0]->state == "Washington"){ echo "selected"; } ?> >Washington</option>
+                                                <option value="Wisconsin" <?php if($vendor[0]->state == "Wisconsin"){ echo "selected"; } ?> >Wisconsin</option>
+                                                <option value="Wyoming" <?php if($vendor[0]->state == "Wyoming"){ echo "selected"; } ?> >Wyoming</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-md-6">
+                                        <div>
+                                            <label for="city" class="form-label">City</label>
+                                            <select name="city" id="city" class="form-control">
+                                                <option value="New York" <?php if($vendor[0]->city == "New York"){ echo "selected"; } ?> >New York</option>
+                                                <option value="Los Angeles" <?php if($vendor[0]->city == "Los Angeles"){ echo "selected"; } ?> >Los Angeles</option>
+                                                <option value="Chicago" <?php if($vendor[0]->city == "Chicago"){ echo "selected"; } ?> >Chicago</option>
+                                                <option value="Houston" <?php if($vendor[0]->city == "Houston"){ echo "selected"; } ?> >Houston</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-12 col-md-12">
+                                        <div>
                                             <label for="address" class="form-label">Address</label>
                                             <input type="text" class="form-control" id="address" name="address" required value="{{ $vendor[0]->addres}}">
                                         </div>
@@ -67,14 +97,23 @@
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
-                                            <label for="password" class="form-label">Password</label>
-                                            <input type="password" class="form-control" id="password" name="password" required value="{{ $user[0]->password}}">
+                                            <label for="password-input" class="form-label">Password</label>
+                                            <div class="position-relative auth-pass-inputgroup mb-3">
+                                                <input type="password" class="form-control pe-5 password-input" placeholder="Enter password" id="password-input" name="password" required  value="{{ $user[0]->password}}">
+                                                <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div>
+                                            <label for="note" class="form-label">Note</label>
+                                            <textarea name="note" id="note" class="form-control" cols="30" rows="10">{{ $user[0]->note}}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="hstack gap-2 justify-content-end">
                                             <button type="submit" class="btn btn-primary">Submit</button>
-                                            <button type="button" class="btn btn-soft-success">Cancel</button>
+                                            <a href="{{ route('admin.vendors.list') }}" class="btn btn-danger">Cancel</a>
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -92,4 +131,9 @@
 </div>
 @stop
 @section('footer')
+<script src="{{ asset('') }}assets/js/pages/password-addon.init.js"></script>
+<script src="{{ asset('') }}assets/libs/inputmask/jquery.inputmask.min.js"></script>
+    <script>
+        $('#phone').inputmask("(99) 999 999 9999")
+    </script>
 @stop

@@ -18,37 +18,28 @@
                         <div class="flex-shrink-0">
                             <ul class="nav nav-pills card-header-pills" role="tablist" style="float: left;">
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link" href="{{ route('admin.employees.list') }}">Employees</a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" href="{{ route('admin.vendors.list') }}">Vendors</a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link" href="{{ route('admin.customers.list') }}">Customers</a>
+                                    <a class="nav-link active"href="#">Vendor Point of Contacts</a>
                                 </li>
                             </ul>
                             <ul class="nav nav-pills card-header-pills" role="tablist" style="float: right;">
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" href="{{ route('admin.vendors.add') }}" style="background: #009edc;" ><i class="bx bx-user-plus"></i> Add Vendor</a>
+                                    <a class="nav-link active"href="{{ route('admin.vendors.poc.add',$id) }}" style="background: #009edc;" ><i class="bx bx-user-plus"></i> Add New POC</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="VendorTable" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
+                        <table id="VendorsTable" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Logo</th>
-                                    <th>Name</th>
-                                    <th>Phone</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Designation</th>
+                                    <th>Working Phone Number</th>
+                                    <th>Personal Phone Number</th>
                                     <th>Email</th>
-                                    <th>Type Payer</th>
-                                    <th>Country</th>
-                                    <th>State</th>
-                                    <th>City</th>
-                                    <th>Address</th>
-                                    <th>Note</th>
+                                    <th>Comments</th>
                                     <th>Created At</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -79,9 +70,9 @@
     <script src="{{ asset('') }}assets/js/pages/datatables.init.js"></script>
     <script>
         $.DataTableInit({
-            selector:'#VendorTable',
-            url: "{{ route('admin.vendors.data') }}",
-            data:{},
+            selector:'#VendorsTable',
+            url: "{{ route('admin.vendors.poc.data') }}",
+            data:{id:{{ $id }}},
             config:{
                 processing:true
             },

@@ -52,6 +52,21 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
         Route::post('/update', [App\Http\Controllers\VendorsController::class, 'update'])->name('update');
     
         Route::get('/destroy/{id}', [App\Http\Controllers\VendorsController::class, 'destroy'])->name('destroy');
+
+        
+        Route::get('/poc/{id}', [App\Http\Controllers\VendorsController::class, 'poc'])->name('poc');
+        Route::post('/poc_data', [App\Http\Controllers\VendorsController::class, 'poc_data'])->name('poc.data');
+        
+        Route::get('poc/add/{id}', [App\Http\Controllers\VendorsController::class, 'poc_add'])->name('poc.add');
+        Route::post('poc/store', [App\Http\Controllers\VendorsController::class, 'poc_store'])->name('poc.store');
+        
+        Route::get('poc/edit/{id}', [App\Http\Controllers\VendorsController::class, 'poc_edit'])->name('poc.edit');
+        Route::post('poc/update', [App\Http\Controllers\VendorsController::class, 'poc_update'])->name('poc.update');
+
+        Route::get('poc/destroy/{id}', [App\Http\Controllers\VendorsController::class, 'poc_destroy'])->name('poc.destroy');
+
+
+
     });
     // Customers
     Route::group(['prefix'=>'customers','as' => 'customers.'],function () {
@@ -67,6 +82,18 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
         Route::post('/update', [App\Http\Controllers\CustomersController::class, 'update'])->name('update');
     
         Route::get('/destroy/{id}', [App\Http\Controllers\CustomersController::class, 'destroy'])->name('destroy');
+        
+        Route::get('/poc/{id}', [App\Http\Controllers\CustomersController::class, 'poc'])->name('poc');
+        Route::post('/poc_data', [App\Http\Controllers\CustomersController::class, 'poc_data'])->name('poc.data');
+        
+        Route::get('poc/add/{id}', [App\Http\Controllers\CustomersController::class, 'poc_add'])->name('poc.add');
+        Route::post('poc/store', [App\Http\Controllers\CustomersController::class, 'poc_store'])->name('poc.store');
+        
+        Route::get('poc/edit/{id}', [App\Http\Controllers\CustomersController::class, 'poc_edit'])->name('poc.edit');
+        Route::post('poc/update', [App\Http\Controllers\CustomersController::class, 'poc_update'])->name('poc.update');
+
+        Route::get('poc/destroy/{id}', [App\Http\Controllers\CustomersController::class, 'poc_destroy'])->name('poc.destroy');
+
     });
 });
 // Admin Panel End
