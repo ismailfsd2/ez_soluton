@@ -95,5 +95,31 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
         Route::get('poc/destroy/{id}', [App\Http\Controllers\CustomersController::class, 'poc_destroy'])->name('poc.destroy');
 
     });
+    // Warehouses
+    Route::group(['prefix'=>'warehouses','as' => 'warehouses.'],function () {
+        Route::get('/', [App\Http\Controllers\WarehousesController::class, 'index'])->name('list');
+        Route::post('/data', [App\Http\Controllers\WarehousesController::class, 'data'])->name('data');
+    
+        Route::get('/add', [App\Http\Controllers\WarehousesController::class, 'add'])->name('add');
+        Route::post('/store', [App\Http\Controllers\WarehousesController::class, 'store'])->name('store');
+    
+        Route::get('/edit/{id}', [App\Http\Controllers\WarehousesController::class, 'edit'])->name('edit');
+        Route::post('/update', [App\Http\Controllers\WarehousesController::class, 'update'])->name('update');
+    
+        Route::get('/destroy/{id}', [App\Http\Controllers\WarehousesController::class, 'destroy'])->name('destroy');
+    });
+    // Units
+    Route::group(['prefix'=>'units','as' => 'units.'],function () {
+        Route::get('/', [App\Http\Controllers\UnitsController::class, 'index'])->name('list');
+        Route::post('/data', [App\Http\Controllers\UnitsController::class, 'data'])->name('data');
+    
+        Route::get('/add', [App\Http\Controllers\UnitsController::class, 'add'])->name('add');
+        Route::post('/store', [App\Http\Controllers\UnitsController::class, 'store'])->name('store');
+    
+        Route::get('/edit/{id}', [App\Http\Controllers\UnitsController::class, 'edit'])->name('edit');
+        Route::post('/update', [App\Http\Controllers\UnitsController::class, 'update'])->name('update');
+    
+        Route::get('/destroy/{id}', [App\Http\Controllers\UnitsController::class, 'destroy'])->name('destroy');
+    });
 });
 // Admin Panel End

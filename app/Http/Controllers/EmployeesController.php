@@ -8,6 +8,8 @@ use Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Employees;
 use App\Models\Users;
+use Mail;
+use App\Mail\UsersCredential;
 
 
 class EmployeesController extends BaseController
@@ -130,6 +132,17 @@ class EmployeesController extends BaseController
         $user->username = $request->input('username');
         $user->password = Crypt::encrypt($request->input('password'));
         $user->save();
+        $email = [
+            'title' => 'Login Detail',
+            'body' => '
+                <p><b>Loign Link:</b> '.url('').'</p>
+                <p><b>Loign Username:</b> '. $user->username.'</p>
+                <p><b>Loign Password:</b> '.$request->input('password').'</p>
+            '
+        ];
+        Mail::to($request->input('email'))->send(new UsersCredential($email));
+
+
         return redirect()->route('admin.employees.list')
         ->with('_success','Employee created successfully.');
     }

@@ -749,6 +749,16 @@
                             <i class="bx bx-user"></i> <span data-key="t-users">Users</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('admin.warehouses.list') }}">
+                            <i class="bx bx-user"></i> <span data-key="t-users">Warehouses</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('admin.units.list') }}">
+                                <i class="bx bx-user"></i> <span data-key="t-users">Units</span>
+                            </a>
+                        </li>
 
 
                         <!-- <li class="nav-item">
