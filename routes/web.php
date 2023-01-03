@@ -134,5 +134,18 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
     
         Route::get('/destroy/{id}', [App\Http\Controllers\CategoriesController::class, 'destroy'])->name('destroy');
     });
+    // Brands
+    Route::group(['prefix'=>'brands','as' => 'brands.'],function () {
+        Route::get('/', [App\Http\Controllers\BrandsController::class, 'index'])->name('list');
+        Route::post('/data', [App\Http\Controllers\BrandsController::class, 'data'])->name('data');
+    
+        Route::get('/add', [App\Http\Controllers\BrandsController::class, 'add'])->name('add');
+        Route::post('/store', [App\Http\Controllers\BrandsController::class, 'store'])->name('store');
+    
+        Route::get('/edit/{id}', [App\Http\Controllers\BrandsController::class, 'edit'])->name('edit');
+        Route::post('/update', [App\Http\Controllers\BrandsController::class, 'update'])->name('update');
+    
+        Route::get('/destroy/{id}', [App\Http\Controllers\BrandsController::class, 'destroy'])->name('destroy');
+    });
 });
 // Admin Panel End

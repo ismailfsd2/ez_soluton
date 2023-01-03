@@ -764,6 +764,11 @@
                                 <i class="bx bx-user"></i> <span data-key="t-users">Categories</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('admin.brands.list') }}">
+                                <i class="bx bx-user"></i> <span data-key="t-users">Brands</span>
+                            </a>
+                        </li>
 
 
                         <!-- <li class="nav-item">
