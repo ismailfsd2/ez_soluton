@@ -121,6 +121,19 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
     
         Route::get('/destroy/{id}', [App\Http\Controllers\UnitsController::class, 'destroy'])->name('destroy');
     });
+    // Taxes
+    Route::group(['prefix'=>'taxes','as' => 'taxes.'],function () {
+        Route::get('/', [App\Http\Controllers\TaxesController::class, 'index'])->name('list');
+        Route::post('/data', [App\Http\Controllers\TaxesController::class, 'data'])->name('data');
+    
+        Route::get('/add', [App\Http\Controllers\TaxesController::class, 'add'])->name('add');
+        Route::post('/store', [App\Http\Controllers\TaxesController::class, 'store'])->name('store');
+    
+        Route::get('/edit/{id}', [App\Http\Controllers\TaxesController::class, 'edit'])->name('edit');
+        Route::post('/update', [App\Http\Controllers\TaxesController::class, 'update'])->name('update');
+    
+        Route::get('/destroy/{id}', [App\Http\Controllers\TaxesController::class, 'destroy'])->name('destroy');
+    });
     // Categories
     Route::group(['prefix'=>'categories','as' => 'categories.'],function () {
         Route::get('/', [App\Http\Controllers\CategoriesController::class, 'index'])->name('list');

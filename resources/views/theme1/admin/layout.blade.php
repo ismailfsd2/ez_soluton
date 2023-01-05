@@ -769,8 +769,11 @@
                                 <i class="bx bx-user"></i> <span data-key="t-users">Brands</span>
                             </a>
                         </li>
-
-
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('admin.taxes.list') }}">
+                                <i class="bx bx-user"></i> <span data-key="t-users">Taxes</span>
+                            </a>
+                        </li>
                         <!-- <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarEmployees" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarEmployees">
                                 <i class="ri-honour-line"></i> <span data-key="t-employees">Employees</span>
