@@ -17,7 +17,7 @@
                         <div class="flex-shrink-0">
                             <ul class="nav nav-pills card-header-pills" role="tablist" style="float: left;">
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link" href="{{ route('admin.employees.list') }}">Products</a>
+                                    <a class="nav-link" href="{{ route('admin.products.list') }}">Products</a>
                                 </li>
                             </ul>
                             <ul class="nav nav-pills card-header-pills" role="tablist" style="float: right;">
