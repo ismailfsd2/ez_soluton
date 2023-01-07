@@ -18,27 +18,46 @@
                             <form action="{{ route('admin.taxes.update') }}" method="post" enctype="multipart/form-data" >
                                 @csrf
                                 <div class="row gy-4">
-                                    <div class="col-xxl-4 col-md-6">
-                                        <div>
-                                            <label for="name" class="form-label">Name</label>
-                                            <input type="hidden" name="tax_id" value="{{ $tax[0]->id}}">
-                                            <input type="text" class="form-control" id="name" name="name" required value="{{ $tax[0]->name}}">
+                                        <div class="col-xxl-4 col-md-6">
+                                            <div>
+                                                <label for="name" class="form-label">Name</label>
+                                                <input type="hidden" name="tax_id" value="{{ $tax[0]->id }}" >
+                                                <input type="text" class="form-control" id="name" name="name" required value="{{ $tax[0]->name }}" >
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xxl-4 col-md-6">
-                                        <div>
-                                            <label for="code" class="form-label">Code</label>
-                                            <input type="text" class="form-control" id="code" name="code" required value="{{ $tax[0]->code}}">
+                                        <div class="col-xxl-4 col-md-6">
+                                            <div>
+                                                <label for="type" class="form-label">Tax Type</label>
+                                                <select name="type" id="type" class="form-control">
+                                                    <option value="1" <?php if($tax[0]->type==1){ echo 'selected'; } ?> >Percentage</option>
+                                                    <option value="2" <?php if($tax[0]->type==2){ echo 'selected'; } ?> >Fixed</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="hstack gap-2 justify-content-end">
-                                            <button type="submit" class="btn btn-primary">Update</button>
-                                            <a href="{{ route('admin.taxes.list') }}" class="btn btn-danger">Cancel</a>
+                                        <div class="col-xxl-4 col-md-6">
+                                            <div>
+                                                <label for="name" class="form-label">Tax Rate</label>
+                                                <input type="text" class="form-control" id="rate" name="rate" required value="{{ $tax[0]->rate }}" >
+                                            </div>
                                         </div>
+                                        <div class="col-xxl-4 col-md-6">
+                                            <div>
+                                                <label for="type" class="form-label">Apply On</label>
+                                                <select name="apply_on" id="apply_on" class="form-control">
+                                                    <option value="0" <?php if($tax[0]->apply_on==0){ echo 'selected'; } ?> >All</option>
+                                                    <option value="1" <?php if($tax[0]->apply_on==1){ echo 'selected'; } ?> >Non Register</option>
+                                                    <option value="2" <?php if($tax[0]->apply_on==2){ echo 'selected'; } ?> >Register</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="hstack gap-2 justify-content-end">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <a href="{{ route('admin.taxes.list') }}" class="btn btn-danger">Cancel</a>
+                                            </div>
+                                        </div>
+                                        <!--end col-->
                                     </div>
-                                    <!--end col-->
-                                </div>
                             </form>
                             <!--end row-->
                         </div>

@@ -163,7 +163,6 @@ class CategoriesController extends BaseController
         
     }
     public function destroy($id){
-        Users::where('related_id',$id)->delete(); 
         Categories::where('id',$id)->delete(); 
         return redirect()->route('admin.categories.list')
         ->with('_success','Category deleted successfully.');

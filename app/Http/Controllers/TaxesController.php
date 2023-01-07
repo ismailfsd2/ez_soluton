@@ -78,12 +78,19 @@ class TaxesController extends BaseController
                     </ul>
                 </div>
             ';
+            $applyon = "All";
+            if($row->apply_on == 1){
+                $applyon = "Non Register";
+            }
+            else if($row->apply_on == 1){
+                $applyon = "Register";
+            }
             $data[] = array(
                 $row->id,
                 $row->name,
                 $row->type = 1 ? "Percentage" : "Fixed",
                 $row->rate,
-                $row->apply_on = 0 ? "All" : $row->apply_on = 1 ? "Non Register" : "Register",
+                $applyon,
                 $row->created_at->format('d-M-Y'),
                 $row->status = 1 ? "Active" : "Deactive",
                 $button
@@ -99,7 +106,7 @@ class TaxesController extends BaseController
         echo json_encode($output);
     }
     public function add(){
-        return view($this->data['active_theme'].'/admin/taxs/add',$this->data);
+        return view($this->data['active_theme'].'/admin/taxes/add',$this->data);
     }
     public function store(Request $request){
         $validated = $request->validate([
@@ -109,7 +116,7 @@ class TaxesController extends BaseController
             'apply_on' => 'required'
         ]);
 
-        $tax = new Taxs;
+        $tax = new Taxes;
         $tax->name = $request->input('name');
         $tax->type = $request->input('type');
         $tax->rate = $request->input('rate');

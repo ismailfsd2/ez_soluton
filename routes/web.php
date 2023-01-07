@@ -160,5 +160,18 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
     
         Route::get('/destroy/{id}', [App\Http\Controllers\BrandsController::class, 'destroy'])->name('destroy');
     });
+    // Products
+    Route::group(['prefix'=>'products','as' => 'products.'],function () {
+        Route::get('/', [App\Http\Controllers\ProductsController::class, 'index'])->name('list');
+        Route::post('/data', [App\Http\Controllers\ProductsController::class, 'data'])->name('data');
+    
+        Route::get('/add', [App\Http\Controllers\ProductsController::class, 'add'])->name('add');
+        Route::post('/store', [App\Http\Controllers\ProductsController::class, 'store'])->name('store');
+    
+        Route::get('/edit/{id}', [App\Http\Controllers\ProductsController::class, 'edit'])->name('edit');
+        Route::post('/update', [App\Http\Controllers\ProductsController::class, 'update'])->name('update');
+    
+        Route::get('/destroy/{id}', [App\Http\Controllers\ProductsController::class, 'destroy'])->name('destroy');
+    });
 });
 // Admin Panel End
