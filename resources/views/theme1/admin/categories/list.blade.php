@@ -36,7 +36,7 @@
                                     <th>Name</th>
                                     <th>Parent Category</th>
                                     <th>Created At</th>
-                                    <th>Status</th>
+                                    <!-- <th>Status</th> -->
                                     <th>Action</th>
                                 </tr>
                             </thead>

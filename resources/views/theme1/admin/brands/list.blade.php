@@ -35,7 +35,7 @@
                                     <th>Logo</th>
                                     <th>Name</th>
                                     <th>Created At</th>
-                                    <th>Status</th>
+                                    <!-- <th>Status</th> -->
                                     <th>Action</th>
                                 </tr>
                             </thead>

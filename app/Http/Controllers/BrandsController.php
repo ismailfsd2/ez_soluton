@@ -80,7 +80,7 @@ class BrandsController extends BaseController
                 $image,
                 $row->name,
                 $row->created_at->format('Y-m-d'),
-                $row->status == 1 ? 'Active' : 'Deactive',
+                // $row->status == 1 ? 'Active' : 'Deactive',
                 $button
             );
         }
@@ -110,7 +110,7 @@ class BrandsController extends BaseController
         if($request->file('logo')){
             $file = $request->file('logo');
             $logo = time().'_'.$file->getClientOriginalName();
-            $destinationPath = 'uploads/brands';
+            $destinationPath = 'public/uploads/brands';
             $file->move($destinationPath,$logo);
         }
 
@@ -142,7 +142,7 @@ class BrandsController extends BaseController
         if($request->file('logo')){
             $file = $request->file('logo');
             $logo = time().'_'.$file->getClientOriginalName();
-            $destinationPath = 'uploads/brands';
+            $destinationPath = 'public/uploads/brands';
             $file->move($destinationPath,$logo);
             $brand->logo = $logo;
         }
@@ -154,7 +154,6 @@ class BrandsController extends BaseController
         
     }
     public function destroy($id){
-        Users::where('related_id',$id)->delete(); 
         Brands::where('id',$id)->delete(); 
         return redirect()->route('admin.brands.list')
         ->with('_success','Brand deleted successfully.');

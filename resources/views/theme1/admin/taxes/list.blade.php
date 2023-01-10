@@ -39,7 +39,7 @@
                                     <th>Rate</th>
                                     <th>Apply On</th>
                                     <th>Created At</th>
-                                    <th>Status</th>
+                                    <!-- <th>Status</th> -->
                                     <th>Action</th>
                                 </tr>
                             </thead>

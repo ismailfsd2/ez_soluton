@@ -35,7 +35,7 @@
                                     <th>Image</th>
                                     <th>Name</th>
                                     <th>Barcode</th>
-                                    <th>Company Code</th>
+                                    <th>SKU Code</th>
                                     <th>Cost</th>
                                     <th>Price</th>
                                     <th>MRP</th>

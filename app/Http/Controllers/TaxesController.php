@@ -92,7 +92,7 @@ class TaxesController extends BaseController
                 $row->rate,
                 $applyon,
                 $row->created_at->format('d-M-Y'),
-                $row->status = 1 ? "Active" : "Deactive",
+                // $row->status = 1 ? "Active" : "Deactive",
                 $button
             );
         }

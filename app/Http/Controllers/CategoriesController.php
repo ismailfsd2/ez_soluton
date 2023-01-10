@@ -85,7 +85,7 @@ class CategoriesController extends BaseController
                 $row->name,
                 $row->parent == "" ? "Main Category" : $row->parent,
                 $row->created_at->format('Y-m-d'),
-                $row->status == 1 ? 'Active' : 'Deactive',
+                // $row->status == 1 ? 'Active' : 'Deactive',
                 $button
             );
         }
@@ -116,7 +116,7 @@ class CategoriesController extends BaseController
         if($request->file('logo')){
             $file = $request->file('logo');
             $logo = time().'_'.$file->getClientOriginalName();
-            $destinationPath = 'uploads/categories';
+            $destinationPath = 'public/uploads/categories';
             $file->move($destinationPath,$logo);
         }
 
@@ -124,7 +124,7 @@ class CategoriesController extends BaseController
         $category = new Categories;
         $category->logo = $logo;
         $category->name = $request->input('name');
-        $category->parent_id = $request->input('parent_id');
+        $category->parent_id = $request->input('parent');
         $category->save();
 
         return redirect()->route('admin.categories.list')
@@ -150,12 +150,12 @@ class CategoriesController extends BaseController
         if($request->file('logo')){
             $file = $request->file('logo');
             $logo = time().'_'.$file->getClientOriginalName();
-            $destinationPath = 'uploads/categories';
+            $destinationPath = 'public/uploads/categories';
             $file->move($destinationPath,$logo);
             $category->logo = $logo;
         }
         $category->name = $request->input('name');
-        $category->parent_id = $request->input('parent_id');
+        $category->parent_id = $request->input('parent');
         $category->save();
 
         return redirect()->route('admin.categories.list')

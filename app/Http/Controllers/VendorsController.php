@@ -152,7 +152,7 @@ class VendorsController extends BaseController
 
         $file = $request->file('logo');
         $logo = time().'_'.$file->getClientOriginalName();
-        $destinationPath = 'uploads/vendors';
+        $destinationPath = 'public/uploads/vendors';
         $file->move($destinationPath,$logo);
 
 
@@ -209,7 +209,7 @@ class VendorsController extends BaseController
         if($request->file('logo')){
             $file = $request->file('logo');
             $logo = time().'_'.$file->getClientOriginalName();
-            $destinationPath = 'uploads/vendors';
+            $destinationPath = 'public/uploads/vendors';
             $file->move($destinationPath,$logo);
             $vendor->logo = $logo;
         }

@@ -153,7 +153,7 @@ class CustomersController extends BaseController
         if($request->file('logo')){
             $file = $request->file('logo');
             $logo = time().'_'.$file->getClientOriginalName();
-            $destinationPath = 'uploads/customers';
+            $destinationPath = 'public/uploads/customers';
             $file->move($destinationPath,$logo);
             $customer->logo = $logo;
         }
@@ -209,7 +209,7 @@ class CustomersController extends BaseController
         if($request->file('logo')){
             $file = $request->file('logo');
             $logo = time().'_'.$file->getClientOriginalName();
-            $destinationPath = 'uploads/customers';
+            $destinationPath = 'public/uploads/customers';
             $file->move($destinationPath,$logo);
             $customer->logo = $logo;
         }

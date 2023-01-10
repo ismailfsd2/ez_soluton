@@ -79,7 +79,7 @@ class UnitsController extends BaseController
                 $row->name,
                 $row->code,
                 $row->created_at->format('d-M-Y'),
-                $row->status = 1 ? "Active" : "Deactive",
+                // $row->status = 1 ? "Active" : "Deactive",
                 $button
             );
         }

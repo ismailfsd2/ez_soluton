@@ -15,7 +15,7 @@
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
-                            <form action="{{ route('admin.unit.update') }}" method="post" enctype="multipart/form-data" >
+                            <form action="{{ route('admin.units.update') }}" method="post" enctype="multipart/form-data" >
                                 @csrf
                                 <div class="row gy-4">
                                     <div class="col-xxl-4 col-md-6">

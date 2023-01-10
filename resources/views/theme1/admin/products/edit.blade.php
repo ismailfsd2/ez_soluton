@@ -39,32 +39,32 @@
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
-                                            <label for="company_code" class="form-label">Company Code</label>
+                                            <label for="company_code" class="form-label">SKU Code</label>
                                             <input type="text" class="form-control" id="company_code" name="company_code" required value="{{ $product->company_code }}" >
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="cost" class="form-label">Cost</label>
-                                            <input type="text" class="form-control" id="cost" name="cost" required value="{{ $product->cost }}" >
+                                            <input type="number" class="form-control" id="cost" name="cost" required value="{{ $product->cost }}" >
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="price" class="form-label">Price</label>
-                                            <input type="text" class="form-control" id="price" name="price" required value="{{ $product->price }}" >
+                                            <input type="number" class="form-control" id="price" name="price" required value="{{ $product->price }}" >
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="mrp" class="form-label">MRP</label>
-                                            <input type="text" class="form-control" id="mrp" name="mrp" required value="{{ $product->mrp }}" >
+                                            <input type="number" class="form-control" id="mrp" name="mrp" required value="{{ $product->mrp }}" >
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="category" class="form-label">Category</label>
-                                            <select name="category" id="category" class="form-control">
+                                            <select name="category" id="category" class="form-control" required >
                                                 <option value="">Select Category</option>
                                                 @foreach($categories as $row)
                                                     <option value="{{ $row->id }}" <?php if($row->id == $product->category_id){ echo 'selected'; } ?> >{{ $row->name }}</option>
@@ -75,7 +75,7 @@
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="brand" class="form-label">Brand</label>
-                                            <select name="brand" id="parent" class="form-control">
+                                            <select name="brand" id="parent" class="form-control" required >
                                                 <option value="">Select Brand</option>
                                                 @foreach($brands as $row)
                                                     <option value="{{ $row->id }}" <?php if($row->id == $product->brand_id){ echo 'selected'; } ?> >{{ $row->name }}</option>
@@ -86,7 +86,7 @@
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="unit" class="form-label">Unit</label>
-                                            <select name="unit" id="unit" class="form-control">
+                                            <select name="unit" id="unit" class="form-control" required >
                                                 <option value="">Select Unit</option>
                                                 @foreach($units as $row)
                                                     <option value="{{ $row->id }}" <?php if($row->id == $product->unit_id){ echo 'selected'; } ?> >{{ $row->name }}</option>
@@ -97,7 +97,7 @@
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="alert_quantity" class="form-label">Alert Quantity</label>
-                                            <input type="text" class="form-control" id="alert_quantity" name="alert_quantity" required value="{{ $product->alert_quantity }}" >
+                                            <input type="number" class="form-control" id="alert_quantity" name="alert_quantity" required value="{{ $product->alert_quantity }}" >
                                         </div>
                                     </div>
 
@@ -113,7 +113,7 @@
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="product_tax" class="form-label">Product Tax</label>
-                                            <select name="product_tax" id="product_tax" class="form-control">
+                                            <select name="product_tax" id="product_tax" class="form-control" required >
                                                 <option value="">Select Product Tax</option>
                                                 @foreach($taxes as $row)
                                                     <option value="{{ $row->id }}" <?php if($row->id == $product->taxes){ echo 'selected'; } ?> >{{ $row->name }}</option>

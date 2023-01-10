@@ -159,7 +159,7 @@ class ProductsController extends BaseController
         if($request->file('image')){
             $file = $request->file('image');
             $image = time().'_'.$file->getClientOriginalName();
-            $destinationPath = 'uploads/products';
+            $destinationPath = 'public/uploads/products';
             $file->move($destinationPath,$image);
         }
 
@@ -209,7 +209,7 @@ class ProductsController extends BaseController
         if($request->file('logo')){
             $file = $request->file('logo');
             $logo = time().'_'.$file->getClientOriginalName();
-            $destinationPath = 'uploads/products';
+            $destinationPath = 'public/uploads/products';
             $file->move($destinationPath,$logo);
             $product->image = $logo;
         }
