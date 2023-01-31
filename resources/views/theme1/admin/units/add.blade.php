@@ -23,7 +23,7 @@
                                     <div class="row gy-4">
                                         <div class="col-xxl-4 col-md-6">
                                             <div>
-                                                <label for="name" class="form-label">Name</label>
+                                                <label for="name" class="form-label">Description</label>
                                                 <input type="text" class="form-control" id="name" name="name" required  value="{{ old('name') }}">
                                             </div>
                                         </div>

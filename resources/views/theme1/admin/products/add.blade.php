@@ -148,4 +148,8 @@
 @section('footer')
 <script src="{{ asset('') }}assets/js/pages/password-addon.init.js"></script>
 <script src="{{ asset('') }}assets/libs/inputmask/jquery.inputmask.min.js"></script>
+    <script>
+        $('#barcode').inputmask("999999999999")
+        $('#company_code').inputmask("********")
+    </script>
 @stop

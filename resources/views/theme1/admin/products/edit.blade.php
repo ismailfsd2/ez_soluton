@@ -121,6 +121,15 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-xxl-4 col-md-6">
+                                        <div>
+                                            <label class="form-label">Status</label>
+                                            <select name="status" class="form-control" required >
+                                                <option value="1" <?php if($product->status == 1){ echo 'selected'; } ?> >Active</option>
+                                                <option value="0" <?php if($product->status == 0){ echo 'selected'; } ?> >Inactive</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-xxl-12 col-md-12">
                                         <div>
                                             <label for="description" class="form-label">Description</label>

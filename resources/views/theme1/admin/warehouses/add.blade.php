@@ -46,6 +46,16 @@
                                                 <input type="text" class="form-control" id="address" name="address" required  value="{{ old('address') }}">
                                             </div>
                                         </div>
+                                        <div class="col-xxl-4 col-md-6">
+                                            <div>
+                                                <label for="type" class="form-label">Type</label>
+                                                <select name="type" class="form-control" >
+                                                    <option value="1">Physical Warehouse</option>
+                                                    <option value="0">Virtual Warehouse</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
                                         <div class="col-lg-12">
                                             <div class="hstack gap-2 justify-content-end">
                                                 <button type="submit" class="btn btn-primary">Submit</button>

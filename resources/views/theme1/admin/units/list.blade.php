@@ -34,7 +34,7 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
+                                    <th>Description</th>
                                     <th>Code</th>
                                     <th>Created At</th>
                                     <!-- <th>Status</th> -->

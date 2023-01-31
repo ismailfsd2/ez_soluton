@@ -227,6 +227,7 @@ class ProductsController extends BaseController
         // $product->suppliers = $request->input('name');
         $product->alert_quantity = $request->input('alert_quantity');
         $product->description = $request->input('description');
+        $product->status = $request->input('status');
         $product->save();
 
         return redirect()->route('admin.products.list')

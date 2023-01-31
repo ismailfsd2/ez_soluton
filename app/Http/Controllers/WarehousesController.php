@@ -73,19 +73,32 @@ class WarehousesController extends BaseController
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item edit-item-btn" href="'.route('admin.warehouses.edit',$row->id).'" ><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                        <li><a class="dropdown-item remove-item-btn" href="'.route('admin.warehouses.destroy',$row->id).'" ><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a>
+                        <!-- <li><a class="dropdown-item remove-item-btn" href="'.route('admin.warehouses.destroy',$row->id).'" ><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a> -->
                     </li>
                     </ul>
                 </div>
             ';
+            if($row->status == 1){
+                $status = "Active";
+            }
+            else{
+                $status = "Inactive";
+            }
+            if($row->type == 1){
+                $type = "Physical Warehouse";
+            }
+            else{
+                $type = "Virtual Warehouse";
+            }
             $data[] = array(
                 $row->id,
                 $row->name,
                 $row->phone,
                 $row->email,
                 $row->address,
+                $type,
                 $row->created_at->format('d-M-Y'),
-                $row->status = 1 ? "Active" : "Deactive",
+                $status,
                 $button
             );
         }
@@ -112,6 +125,7 @@ class WarehousesController extends BaseController
             'email' => 'required',
             'phone' => 'required',
             'address' => 'required',
+            'type' => 'required',
         ]);
 
         $warehouse = new Warehouses;
@@ -119,6 +133,7 @@ class WarehousesController extends BaseController
         $warehouse->email = $request->input('email');
         $warehouse->phone = $request->input('phone');
         $warehouse->address = $request->input('address');
+        $warehouse->type = $request->input('type');
         $warehouse->save();
 
         return redirect()->route('admin.warehouses.list')
@@ -141,7 +156,9 @@ class WarehousesController extends BaseController
             'name' => ['required'],
             'email' => ['required'],
             'phone' => ['required'],
-            'address' => ['required']
+            'address' => ['required'],
+            'type' => ['required'],
+            'status' => ['required'],
         ]);
 
         $warehouse = Warehouses::find($request->input('warehouse_id'));
@@ -149,6 +166,8 @@ class WarehousesController extends BaseController
         $warehouse->email = $request->input('email');
         $warehouse->phone = $request->input('phone');
         $warehouse->address = $request->input('address');
+        $warehouse->type = $request->input('type');
+        $warehouse->status = $request->input('status');
         $warehouse->save();
 
         return redirect()->route('admin.warehouses.list')

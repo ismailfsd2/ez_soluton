@@ -39,6 +39,7 @@
                                     <th>Phone</th>
                                     <th>Email</th>
                                     <th>Address</th>
+                                    <th>Type</th>
                                     <th>Created At</th>
                                     <th>Status</th>
                                     <th>Action</th>

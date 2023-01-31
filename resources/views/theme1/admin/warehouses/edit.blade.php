@@ -43,6 +43,24 @@
                                             <input type="text" class="form-control" id="address" name="address" required value="{{ $warehouse[0]->address}}">
                                         </div>
                                     </div>
+                                    <div class="col-xxl-4 col-md-6">
+                                        <div>
+                                            <label for="type" class="form-label">Type</label>
+                                            <select name="type" class="form-control" >
+                                                <option value="1" <?php if($warehouse[0]->type == 1){ echo 'selected'; } ?> >Physical Warehouse</option>
+                                                <option value="0" <?php if($warehouse[0]->type == 0){ echo 'selected'; } ?> >Virtual Warehouse</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-md-6">
+                                        <div>
+                                            <label for="status" class="form-label">Status</label>
+                                            <select name="status" class="form-control" >
+                                                <option value="1" <?php if($warehouse[0]->status == 1){ echo 'selected'; } ?> >Active</option>
+                                                <option value="0" <?php if($warehouse[0]->status == 0){ echo 'selected'; } ?> >Inactive</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-12">
                                         <div class="hstack gap-2 justify-content-end">
                                             <button type="submit" class="btn btn-primary">Update</button>
