@@ -14,31 +14,30 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <!-- <h5 class="card-title mb-0">Vendors</h5> -->
                         <div class="flex-shrink-0">
                             <ul class="nav nav-pills card-header-pills" role="tablist" style="float: left;">
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link" href="{{ route('admin.employees.list') }}">Employees</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" href="{{ route('admin.vendors.list') }}">Vendors</a>
+                                    <a class="nav-link" href="{{ route('admin.vendors.list') }}">Vendors</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link" href="{{ route('admin.customers.list') }}">Customers</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link" href="{{ route('admin.manufacturers.list') }}">Manufacturers</a>
+                                    <a class="nav-link active" href="{{ route('admin.manufacturers.list') }}">Manufacturers</a>
                                 </li>
                             </ul>
                             <ul class="nav nav-pills card-header-pills" role="tablist" style="float: right;">
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" href="{{ route('admin.vendors.add') }}" style="background: #009edc;" ><i class="bx bx-user-plus"></i> Add Vendor</a>
+                                    <a class="nav-link active" href="{{ route('admin.manufacturers.add') }}" style="background: #009edc;" ><i class="bx bx-user-plus"></i> Add Manufacturer</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="VendorTable" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
+                        <table id="ManufacturerTable" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -83,8 +82,8 @@
     <script src="{{ asset('') }}assets/js/pages/datatables.init.js"></script>
     <script>
         $.DataTableInit({
-            selector:'#VendorTable',
-            url: "{{ route('admin.vendors.data') }}",
+            selector:'#ManufacturerTable',
+            url: "{{ route('admin.manufacturers.data') }}",
             data:{},
             config:{
                 processing:true

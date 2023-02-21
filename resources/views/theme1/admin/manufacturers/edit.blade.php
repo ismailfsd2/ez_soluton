@@ -9,13 +9,13 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Update Vendor</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Update Manufacturer</h4>
                         <div class="flex-shrink-0">
                         </div>
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
-                            <form action="{{ route('admin.vendors.update') }}" method="post" enctype="multipart/form-data" >
+                            <form action="{{ route('admin.manufacturers.update') }}" method="post" enctype="multipart/form-data" >
                                 @csrf
                                 <div class="row gy-4">
                                     <div class="col-xxl-4 col-md-6">
@@ -27,29 +27,29 @@
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="f_name" class="form-label">Name</label>
-                                            <input type="hidden" name="vendor_id" value="{{ $vendor[0]->id}}">
+                                            <input type="hidden" name="manufacturer_id" value="{{ $manufacturer[0]->id}}">
                                             <input type="hidden" name="user_id" value="{{ $user[0]->id}}">
-                                            <input type="text" class="form-control" id="name" name="name" required value="{{ $vendor[0]->name}}">
+                                            <input type="text" class="form-control" id="name" name="name" required value="{{ $manufacturer[0]->name}}">
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email" required value="{{ $vendor[0]->email}}">
+                                            <input type="email" class="form-control" id="email" name="email" required value="{{ $manufacturer[0]->email}}">
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="phone" class="form-label">Phone</label>
-                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="(+44)000-000-0000" required value="{{ $vendor[0]->phone}}">
+                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="(+44)000-000-0000" required value="{{ $manufacturer[0]->phone}}">
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="tex_payer" class="form-label">Tax Payer</label>
                                             <select name="tex_payer" class="form-control" id="tex_payer">
-                                                <option value="0" @if($vendor[0]->tax_payer == 0) selected @endif >No</option>
-                                                <option value="1" @if($vendor[0]->tax_payer == 1) selected @endif >Yes</option>
+                                                <option value="0" @if($manufacturer[0]->tax_payer == 0) selected @endif >No</option>
+                                                <option value="1" @if($manufacturer[0]->tax_payer == 1) selected @endif >Yes</option>
                                             </select>
                                         </div>
                                     </div>
@@ -57,7 +57,7 @@
                                         <div>
                                             <label for="country" class="form-label">Country</label>
                                             <select name="country" id="country" class="form-control">
-                                                <option value="United State" <?php if($vendor[0]->country == "United State"){ echo "selected"; } ?> >United State</option>
+                                                <option value="United State" <?php if($manufacturer[0]->country == "United State"){ echo "selected"; } ?> >United State</option>
                                             </select>
                                         </div>
                                     </div>
@@ -65,10 +65,10 @@
                                         <div>
                                             <label for="state" class="form-label">State</label>
                                             <select name="state" id="state" class="form-control">
-                                                <option value="Florida" <?php if($vendor[0]->state == "Florida"){ echo "selected"; } ?> >Florida</option>
-                                                <option value="Washington" <?php if($vendor[0]->state == "Washington"){ echo "selected"; } ?> >Washington</option>
-                                                <option value="Wisconsin" <?php if($vendor[0]->state == "Wisconsin"){ echo "selected"; } ?> >Wisconsin</option>
-                                                <option value="Wyoming" <?php if($vendor[0]->state == "Wyoming"){ echo "selected"; } ?> >Wyoming</option>
+                                                <option value="Florida" <?php if($manufacturer[0]->state == "Florida"){ echo "selected"; } ?> >Florida</option>
+                                                <option value="Washington" <?php if($manufacturer[0]->state == "Washington"){ echo "selected"; } ?> >Washington</option>
+                                                <option value="Wisconsin" <?php if($manufacturer[0]->state == "Wisconsin"){ echo "selected"; } ?> >Wisconsin</option>
+                                                <option value="Wyoming" <?php if($manufacturer[0]->state == "Wyoming"){ echo "selected"; } ?> >Wyoming</option>
                                             </select>
                                         </div>
                                     </div>
@@ -76,23 +76,23 @@
                                         <div>
                                             <label for="city" class="form-label">City</label>
                                             <select name="city" id="city" class="form-control">
-                                                <option value="New York" <?php if($vendor[0]->city == "New York"){ echo "selected"; } ?> >New York</option>
-                                                <option value="Los Angeles" <?php if($vendor[0]->city == "Los Angeles"){ echo "selected"; } ?> >Los Angeles</option>
-                                                <option value="Chicago" <?php if($vendor[0]->city == "Chicago"){ echo "selected"; } ?> >Chicago</option>
-                                                <option value="Houston" <?php if($vendor[0]->city == "Houston"){ echo "selected"; } ?> >Houston</option>
+                                                <option value="New York" <?php if($manufacturer[0]->city == "New York"){ echo "selected"; } ?> >New York</option>
+                                                <option value="Los Angeles" <?php if($manufacturer[0]->city == "Los Angeles"){ echo "selected"; } ?> >Los Angeles</option>
+                                                <option value="Chicago" <?php if($manufacturer[0]->city == "Chicago"){ echo "selected"; } ?> >Chicago</option>
+                                                <option value="Houston" <?php if($manufacturer[0]->city == "Houston"){ echo "selected"; } ?> >Houston</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="f_fda_licenses" class="form-label">FDA Licenses</label>
-                                            <input type="text" class="form-control" id="f_fda_licenses" name="fda_licenses" value="{{ $vendor[0]->fda_licenses}}">
+                                            <input type="text" class="form-control" id="f_fda_licenses" name="fda_licenses" value="{{ $manufacturer[0]->fda_licenses}}">
                                         </div>
                                     </div>
                                     <div class="col-xxl-12 col-md-12">
                                         <div>
                                             <label for="address" class="form-label">Address</label>
-                                            <input type="text" class="form-control" id="address" name="address" required value="{{ $vendor[0]->addres}}">
+                                            <input type="text" class="form-control" id="address" name="address" required value="{{ $manufacturer[0]->addres}}">
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
@@ -119,7 +119,7 @@
                                     <div class="col-lg-12">
                                         <div class="hstack gap-2 justify-content-end">
                                             <button type="submit" class="btn btn-primary">Submit</button>
-                                            <a href="{{ route('admin.vendors.list') }}" class="btn btn-danger">Cancel</a>
+                                            <a href="{{ route('admin.manufacturers.list') }}" class="btn btn-danger">Cancel</a>
                                         </div>
                                     </div>
                                     <!--end col-->

@@ -81,6 +81,12 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-xxl-4 col-md-6">
+                                        <div>
+                                            <label for="f_fda_licenses" class="form-label">FDA Licenses</label>
+                                            <input type="text" class="form-control" id="f_fda_licenses" name="fda_licenses" >
+                                        </div>
+                                    </div>
                                     <div class="col-xxl-12 col-md-12">
                                         <div>
                                             <label for="address" class="form-label">Address</label>

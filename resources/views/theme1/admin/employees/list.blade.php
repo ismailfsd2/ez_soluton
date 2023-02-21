@@ -26,6 +26,9 @@
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link" href="{{ route('admin.customers.list') }}">Customers</a>
                                 </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" href="{{ route('admin.manufacturers.list') }}">Manufacturers</a>
+                                </li>
                             </ul>
                             <ul class="nav nav-pills card-header-pills" role="tablist" style="float: right;">
                                 <li class="nav-item" role="presentation">

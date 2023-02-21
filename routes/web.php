@@ -65,7 +65,33 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
 
         Route::get('poc/destroy/{id}', [App\Http\Controllers\VendorsController::class, 'poc_destroy'])->name('poc.destroy');
 
+    });
+    // Manufacturers
+    Route::group(['prefix'=>'manufacturers','as' => 'manufacturers.'],function () {
+    
+        Route::get('/', [App\Http\Controllers\ManufacturersController::class, 'index'])->name('list');
+        Route::get('/view/{id}', [App\Http\Controllers\ManufacturersController::class, 'view'])->name('view');
+        Route::post('/data', [App\Http\Controllers\ManufacturersController::class, 'data'])->name('data');
+    
+        Route::get('/add', [App\Http\Controllers\ManufacturersController::class, 'add'])->name('add');
+        Route::post('/store', [App\Http\Controllers\ManufacturersController::class, 'store'])->name('store');
+    
+        Route::get('/edit/{id}', [App\Http\Controllers\ManufacturersController::class, 'edit'])->name('edit');
+        Route::post('/update', [App\Http\Controllers\ManufacturersController::class, 'update'])->name('update');
+    
+        Route::get('/destroy/{id}', [App\Http\Controllers\ManufacturersController::class, 'destroy'])->name('destroy');
 
+        
+        Route::get('/poc/{id}', [App\Http\Controllers\ManufacturersController::class, 'poc'])->name('poc');
+        Route::post('/poc_data', [App\Http\Controllers\ManufacturersController::class, 'poc_data'])->name('poc.data');
+        
+        Route::get('poc/add/{id}', [App\Http\Controllers\ManufacturersController::class, 'poc_add'])->name('poc.add');
+        Route::post('poc/store', [App\Http\Controllers\ManufacturersController::class, 'poc_store'])->name('poc.store');
+        
+        Route::get('poc/edit/{id}', [App\Http\Controllers\ManufacturersController::class, 'poc_edit'])->name('poc.edit');
+        Route::post('poc/update', [App\Http\Controllers\ManufacturersController::class, 'poc_update'])->name('poc.update');
+
+        Route::get('poc/destroy/{id}', [App\Http\Controllers\ManufacturersController::class, 'poc_destroy'])->name('poc.destroy');
 
     });
     // Customers
