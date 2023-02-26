@@ -21,24 +21,24 @@
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="f_name" class="form-label">Logo</label>
-                                            <input type="file" class="form-control" id="logo" name="logo" required>
+                                            <input type="file" class="form-control" id="logo" name="logo">
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
-                                            <label for="f_name" class="form-label">Name</label>
+                                            <label for="f_name" class="form-label">Name <span class="required" >*</span></label>
                                             <input type="text" class="form-control" id="name" name="name" required>
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
-                                            <label for="email" class="form-label">Email</label>
+                                            <label for="email" class="form-label">Email <span class="required" >*</span></label>
                                             <input type="email" class="form-control" id="email" name="email" required>
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
-                                            <label for="phone" class="form-label">Phone</label>
+                                            <label for="phone" class="form-label">Phone <span class="required" >*</span></label>
                                             <input type="text" class="form-control" id="phone" name="phone" required placeholder="(+44)000-000-0000">
                                         </div>
                                     </div>
@@ -55,7 +55,8 @@
                                         <div>
                                             <label for="country" class="form-label">Country</label>
                                             <select name="country" id="country" class="form-control">
-                                                <option value="United State"></option>
+                                                <option value="United State">United State</option>
+                                                <option value="Pakistan">Pakistan</option>
                                             </select>
                                         </div>
                                     </div>
@@ -89,19 +90,19 @@
                                     </div>
                                     <div class="col-xxl-12 col-md-12">
                                         <div>
-                                            <label for="address" class="form-label">Address</label>
+                                            <label for="address" class="form-label">Address <span class="required" >*</span></label>
                                             <input type="text" class="form-control" id="address" name="address" required>
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
-                                            <label for="username" class="form-label">Username</label>
+                                            <label for="username" class="form-label">Username <span class="required" >*</span></label>
                                             <input type="text" class="form-control" id="username" name="username" required>
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
-                                            <label for="password-input" class="form-label">Password</label>
+                                            <label for="password-input" class="form-label">Password <span class="required" >*</span></label>
                                             <div class="position-relative auth-pass-inputgroup mb-3">
                                                 <input type="password" class="form-control pe-5 password-input" placeholder="Enter password" id="password-input" name="password" required  value="{{ old('password') }}">
                                                 <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>

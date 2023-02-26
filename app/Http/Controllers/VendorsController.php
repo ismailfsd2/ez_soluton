@@ -151,12 +151,15 @@ class VendorsController extends BaseController
             'password' => ['required']
         ]);
 
-
-        $file = $request->file('logo');
-        $logo = time().'_'.$file->getClientOriginalName();
-        $destinationPath = 'public/uploads/vendors';
-        $file->move($destinationPath,$logo);
-
+        if($request->hasFile('logo')){
+            $file = $request->file('logo');
+            $logo = time().'_'.$file->getClientOriginalName();
+            $destinationPath = 'public/uploads/vendors';
+            $file->move($destinationPath,$logo);
+        }
+        else{
+            $logo = "";
+        }
 
         $vendor = new Vendors;
         $vendor->logo = $logo;

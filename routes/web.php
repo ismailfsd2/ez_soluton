@@ -22,6 +22,15 @@ Route::get('/forget_password', [App\Http\Controllers\LoginController::class, 'fo
 Route::post('/forget_password/submit', [App\Http\Controllers\LoginController::class, 'forget_password_submit'])->name('forget_password.submit');
 // Admin Panel Start
 Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],function(){
+    // General Data
+    Route::group(['prefix'=>'general','as' => 'general.'],function () {
+        Route::group(['prefix'=>'select','as' => 'select.'],function () {
+            Route::get('vendors', [App\Http\Controllers\GeneralController::class, 'select2_vendor'])->name('vendors');
+        });
+    });
+
+
+
     // Dashbaord
     Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     // Employees
@@ -198,6 +207,11 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
         Route::post('/update', [App\Http\Controllers\ProductsController::class, 'update'])->name('update');
     
         Route::get('/destroy/{id}', [App\Http\Controllers\ProductsController::class, 'destroy'])->name('destroy');
+
+        Route::get('vendors/{id}', [App\Http\Controllers\ProductsController::class, 'vendors'])->name('vendors');
+        Route::post('vendors/add', [App\Http\Controllers\ProductsController::class, 'vendor_add'])->name('vendors.add');
+        Route::get('vendors/destroy/{id}', [App\Http\Controllers\ProductsController::class, 'vendor_destroy'])->name('vendors.destroy');
+
     });
     // Brands
     Route::group(['prefix'=>'quotations','as' => 'quotations.'],function () {

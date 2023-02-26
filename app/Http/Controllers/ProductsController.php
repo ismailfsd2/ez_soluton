@@ -11,6 +11,7 @@ use App\Models\Taxes;
 use App\Models\Categories;
 use App\Models\Units;
 use App\Models\Products;
+use App\Models\Productvendors;
 
 
 class ProductsController extends BaseController
@@ -92,6 +93,7 @@ class ProductsController extends BaseController
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item edit-item-btn" href="'.route('admin.products.edit',$row->id).'" ><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
+                        <li><a class="dropdown-item edit-item-btn" href="'.route('admin.products.vendors',$row->id).'" ><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Vendors</a></li>
                         <li><a class="dropdown-item remove-item-btn" href="'.route('admin.products.destroy',$row->id).'" ><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a>
                     </li>
                     </ul>
@@ -241,6 +243,32 @@ class ProductsController extends BaseController
     }
     public function view(){
         return view($this->data['active_theme'].'/admin/products/view',$this->data);
+    }
+    public function vendors($id){
+        $this->data['id'] = $id;
+        $this->data['vendors'] = Productvendors::select('product_vendors.*','vendors.name')->join('vendors', 'vendors.id', '=', 'product_vendors.vendor_id')->where('product_vendors.product_id',$id)->get();
+        return view($this->data['active_theme'].'/admin/products/vendors',$this->data);
+    }
+    public function vendor_add(Request $request){
+
+        $check = Productvendors::where('product_id',$request->product_id)->where('vendor_id',$request->vendor)->get();
+        if(count($check) == 0){
+            $productvendor = new Productvendors;
+            $productvendor->product_id = $request->product_id;
+            $productvendor->vendor_id = $request->vendor;
+            $productvendor->save();
+            return redirect()->route('admin.products.vendors',$request->product_id)
+            ->with('_success','Vendor add successfully.');
+        }
+        else{
+            return redirect()->route('admin.products.vendors',$request->product_id)
+            ->with('_error','Vendor already add.');
+        }
+    }
+    public function vendor_destroy($id){
+        Productvendors::where('id',$id)->delete(); 
+        return redirect()->back()
+        ->with('_success','Product vendor deleted successfully.');
     }
 
 }

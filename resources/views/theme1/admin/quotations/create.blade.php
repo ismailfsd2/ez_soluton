@@ -28,24 +28,27 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="col-lg-12">
-                                <div class="mb-3 mb-lg-0">
-                                    <label for="date-field">Select Products</label>
-                                    <input type="text" class="form-control bg-light border-0"  placeholder="Select Product">
+                                <div class="mt-3 mb-lg-0">
+                                    <label for="date-field">Select Raw Material</label>
+                                    <input type="text" class="form-control bg-light border-0"  placeholder="Enter Name or Barcode">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Product ID</th>
-                                        <th>Product Name</th>
-                                        <th>Product Quantity</th>
-                                    </tr>
-                                </thead>
-                            </table>
+                            <div class="col-md-12 mt-3">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:150px">Product ID</th>
+                                            <th>Product Name</th>
+                                            <th style="width:250px">Vendor</th>
+                                            <th style="width:150px">Product Quantity</th>
+                                            <th style="width:150px"></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <!-- end card body -->
