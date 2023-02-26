@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Crypt;
 use Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Quotations;
+use App\Models\Customers;
 
 
 class QuotationsController extends BaseController
@@ -23,6 +24,7 @@ class QuotationsController extends BaseController
         return view($this->data['active_theme'].'/admin/quotations/list',$this->data);
     }
     public function create(){
+        $this->data['customers'] = Customers::get();
         return view($this->data['active_theme'].'/admin/quotations/create',$this->data);
     }
     public function store(Request $request){
