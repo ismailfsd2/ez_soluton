@@ -93,7 +93,7 @@ class ProductsController extends BaseController
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item edit-item-btn" href="'.route('admin.products.edit',$row->id).'" ><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                        <li><a class="dropdown-item edit-item-btn" href="'.route('admin.products.vendors',$row->id).'" ><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Vendors</a></li>
+                        <li><a class="dropdown-item" href="'.route('admin.products.vendors',$row->id).'" ><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Vendors</a></li>
                         <li><a class="dropdown-item remove-item-btn" href="'.route('admin.products.destroy',$row->id).'" ><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a>
                     </li>
                     </ul>
@@ -268,7 +268,7 @@ class ProductsController extends BaseController
     public function vendor_destroy($id){
         Productvendors::where('id',$id)->delete(); 
         return redirect()->back()
-        ->with('_success','Product vendor deleted successfully.');
+        ->with('_success','Vendor remove successfully.');
     }
 
 }

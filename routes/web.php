@@ -26,6 +26,7 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
     Route::group(['prefix'=>'general','as' => 'general.'],function () {
         Route::group(['prefix'=>'select','as' => 'select.'],function () {
             Route::get('vendors', [App\Http\Controllers\GeneralController::class, 'select2_vendor'])->name('vendors');
+            Route::get('products', [App\Http\Controllers\GeneralController::class, 'select2_products'])->name('products');
         });
     });
 
@@ -73,6 +74,10 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
         Route::post('poc/update', [App\Http\Controllers\VendorsController::class, 'poc_update'])->name('poc.update');
 
         Route::get('poc/destroy/{id}', [App\Http\Controllers\VendorsController::class, 'poc_destroy'])->name('poc.destroy');
+
+        Route::get('products/{id}', [App\Http\Controllers\VendorsController::class, 'products'])->name('products');
+        Route::post('products/add', [App\Http\Controllers\VendorsController::class, 'product_add'])->name('products.add');
+        Route::get('products/destroy/{id}', [App\Http\Controllers\VendorsController::class, 'product_destroy'])->name('products.destroy');
 
     });
     // Manufacturers

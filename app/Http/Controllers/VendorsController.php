@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Vendors;
 use App\Models\Pointofcontacts;
 use App\Models\Users;
+use App\Models\Productvendors;
 
 
 class VendorsController extends BaseController
@@ -90,6 +91,7 @@ class VendorsController extends BaseController
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item edit-item-btn" href="'.route('admin.vendors.edit',$row->id).'" ><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
                         <li><a class="dropdown-item edit-item-btn" href="'.route('admin.vendors.poc',$row->id).'" ><i class="bx bx-user align-bottom me-2 text-muted"></i> Point of Contacts</a></li>
+                        <li><a class="dropdown-item edit-item-btn" href="'.route('admin.vendors.products',$row->id).'" ><i class="bx bx-user align-bottom me-2 text-muted"></i> Prodcuts</a></li>
                         <li><a class="dropdown-item remove-item-btn" href="'.route('admin.vendors.destroy',$row->id).'" ><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a>
                     </li>
                     </ul>
@@ -314,6 +316,7 @@ class VendorsController extends BaseController
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item edit-item-btn" href="'.route('admin.vendors.poc.edit',$row->id).'" ><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
+                        <li><a class="dropdown-item" href="'.route('admin.vendors.products',$row->id).'" ><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Products</a></li>
                         <li><a class="dropdown-item remove-item-btn" href="'.route('admin.vendors.poc.destroy',$row->id).'" ><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a>
                     </li>
                     </ul>
@@ -411,6 +414,32 @@ class VendorsController extends BaseController
         Pointofcontacts::where('id',$id)->delete(); 
         return back()
         ->with('_success','Vendor point of contact deleted successfully.');
+    }
+    public function products($id){
+        $this->data['id'] = $id;
+        $this->data['products'] = Productvendors::select('product_vendors.*','products.name')->join('products', 'products.id', '=', 'product_vendors.product_id')->where('product_vendors.vendor_id',$id)->get();
+        return view($this->data['active_theme'].'/admin/vendors/products',$this->data);
+    }
+    public function product_add(Request $request){
+
+        $check = Productvendors::where('product_id',$request->product_id)->where('vendor_id',$request->vendor)->get();
+        if(count($check) == 0){
+            $productvendor = new Productvendors;
+            $productvendor->product_id = $request->product_id;
+            $productvendor->vendor_id = $request->vendor;
+            $productvendor->save();
+            return redirect()->route('admin.vendors.products',$request->product_id)
+            ->with('_success','Product add successfully.');
+        }
+        else{
+            return redirect()->route('admin.products.vendors',$request->product_id)
+            ->with('_error','Product already add.');
+        }
+    }
+    public function product_destroy($id){
+        Productvendors::where('id',$id)->delete(); 
+        return redirect()->back()
+        ->with('_success','Product remove successfully.');
     }
 
 }
