@@ -428,11 +428,11 @@ class VendorsController extends BaseController
             $productvendor->product_id = $request->product_id;
             $productvendor->vendor_id = $request->vendor;
             $productvendor->save();
-            return redirect()->route('admin.vendors.products',$request->product_id)
+            return redirect()->back()
             ->with('_success','Product add successfully.');
         }
         else{
-            return redirect()->route('admin.products.vendors',$request->product_id)
+            return redirect()->back()
             ->with('_error','Product already add.');
         }
     }

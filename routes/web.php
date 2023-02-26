@@ -28,6 +28,9 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
             Route::get('vendors', [App\Http\Controllers\GeneralController::class, 'select2_vendor'])->name('vendors');
             Route::get('products', [App\Http\Controllers\GeneralController::class, 'select2_products'])->name('products');
         });
+        Route::group(['prefix'=>'searching','as' => 'searching.'],function () {
+            Route::get('products', [App\Http\Controllers\GeneralController::class, 'searching_products'])->name('products');
+        });
     });
 
 
