@@ -60,7 +60,7 @@ function new_link() {
         t =
             ((e.id = count),
             (e.className = "product"),
-            '<tr><td class="text-start"><div class="mb-2"><input class="form-control bg-light border-0" type="text" placeholder="Material Name"></div><textarea class="form-control bg-light border-0" rows="4" placeholder="Material Details (Optional)"></textarea></div></td><td><input type="number" class="form-control" value="1" ></td><td class="product-removal"><a class="btn btn-danger">Delete</a></td></tr>'),
+            '<tr><td class="text-start"><div class="mb-2"><input class="form-control bg-light border-0" type="text" required placeholder="Material Name" name="addons_product_name[]" ></div><textarea class="form-control bg-light border-0" rows="4" placeholder="Material Details (Optional)" name="addons_product_description[]"></textarea></div></td><td><input type="number" class="form-control" value="1" name="addons_product_quantity" ></td><td class="product-removal"><a class="btn btn-danger">Delete</a></td></tr>'),
         t = ((e.innerHTML = document.getElementById("newForm").innerHTML + t), document.getElementById("newlink").appendChild(e), document.querySelectorAll("[data-trigger]"));
     Array.from(t).forEach(function (e) {
         new Choices(e, { placeholderValue: "This is a placeholder set in the config", searchPlaceholderValue: "This is a search placeholder" });

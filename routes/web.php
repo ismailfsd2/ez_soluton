@@ -224,7 +224,6 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
     // Brands
     Route::group(['prefix'=>'quotations','as' => 'quotations.'],function () {
         Route::get('/', [App\Http\Controllers\QuotationsController::class, 'index'])->name('list');
-    
         Route::get('/create', [App\Http\Controllers\QuotationsController::class, 'create'])->name('create');
         Route::post('/store', [App\Http\Controllers\QuotationsController::class, 'store'])->name('store');
     
