@@ -31,16 +31,37 @@
                         <table id="QuotationsTable" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Logo</th>
-                                    <th>Name</th>
-                                    <th>Parent Quotations</th>
+                                    <th>Date</th>
+                                    <th>Reference No</th>
+                                    <th>Customer</th>
                                     <th>Created At</th>
-                                    <!-- <th>Status</th> -->
+                                    <th>Last Update</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($rows as $key => $row)
+                                    <tr>
+                                        <td>{{ $row->date }}</td>
+                                        <td>{{ $row->reference_no }}</td>
+                                        <td>{{ $row->customer }}</td>
+                                        <td>{{ $row->created_at }}</td>
+                                        <td>{{ $row->updated_at }}</td>
+                                        <td>{{ $row->status }}</td>
+                                        <td>
+                                            <div class="dropdown d-inline-block">
+                                                <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="ri-more-fill align-middle"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li><a class="dropdown-item remove-item-btn" href="{{ route('admin.quotations.detail',$row->id) }}"><i class=" ri-file-list-fill align-bottom me-2 text-muted"></i> view</a></li>
+                                                    <li><a class="dropdown-item remove-item-btn" href="{{ route('admin.quotations.destroy',$row->id) }}"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
 
                             </tbody>
                         </table>
@@ -64,13 +85,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script src="{{ asset('') }}assets/js/pages/datatables.init.js"></script>
     <script>
-        // $.DataTableInit({
-        //     selector:'#QuotationsTable',
-        //     url: "{{ route('admin.categories.data') }}",
-        //     data:{},
-        //     config:{
-        //         processing:true
-        //     },
-        // });
+        $.DataTableInit({
+            selector:'#QuotationsTable',
+        });
     </script>
 @stop

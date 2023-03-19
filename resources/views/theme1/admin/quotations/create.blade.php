@@ -16,8 +16,8 @@
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="mb-3 mb-lg-0">
-                                        <label for="date-field">Date</label>
-                                        <input type="text" name="date" class="form-control bg-light border-0" id="date-field" data-provider="flatpickr" data-time="true" placeholder="Select Date-time">
+                                        <label for="date-field">Date2</label>
+                                        <input type="text" name="date" required="required" class="form-control bg-light border-0" id="date-field" data-provider="flatpickr" data-time="true" placeholder="Select Date-time" value="{{ date('Y-m-d') }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">

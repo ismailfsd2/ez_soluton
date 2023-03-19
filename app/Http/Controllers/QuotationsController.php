@@ -22,6 +22,7 @@ class QuotationsController extends BaseController
         parent::__construct();
     }
     public function index(){
+        $this->data['rows'] = Quotations::select('quotations.*','customers.name as customer')->join('customers', 'customers.id', '=', 'quotations.customer_id')->orderBy('quotations.date','desc')->get();
         return view($this->data['active_theme'].'/admin/quotations/list',$this->data);
     }
     public function create(){
@@ -29,10 +30,6 @@ class QuotationsController extends BaseController
         return view($this->data['active_theme'].'/admin/quotations/create',$this->data);
     }
     public function store(Request $request){
-        echo '<pre>';
-        print_r($request->all());
-        echo '</pre>';
-
 
         $quotation = new Quotations;
         $quotation->reference_no = date('Y').''.date('m').''.date('d').''.date('H').''.date('i').''.date('s');
@@ -50,24 +47,43 @@ class QuotationsController extends BaseController
             $quotation_items->quantity = $item_qty[$key];
             $quotation_items->save();
         }
-
-
-
-
-
         $addons_product_name = $request->addons_product_name;
         $addons_product_description = $request->addons_product_description;
         $addons_product_quantity = $request->addons_product_quantity;
-        foreach($addons_product_name as $key => $item){
-            $quotation_addonsitems = new Quotationaddons;
-            $quotation_addonsitems->quotation_id = $quotation->id;
-            $quotation_addonsitems->product_name = $addons_product_name[$key];
-            $quotation_addonsitems->product_description = $addons_product_description[$key];
-            $quotation_addonsitems->quantity = $addons_product_quantity[$key];
-            $quotation_addonsitems->save();
+        if($addons_product_name != ""){
+            foreach($addons_product_name as $key => $item){
+                $quotation_addonsitems = new Quotationaddons;
+                $quotation_addonsitems->quotation_id = $quotation->id;
+                $quotation_addonsitems->product_name = $addons_product_name[$key];
+                $quotation_addonsitems->product_description = $addons_product_description[$key];
+                $quotation_addonsitems->quantity = $addons_product_quantity[$key];
+                $quotation_addonsitems->save();
+            }
         }
         return redirect()->route('admin.quotations.list')
         ->with('_success','Quotation created successfully.');
+    }
+    public function destroy($id){
+
+        Quotationaddons::where('quotation_id',$id)->delete(); 
+        Quotationitems::where('quotation_id',$id)->delete(); 
+        Quotations::where('id',$id)->delete(); 
+        return redirect()->route('admin.quotations.list')
+        ->with('_success','Quotation deleted successfully.');
+
+    }
+    public function detail($id){
+
+        $this->data['quotation'] = Quotations::select('customers.*','quotations.*')->join('customers', 'customers.id', '=', 'quotations.customer_id')->where('quotations.id',$id)->get();
+        $this->data['items'] = Quotationitems::select('quotation_items.*','p.name as product_name','v.name as vendor_name')
+                                    ->join('products as p','p.id','=','quotation_items.product_id')
+                                    ->join('vendors as v','v.id','=','quotation_items.vendor_id')
+                                    ->where('quotation_items.quotation_id',$id)->get();
+
+        $this->data['addons'] = Quotationaddons::where('quotation_id',$id)->get();
+
+        return view($this->data['active_theme'].'/admin/quotations/view',$this->data);
+
     }
 
 }

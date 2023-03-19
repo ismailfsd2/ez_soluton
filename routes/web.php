@@ -82,6 +82,12 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
         Route::post('products/add', [App\Http\Controllers\VendorsController::class, 'product_add'])->name('products.add');
         Route::get('products/destroy/{id}', [App\Http\Controllers\VendorsController::class, 'product_destroy'])->name('products.destroy');
 
+        Route::get('documents/{id}', [App\Http\Controllers\DocumentsController::class, 'index'])->name('documents');
+        Route::post('documents/store', [App\Http\Controllers\DocumentsController::class, 'store'])->name('documents.store');
+        Route::put('documents/uploading', [App\Http\Controllers\DocumentsController::class, 'uploading'])->name('documents.uploading');
+        Route::get('documents/destroy/{id}', [App\Http\Controllers\DocumentsController::class, 'destroy'])->name('documents.destory');
+
+
     });
     // Manufacturers
     Route::group(['prefix'=>'manufacturers','as' => 'manufacturers.'],function () {
@@ -226,6 +232,9 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
         Route::get('/', [App\Http\Controllers\QuotationsController::class, 'index'])->name('list');
         Route::get('/create', [App\Http\Controllers\QuotationsController::class, 'create'])->name('create');
         Route::post('/store', [App\Http\Controllers\QuotationsController::class, 'store'])->name('store');
+
+        Route::get('/detail/{id}', [App\Http\Controllers\QuotationsController::class, 'detail'])->name('detail');
+        Route::get('/destroy/{id}', [App\Http\Controllers\QuotationsController::class, 'destroy'])->name('destroy');
     
     });
 

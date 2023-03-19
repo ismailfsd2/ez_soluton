@@ -91,6 +91,7 @@ class VendorsController extends BaseController
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item edit-item-btn" href="'.route('admin.vendors.edit',$row->id).'" ><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
                         <li><a class="dropdown-item edit-item-btn" href="'.route('admin.vendors.poc',$row->id).'" ><i class="bx bx-user align-bottom me-2 text-muted"></i> Point of Contacts</a></li>
+                        <li><a class="dropdown-item edit-item-btn" href="'.route('admin.vendors.documents',$row->id).'" ><i class="bx bx-cabinet align-bottom me-2 text-muted"></i> Documents</a></li>
                         <li><a class="dropdown-item edit-item-btn" href="'.route('admin.vendors.products',$row->id).'" ><i class="bx bx-user align-bottom me-2 text-muted"></i> Prodcuts</a></li>
                         <li><a class="dropdown-item remove-item-btn" href="'.route('admin.vendors.destroy',$row->id).'" ><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a>
                     </li>
