@@ -22,7 +22,6 @@
                             </ul>
                             <ul class="nav nav-pills card-header-pills" role="tablist" style="float: right;">
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" href="{{ route('customer.categories.add') }}" style="background: #009edc;" ><i class="bx bx-user-plus"></i> Add Category</a>
                                 </li>
                             </ul>
                         </div>
@@ -37,7 +36,6 @@
                                     <th>Parent Category</th>
                                     <th>Created At</th>
                                     <!-- <th>Status</th> -->
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>

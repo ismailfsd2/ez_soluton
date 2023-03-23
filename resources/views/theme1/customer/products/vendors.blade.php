@@ -28,28 +28,6 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-12">
-                                <form action="{{ route('customer.products.vendors.add') }}" method="post" enctype="multipart/form-data" >
-                                    @csrf
-                                    <div class="row gy-4">
-                                        <div class="col-xxl-4 col-md-6">
-                                            <div>
-                                                <label for="category" class="form-label">Vendor</label>
-                                                <input type="hidden" name="product_id" value="{{$id}}" >
-                                                <select name="vendor" class="form-control vendor_select2" required>
-                                                    <option value="">Select Vendor</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="hstack gap-2 justify-content-start">
-                                                <button type="submit" class="btn btn-primary mt-4">Add</button>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                </form>
-                            </div>
                             <div class="mt-5 col-md-12">
                                 <table id="CustomerTable" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
                                     <thead>
@@ -58,7 +36,6 @@
                                             <th>Vendor ID</th>
                                             <th>Vendor Name</th>
                                             <th>Assign Date</th>
-                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -68,9 +45,6 @@
                                             <td>{{ $vendor->vendor_id }}</td>
                                             <td>{{ $vendor->name }}</td>
                                             <td>{{ $vendor->created_at->format('Y-m-d') }}</td>
-                                            <td>
-                                                <a href="{{ route('customer.products.vendors.destroy',$vendor->id) }}" class="btn btn-danger waves-effect waves-light">Delete</a>
-                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>

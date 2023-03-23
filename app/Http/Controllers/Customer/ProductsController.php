@@ -93,9 +93,7 @@ class ProductsController extends BaseController
                         <i class="ri-more-fill align-middle"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item edit-item-btn" href="'.route('customer.products.edit',$row->id).'" ><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                        <li><a class="dropdown-item" href="'.route('customer.products.vendors',$row->id).'" ><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Vendors</a></li>
-                        <li><a class="dropdown-item remove-item-btn" href="'.route('customer.products.destroy',$row->id).'" ><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a>
+                        <li><a class="dropdown-item" href="'.route('admin.products.vendors',$row->id).'" ><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Vendors</a></li>
                     </li>
                     </ul>
                 </div>
@@ -144,104 +142,6 @@ class ProductsController extends BaseController
 
         // DatatableData::data('',$request);
     }
-    public function add(){
-
-        $this->data['brands'] = Brands::where('status',1)->get();
-        $this->data['units'] = Units::where('status',1)->get();
-        $this->data['categories'] = Categories::where('status',1)->get();
-        $this->data['taxes'] = Taxes::where('status',1)->get();
-
-        return view($this->data['active_theme'].'/customer/products/add',$this->data);
-    }
-    public function store(Request $request){
-        $validated = $request->validate([
-            'name' => ['required']
-        ]);
-
-        $image = "";
-        if($request->file('image')){
-            $file = $request->file('image');
-            $image = time().'_'.$file->getClientOriginalName();
-            $destinationPath = 'public/uploads/products';
-            $file->move($destinationPath,$image);
-        }
-
-
-        $product = new Products;
-        $product->image = $image;
-        $product->name = $request->input('name');
-        $product->barcode = $request->input('barcode');
-        $product->company_code = $request->input('company_code');
-        $product->cost = $request->input('cost');
-        $product->price = $request->input('price');
-        $product->mrp = $request->input('mrp');
-        $product->tax_method = $request->input('tax_method');
-        $product->taxes = $request->input('product_tax');
-        $product->category_id = $request->input('category');
-        $product->unit_id = $request->input('unit');
-        $product->brand_id = $request->input('brand');
-        // $product->suppliers = $request->input('name');
-        $product->alert_quantity = $request->input('alert_quantity');
-        $product->description = $request->input('description');
-        $product->save();
-
-        return redirect()->route('customer.products.list')
-        ->with('_success','Product created successfully.');
-    }
-    public function edit($id){
-        $this->data['brands'] = Brands::where('status',1)->get();
-        $this->data['units'] = Units::where('status',1)->get();
-        $this->data['categories'] = Categories::where('status',1)->get();
-        $this->data['taxes'] = Taxes::where('status',1)->get();
-
-        $product = Products::where('id',$id)->get(); 
-        if(count($product)){
-            $this->data['product'] = $product[0];
-            return view($this->data['active_theme'].'/customer/products/edit',$this->data);
-        }
-        else{
-            return redirect()->route('customer.products.list')
-            ->with('error','Product not found.');
-        }
-    }
-    public function update(Request $request){
-        $validated = $request->validate([
-            'name' => ['required'],
-        ]);
-        $product = Products::find($request->input('product_id'));
-        if($request->file('logo')){
-            $file = $request->file('logo');
-            $logo = time().'_'.$file->getClientOriginalName();
-            $destinationPath = 'public/uploads/products';
-            $file->move($destinationPath,$logo);
-            $product->image = $logo;
-        }
-        $product->name = $request->input('name');
-        $product->barcode = $request->input('barcode');
-        $product->company_code = $request->input('company_code');
-        $product->cost = $request->input('cost');
-        $product->price = $request->input('price');
-        $product->mrp = $request->input('mrp');
-        $product->tax_method = $request->input('tax_method');
-        $product->taxes = $request->input('product_tax');
-        $product->category_id = $request->input('category');
-        $product->unit_id = $request->input('unit');
-        $product->brand_id = $request->input('brand');
-        // $product->suppliers = $request->input('name');
-        $product->alert_quantity = $request->input('alert_quantity');
-        $product->description = $request->input('description');
-        $product->status = $request->input('status');
-        $product->save();
-
-        return redirect()->route('customer.products.list')
-        ->with('_success','Product updated successfully.');
-        
-    }
-    public function destroy($id){
-        Products::where('id',$id)->delete(); 
-        return redirect()->route('customer.products.list')
-        ->with('_success','Product deleted successfully.');
-    }
     public function view(){
         return view($this->data['active_theme'].'/customer/products/view',$this->data);
     }
@@ -249,27 +149,6 @@ class ProductsController extends BaseController
         $this->data['id'] = $id;
         $this->data['vendors'] = Productvendors::select('product_vendors.*','vendors.name')->join('vendors', 'vendors.id', '=', 'product_vendors.vendor_id')->where('product_vendors.product_id',$id)->get();
         return view($this->data['active_theme'].'/customer/products/vendors',$this->data);
-    }
-    public function vendor_add(Request $request){
-
-        $check = Productvendors::where('product_id',$request->product_id)->where('vendor_id',$request->vendor)->get();
-        if(count($check) == 0){
-            $productvendor = new Productvendors;
-            $productvendor->product_id = $request->product_id;
-            $productvendor->vendor_id = $request->vendor;
-            $productvendor->save();
-            return redirect()->back()
-            ->with('_success','Vendor add successfully.');
-        }
-        else{
-            return redirect()->back()
-            ->with('_error','Vendor already add.');
-        }
-    }
-    public function vendor_destroy($id){
-        Productvendors::where('id',$id)->delete(); 
-        return redirect()->back()
-        ->with('_success','Vendor remove successfully.');
     }
 
 }
