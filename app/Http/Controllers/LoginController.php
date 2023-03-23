@@ -44,9 +44,25 @@ class LoginController extends BaseController
             }
             else{
                 if($user[0]->status == 1){
-                    Session::put('AdminSession',$user[0]->id);
-                    return redirect()->route('admin.dashboard')
-                    ->with('_success','Welcome to EZ Solution Dashboard.');
+                    if($user[0]->type == "employee"){
+                        Session::put('AdminSession',$user[0]->id);
+                        return redirect()->route('admin.dashboard')
+                        ->with('_success','Welcome to EZ Solution Dashboard.');
+                    }
+                    else if($user[0]->type == "vendor"){
+                        Session::put('VendorSession',$user[0]->id);
+                        return redirect()->route('vendor.dashboard')
+                        ->with('_success','Welcome to EZ Solution Dashboard.');
+                    }
+                    else if($user[0]->type == "customer"){
+                        Session::put('CustomerSession',$user[0]->id);
+                        return redirect()->route('customer.dashboard')
+                        ->with('_success','Welcome to EZ Solution Dashboard.');
+                    }
+                    else{
+                        return redirect()->route('login')
+                        ->with('_error','User type invalid!');
+                    }
                 }
                 else{
                     return redirect()->route('login')

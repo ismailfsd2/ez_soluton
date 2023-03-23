@@ -1,4 +1,4 @@
-@extends('theme1.admin.layout')
+@extends('theme1.customer.layout')
 @section('header')
 @stop
 @section('content')
@@ -15,7 +15,7 @@
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
-                            <form action="{{ route('admin.customers.store') }}" method="post" enctype="multipart/form-data" >
+                            <form action="{{ route('customer.customers.store') }}" method="post" enctype="multipart/form-data" >
                                 @csrf
                                 <div class="row gy-4">
                                     <div class="col-xxl-4 col-md-6">
@@ -113,7 +113,7 @@
                                     <div class="col-lg-12">
                                         <div class="hstack gap-2 justify-content-end">
                                             <button type="submit" class="btn btn-primary">Submit</button>
-                                            <a href="{{ route('admin.customers.list') }}" class="btn btn-danger">Cancel</a>
+                                            <a href="{{ route('customer.customers.list') }}" class="btn btn-danger">Cancel</a>
                                         </div>
                                     </div>
                                     <!--end col-->

@@ -47,6 +47,10 @@ class Kernel extends HttpKernel
         'adminpanel' => [   
             \App\Http\Middleware\AdminMiddleware::class,
         ],
+        
+        'customerpanel' => [   
+            \App\Http\Middleware\CustomerMiddleware::class,
+        ],
     ];
 
     /**

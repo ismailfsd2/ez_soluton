@@ -107,7 +107,7 @@
                                     <div class="col-lg-12">
                                         <div>
                                             <label for="note" class="form-label">Note</label>
-                                            <textarea name="note" id="note" class="form-control" cols="30" rows="10">{{ $user[0]->note}}</textarea>
+                                            <textarea name="note" id="note" class="form-control" cols="30" rows="10">{{ $customer[0]->note}}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">

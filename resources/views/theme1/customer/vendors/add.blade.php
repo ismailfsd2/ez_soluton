@@ -1,4 +1,4 @@
-@extends('theme1.admin.layout')
+@extends('theme1.customer.layout')
 @section('header')
 @stop
 @section('content')
@@ -9,13 +9,13 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Create New Customer</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Create New Vendor</h4>
                         <div class="flex-shrink-0">
                         </div>
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
-                            <form action="{{ route('admin.customers.store') }}" method="post" enctype="multipart/form-data" >
+                            <form action="{{ route('customer.vendors.store') }}" method="post" enctype="multipart/form-data" >
                                 @csrf
                                 <div class="row gy-4">
                                     <div class="col-xxl-4 col-md-6">
@@ -26,20 +26,20 @@
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
-                                            <label for="f_name" class="form-label">Name</label>
+                                            <label for="f_name" class="form-label">Name <span class="required" >*</span></label>
                                             <input type="text" class="form-control" id="name" name="name" required>
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
-                                            <label for="email" class="form-label">Email</label>
+                                            <label for="email" class="form-label">Email <span class="required" >*</span></label>
                                             <input type="email" class="form-control" id="email" name="email" required>
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
-                                            <label for="phone" class="form-label">Phone</label>
-                                            <input type="text" class="form-control" id="phone" placeholder="(+44)000-000-0000" name="phone" required>
+                                            <label for="phone" class="form-label">Phone <span class="required" >*</span></label>
+                                            <input type="text" class="form-control" id="phone" name="phone" required placeholder="(+44)000-000-0000">
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
@@ -55,9 +55,8 @@
                                         <div>
                                             <label for="country" class="form-label">Country</label>
                                             <select name="country" id="country" class="form-control">
-                                                @foreach($countries as $country)
-                                                    <option value="{{ $country->name }}">{{ $country->name }}</option>
-                                                @endforeach
+                                                <option value="United State">United State</option>
+                                                <option value="Pakistan">Pakistan</option>
                                             </select>
                                         </div>
                                     </div>
@@ -85,19 +84,25 @@
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
-                                            <label for="address" class="form-label">Address</label>
+                                            <label for="f_fda_licenses" class="form-label">FDA Licenses</label>
+                                            <input type="text" class="form-control" id="f_fda_licenses" name="fda_licenses" >
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-12 col-md-12">
+                                        <div>
+                                            <label for="address" class="form-label">Address <span class="required" >*</span></label>
                                             <input type="text" class="form-control" id="address" name="address" required>
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
-                                            <label for="username" class="form-label">Username</label>
+                                            <label for="username" class="form-label">Username <span class="required" >*</span></label>
                                             <input type="text" class="form-control" id="username" name="username" required>
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
-                                            <label for="password-input" class="form-label">Password</label>
+                                            <label for="password-input" class="form-label">Password <span class="required" >*</span></label>
                                             <div class="position-relative auth-pass-inputgroup mb-3">
                                                 <input type="password" class="form-control pe-5 password-input" placeholder="Enter password" id="password-input" name="password" required  value="{{ old('password') }}">
                                                 <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
@@ -113,7 +118,7 @@
                                     <div class="col-lg-12">
                                         <div class="hstack gap-2 justify-content-end">
                                             <button type="submit" class="btn btn-primary">Submit</button>
-                                            <a href="{{ route('admin.customers.list') }}" class="btn btn-danger">Cancel</a>
+                                            <a href="{{ route('customer.vendors.list') }}" class="btn btn-danger">Cancel</a>
                                         </div>
                                     </div>
                                     <!--end col-->

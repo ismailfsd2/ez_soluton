@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Crypt;
 use Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Customers;
+use App\Models\Countries;
 use App\Models\Pointofcontacts;
 use App\Models\Users;
 
@@ -132,6 +133,7 @@ class CustomersController extends BaseController
         // DatatableData::data('',$request);
     }
     public function add(){
+        $this->data['countries'] = Countries::get();
         return view($this->data['active_theme'].'/admin/customers/add',$this->data);
     }
     public function store(Request $request){
@@ -179,7 +181,6 @@ class CustomersController extends BaseController
         ->with('_success','Customer created successfully.');
     }
     public function edit($id){
-
         $this->data['user'] = Users::where('related_id',$id)->get(); 
         $this->data['customer'] = Customers::where('id',$id)->get(); 
         if(count($this->data['customer']) > 0 && count($this->data['user']) > 0){
@@ -188,7 +189,7 @@ class CustomersController extends BaseController
         }
         else{
             return redirect()->route('admin.customers.list')
-            ->with('error','Customer not found.');
+            ->with('_error','Customer not found.');
         }
     }
     public function update(Request $request){

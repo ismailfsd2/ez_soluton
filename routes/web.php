@@ -241,3 +241,62 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
 
 });
 // Admin Panel End
+// Customers Panel Start
+Route::group(['middleware'=>['customerpanel'],'prefix'=>'customer','as' => 'customer.'],function(){
+    // General Data
+    Route::group(['prefix'=>'general','as' => 'general.'],function () {
+        Route::group(['prefix'=>'select','as' => 'select.'],function () {
+            Route::get('vendors', [App\Http\Controllers\GeneralController::class, 'select2_vendor'])->name('vendors');
+            Route::get('products', [App\Http\Controllers\GeneralController::class, 'select2_products'])->name('products');
+        });
+        Route::group(['prefix'=>'searching','as' => 'searching.'],function () {
+            Route::get('products', [App\Http\Controllers\GeneralController::class, 'searching_products'])->name('products');
+        });
+    });
+    // Dashbaord
+    Route::get('dashboard', [App\Http\Controllers\Customer\DashboardController::class, 'index'])->name('dashboard');
+    // Employees
+    Route::group(['prefix'=>'employees','as' => 'employees.'],function () {
+        Route::get('/', [App\Http\Controllers\Customer\EmployeesController::class, 'index'])->name('list');
+        Route::get('/view/{id}', [App\Http\Controllers\Customer\EmployeesController::class, 'view'])->name('view');
+        Route::post('/data', [App\Http\Controllers\Customer\EmployeesController::class, 'data'])->name('data');
+    
+        Route::get('/add', [App\Http\Controllers\Customer\EmployeesController::class, 'add'])->name('add');
+        Route::post('/store', [App\Http\Controllers\Customer\EmployeesController::class, 'store'])->name('store');
+    
+        Route::get('/edit/{id}', [App\Http\Controllers\Customer\EmployeesController::class, 'edit'])->name('edit');
+        Route::post('/update', [App\Http\Controllers\Customer\EmployeesController::class, 'update'])->name('update');
+    
+        Route::get('/destroy/{id}', [App\Http\Controllers\Customer\EmployeesController::class, 'destroy'])->name('destroy');
+    });
+    // Categories
+    Route::group(['prefix'=>'categories','as' => 'categories.'],function () {
+        Route::get('/', [App\Http\Controllers\Customer\CategoriesController::class, 'index'])->name('list');
+        Route::post('/data', [App\Http\Controllers\Customer\CategoriesController::class, 'data'])->name('data');
+    });
+    // Brands
+    Route::group(['prefix'=>'brands','as' => 'brands.'],function () {
+        Route::get('/', [App\Http\Controllers\Customer\BrandsController::class, 'index'])->name('list');
+        Route::post('/data', [App\Http\Controllers\Customer\BrandsController::class, 'data'])->name('data');
+    });
+    // Products
+    Route::group(['prefix'=>'products','as' => 'products.'],function () {
+        Route::get('/', [App\Http\Controllers\Customer\ProductsController::class, 'index'])->name('list');
+        Route::post('/data', [App\Http\Controllers\Customer\ProductsController::class, 'data'])->name('data');
+    });
+    // Brands
+    Route::group(['prefix'=>'quotations','as' => 'quotations.'],function () {
+        Route::get('/', [App\Http\Controllers\Customer\QuotationsController::class, 'index'])->name('list');
+        Route::get('/create', [App\Http\Controllers\Customer\QuotationsController::class, 'create'])->name('create');
+        Route::post('/store', [App\Http\Controllers\Customer\QuotationsController::class, 'store'])->name('store');
+
+        Route::get('/detail/{id}', [App\Http\Controllers\Customer\QuotationsController::class, 'detail'])->name('detail');
+        Route::get('/destroy/{id}', [App\Http\Controllers\Customer\QuotationsController::class, 'destroy'])->name('destroy');
+    
+    });
+
+
+});
+
+// Customers Panel End
+

@@ -1,4 +1,4 @@
-@extends('theme1.admin.layout')
+@extends('theme1.customer.layout')
 @section('header')
 @stop
 @section('content')
@@ -9,37 +9,37 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Create New Customer</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Create New Manufacturer</h4>
                         <div class="flex-shrink-0">
                         </div>
                     </div><!-- end card header -->
                     <div class="card-body">
                         <div class="live-preview">
-                            <form action="{{ route('admin.customers.store') }}" method="post" enctype="multipart/form-data" >
+                            <form action="{{ route('customer.manufacturers.store') }}" method="post" enctype="multipart/form-data" >
                                 @csrf
                                 <div class="row gy-4">
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="f_name" class="form-label">Logo</label>
-                                            <input type="file" class="form-control" id="logo" name="logo">
+                                            <input type="file" class="form-control" id="logo" name="logo" required>
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="f_name" class="form-label">Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" required>
+                                            <input type="text" class="form-control" id="name" name="name" required value="{{ old('name') }}">
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email" required>
+                                            <input type="email" class="form-control" id="email" name="email" required value="{{ old('email') }}">
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="phone" class="form-label">Phone</label>
-                                            <input type="text" class="form-control" id="phone" placeholder="(+44)000-000-0000" name="phone" required>
+                                            <input type="text" class="form-control" id="phone" name="phone" required placeholder="(+44)000-000-0000" value="{{ old('phone') }}">
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
@@ -55,9 +55,7 @@
                                         <div>
                                             <label for="country" class="form-label">Country</label>
                                             <select name="country" id="country" class="form-control">
-                                                @foreach($countries as $country)
-                                                    <option value="{{ $country->name }}">{{ $country->name }}</option>
-                                                @endforeach
+                                                <option value="United State"></option>
                                             </select>
                                         </div>
                                     </div>
@@ -85,14 +83,20 @@
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
+                                            <label for="f_fda_licenses" class="form-label">FDA Licenses</label>
+                                            <input type="text" class="form-control" id="f_fda_licenses" name="fda_licenses"  value="{{ old('fda_licenses') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-12 col-md-12">
+                                        <div>
                                             <label for="address" class="form-label">Address</label>
-                                            <input type="text" class="form-control" id="address" name="address" required>
+                                            <input type="text" class="form-control" id="address" name="address" required value="{{ old('address') }}">
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
                                             <label for="username" class="form-label">Username</label>
-                                            <input type="text" class="form-control" id="username" name="username" required>
+                                            <input type="text" class="form-control" id="username" name="username" required value="{{ old('username') }}">
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
@@ -113,7 +117,7 @@
                                     <div class="col-lg-12">
                                         <div class="hstack gap-2 justify-content-end">
                                             <button type="submit" class="btn btn-primary">Submit</button>
-                                            <a href="{{ route('admin.customers.list') }}" class="btn btn-danger">Cancel</a>
+                                            <a href="{{ route('customer.manufacturers.list') }}" class="btn btn-danger">Cancel</a>
                                         </div>
                                     </div>
                                     <!--end col-->
