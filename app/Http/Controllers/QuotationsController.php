@@ -81,6 +81,8 @@ class QuotationsController extends BaseController
                                     ->where('quotation_items.quotation_id',$id)->get();
 
         $this->data['addons'] = Quotationaddons::where('quotation_id',$id)->get();
+        
+
 
         return view($this->data['active_theme'].'/admin/quotations/view',$this->data);
 
