@@ -1,4 +1,4 @@
-@extends('theme1.customer.layout')
+@extends('theme1.vendor.layout')
 @section('header')
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 @stop
@@ -11,7 +11,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('customer.quotations.store') }}" method="post" enctype="multipart/form-data" >
+                        <form action="{{ route('vendor.quotations.store') }}" method="post" enctype="multipart/form-data" >
                             @csrf
                             <div class="row">
                                 <div class="col-lg-4">
@@ -85,7 +85,7 @@
                                 <div class="col-md-12">
                                     <div class="hstack gap-2 justify-content-start mt-5">
                                         <button type="submit" class="btn btn-primary">Submit</button>
-                                        <a href="{{ route('customer.quotations.list') }}" class="btn btn-danger">Cancel</a>
+                                        <a href="{{ route('vendor.quotations.list') }}" class="btn btn-danger">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                 var supplier = $('#supplier').val();
                 $.ajax({
                     type: 'get',
-                    url: '{{ route("customer.general.searching.products") }}',
+                    url: '{{ route("vendor.general.searching.products") }}',
                     dataType: "json",
                     data: {
                         term: request.term

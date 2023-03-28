@@ -6,7 +6,7 @@ use Closure;
 use Session;
 use Illuminate\Http\Request;
 
-class AdminMiddleware
+class VendorMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!Session::has('AdminSession')) {
+        if(!Session::has('VendorSession')) {
             return redirect()->route('login');
         }
         return $next($request);

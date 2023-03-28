@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Vendor;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
@@ -13,8 +14,11 @@ use App\Models\UserSaveLists;
 class BaseController extends Controller {
     public $data = array();
     public function __construct(){
-        $request = new Request;
         $this->data['active_theme'] = 'theme1';
         $this->data['page_title'] = 'EZ Solution';
+        $this->middleware(function ($request, $next){
+            $this->data['autdata'] = Users::find(Session::get('VendorSession'));
+            return $next($request);
+        });
     }
 }
