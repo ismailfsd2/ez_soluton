@@ -87,5 +87,12 @@ class QuotationsController extends BaseController
         return view($this->data['active_theme'].'/admin/quotations/view',$this->data);
 
     }
+    public function submit_price(Request $request){
+        $item = Quotationitems::find($request['id']);
+        $item->vendor_price = $request['price'];
+        $item->save();
+        return redirect()->route('admin.quotations.detail',$item->quotation_id)
+        ->with('_success','Price submit successfully.');
+    }
 
 }

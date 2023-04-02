@@ -227,7 +227,7 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
         Route::get('vendors/destroy/{id}', [App\Http\Controllers\ProductsController::class, 'vendor_destroy'])->name('vendors.destroy');
 
     });
-    // Brands
+    // Quotations
     Route::group(['prefix'=>'quotations','as' => 'quotations.'],function () {
         Route::get('/', [App\Http\Controllers\QuotationsController::class, 'index'])->name('list');
         Route::get('/create', [App\Http\Controllers\QuotationsController::class, 'create'])->name('create');
@@ -235,7 +235,7 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
 
         Route::get('/detail/{id}', [App\Http\Controllers\QuotationsController::class, 'detail'])->name('detail');
         Route::get('/destroy/{id}', [App\Http\Controllers\QuotationsController::class, 'destroy'])->name('destroy');
-    
+        Route::post('/submit_price', [App\Http\Controllers\QuotationsController::class, 'submit_price'])->name('submit_price');
     });
 
 
@@ -339,13 +339,13 @@ Route::group(['middleware'=>['vendorpanel'],'prefix'=>'vendor','as' => 'vendor.'
         Route::get('/', [App\Http\Controllers\Vendor\ProductsController::class, 'index'])->name('list');
         Route::post('/data', [App\Http\Controllers\Vendor\ProductsController::class, 'data'])->name('data');
     });
-    // Brands
+    // Quotations
     Route::group(['prefix'=>'quotations','as' => 'quotations.'],function () {
         Route::get('/', [App\Http\Controllers\Vendor\QuotationsController::class, 'index'])->name('list');
         Route::get('/create', [App\Http\Controllers\Vendor\QuotationsController::class, 'create'])->name('create');
         Route::post('/store', [App\Http\Controllers\Vendor\QuotationsController::class, 'store'])->name('store');
-
         Route::get('/detail/{id}', [App\Http\Controllers\Vendor\QuotationsController::class, 'detail'])->name('detail');
+        Route::post('/submit_price', [App\Http\Controllers\Vendor\QuotationsController::class, 'submit_price'])->name('submit_price');
         Route::get('/destroy/{id}', [App\Http\Controllers\Vendor\QuotationsController::class, 'destroy'])->name('destroy');
     
     });

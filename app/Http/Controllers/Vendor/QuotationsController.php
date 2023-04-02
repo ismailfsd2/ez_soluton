@@ -22,11 +22,16 @@ class QuotationsController extends BaseController
         parent::__construct();
     }
     public function index(){
-        $this->data['rows'] = Quotations::select('quotations.*','customers.name as customer')
+
+
+        $this->data['rows'] = Quotations::select('quotations.*','customers.name as customer',DB::raw('COUNT(quotation_items.quotation_id)'))
                                 ->LeftJoin('customers', 'customers.id', '=', 'quotations.customer_id')
-                                ->where('quotations.customer_id',$this->data['autdata']->related_id)
+                                ->LeftJoin('quotation_items', 'quotation_items.quotation_id', '=', 'quotations.id')
+                                ->where('quotation_items.vendor_id',$this->data['autdata']->related_id)
+                                ->groupby('quotations.id','quotations.reference_no','quotations.date','quotations.customer_id','quotations.created_at','quotations.updated_at','quotations.status','customers.name')
                                 ->orderBy('quotations.date','desc')
                                 ->get();
+
         return view($this->data['active_theme'].'/vendor/quotations/list',$this->data);
     }
     public function create(){
@@ -78,8 +83,15 @@ class QuotationsController extends BaseController
         $this->data['items'] = Quotationitems::select('quotation_items.*','p.name as product_name','v.name as vendor_name')
                                     ->join('products as p','p.id','=','quotation_items.product_id')
                                     ->join('vendors as v','v.id','=','quotation_items.vendor_id')
+                                    ->where('quotation_items.vendor_id',$this->data['autdata']->related_id)
                                     ->where('quotation_items.quotation_id',$id)->get();
-        $this->data['addons'] = Quotationaddons::where('quotation_id',$id)->get();
         return view($this->data['active_theme'].'/vendor/quotations/view',$this->data);
+    }
+    public function submit_price(Request $request){
+        $item = Quotationitems::find($request['id']);
+        $item->vendor_price = $request['price'];
+        $item->save();
+        return redirect()->route('admin.quotations.detail',$item->quotation_id)
+        ->with('_success','Price submit successfully.');
     }
 }

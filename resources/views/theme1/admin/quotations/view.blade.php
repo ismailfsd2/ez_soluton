@@ -126,6 +126,8 @@
                                                                     <th>Material Name</th>
                                                                     <th>Vendor</th>
                                                                     <th>Material Quantity</th>
+                                                                    <th>Vendor Price</th>
+                                                                    <th>Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -135,6 +137,18 @@
                                                                         <td>{{ $item->product_name}}</td>
                                                                         <td>{{ $item->vendor_name}}</td>
                                                                         <td>{{ $item->quantity }}</td>
+                                                                        <td>{{ $item->vendor_price }}</td>
+                                                                        <td>
+                                                                            <div class="dropdown d-inline-block">
+                                                                                <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                                    <i class="ri-more-fill align-middle"></i>
+                                                                                </button>
+                                                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                                                    <li><a class="dropdown-item submit-price-btn" href="#" data-id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"><i class="ri-money align-bottom me-2 text-muted"></i> Submit Price</a></li>
+                                                                                </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </td>
                                                                     </tr>
                                                                 @endforeach
                                                             </tbody>
@@ -828,6 +842,48 @@
         </div>
         <!-- container-fluid -->
     </div>
+
+    <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form action="{{ route('admin.quotations.submit_price') }}" method="post" enctype="multipart/form-data" >
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Submit Price</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-5">
+                        <div class="row">
+                            <div class="col-xxl-12 col-md-12">
+                                <div>
+                                    <label for="name" class="form-label">Price Per Unit</label>
+                                    <input type="hidden" name="id" value="0" id="price_item_id">
+                                    <input type="text" class="form-control" value="0" id="price_per_unit" name="price" required>
+                                </div>
+                            </div>
+                            <!--end col-->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary ">Save</button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
 @stop
 @section('footer')
+
+<script>
+    $(document).ready(function(){
+        $('.submit-price-btn').click(function(){
+            var id = $(this).data('id');
+            $('#price_item_id').val(id);
+            $('#price_per_unit').val(0);
+        });
+    });
+</script>
+
 @stop

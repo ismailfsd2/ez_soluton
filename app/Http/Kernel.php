@@ -51,6 +51,10 @@ class Kernel extends HttpKernel
         'customerpanel' => [   
             \App\Http\Middleware\CustomerMiddleware::class,
         ],
+        
+        'vendorpanel' => [   
+            \App\Http\Middleware\VendorMiddleware::class,
+        ],
     ];
 
     /**

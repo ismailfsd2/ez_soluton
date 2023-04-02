@@ -748,22 +748,22 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{{ route('customer.categories.list') }}">
+                            <a class="nav-link menu-link" href="{{ route('vendor.categories.list') }}">
                                 <i class="bx bx-user"></i> <span data-key="t-users">Categories</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{{ route('customer.brands.list') }}">
+                            <a class="nav-link menu-link" href="{{ route('vendor.brands.list') }}">
                                 <i class="bx bx-user"></i> <span data-key="t-users">Brands</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{{ route('customer.products.list') }}">
+                            <a class="nav-link menu-link" href="{{ route('vendor.products.list') }}">
                                 <i class="bx bx-user"></i> <span data-key="t-users">Products</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{{ route('customer.quotations.list') }}">
+                            <a class="nav-link menu-link" href="{{ route('vendor.quotations.list') }}">
                                 <i class="bx bx-user"></i> <span data-key="t-users">Quotations</span>
                             </a>
                         </li>
