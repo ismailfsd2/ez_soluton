@@ -20,6 +20,8 @@ Route::post('/login/submit', [App\Http\Controllers\LoginController::class, 'subm
 Route::get('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
 Route::get('/forget_password', [App\Http\Controllers\LoginController::class, 'forget_password'])->name('forget_password');
 Route::post('/forget_password/submit', [App\Http\Controllers\LoginController::class, 'forget_password_submit'])->name('forget_password.submit');
+Route::get('/conversations/syn', [App\Http\Controllers\ConversationController::class, 'syn_data'])->name('conversations.syn');
+Route::post('/conversations/send_message', [App\Http\Controllers\ConversationController::class, 'send_message'])->name('conversations.send_message');
 // Admin Panel Start
 Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],function(){
     // General Data
@@ -30,6 +32,9 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
         });
         Route::group(['prefix'=>'searching','as' => 'searching.'],function () {
             Route::get('products', [App\Http\Controllers\GeneralController::class, 'searching_products'])->name('products');
+        });
+        Route::group(['prefix'=>'searching','as' => 'list.'],function () {
+            Route::get('product_vendors', [App\Http\Controllers\GeneralController::class, 'product_vendors'])->name('product_vendors');
         });
     });
 
@@ -232,10 +237,19 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
         Route::get('/', [App\Http\Controllers\QuotationsController::class, 'index'])->name('list');
         Route::get('/create', [App\Http\Controllers\QuotationsController::class, 'create'])->name('create');
         Route::post('/store', [App\Http\Controllers\QuotationsController::class, 'store'])->name('store');
-
+        
         Route::get('/detail/{id}', [App\Http\Controllers\QuotationsController::class, 'detail'])->name('detail');
         Route::get('/destroy/{id}', [App\Http\Controllers\QuotationsController::class, 'destroy'])->name('destroy');
         Route::post('/submit_price', [App\Http\Controllers\QuotationsController::class, 'submit_price'])->name('submit_price');
+        
+        Route::post('/add_materail', [App\Http\Controllers\QuotationsController::class, 'add_materail'])->name('add_materail');
+        Route::post('/udpate_materail', [App\Http\Controllers\QuotationsController::class, 'udpate_materail'])->name('udpate_materail');
+        Route::get('/delete_materail/{id}', [App\Http\Controllers\QuotationsController::class, 'delete_materail'])->name('delete_materail');
+        
+        Route::post('/add_addonmaterail', [App\Http\Controllers\QuotationsController::class, 'add_addonmaterail'])->name('add_addonmaterail');
+        Route::post('/udpate_addonmaterail', [App\Http\Controllers\QuotationsController::class, 'udpate_addonmaterail'])->name('udpate_addonmaterail');
+        Route::get('/delete_addonmaterail/{id}', [App\Http\Controllers\QuotationsController::class, 'delete_addonmaterail'])->name('delete_addonmaterail');
+
     });
 
 

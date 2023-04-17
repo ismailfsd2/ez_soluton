@@ -74,7 +74,7 @@ class QuotationsController extends BaseController
     }
     public function detail($id){
 
-        $this->data['quotation'] = Quotations::select('customers.*','quotations.*')->join('customers', 'customers.id', '=', 'quotations.customer_id')->where('quotations.id',$id)->get();
+        $this->data['quotation'] = Quotations::select('customers.*','quotations.*')->join('customers', 'customers.id', '=', 'quotations.customer_id')->where('quotations.id',$id)->get()[0];
         $this->data['items'] = Quotationitems::select('quotation_items.*','p.name as product_name','v.name as vendor_name')
                                     ->join('products as p','p.id','=','quotation_items.product_id')
                                     ->join('vendors as v','v.id','=','quotation_items.vendor_id')
@@ -90,9 +90,53 @@ class QuotationsController extends BaseController
     public function submit_price(Request $request){
         $item = Quotationitems::find($request['id']);
         $item->vendor_price = $request['price'];
+        $item->estimated_delivery_date = $request['estimated_delivery_date'];
+        $item->quote_expiry_date = $request['quote_expiry_date'];
         $item->save();
         return redirect()->route('admin.quotations.detail',$item->quotation_id)
         ->with('_success','Price submit successfully.');
+    }
+    public function add_materail(Request $request){
+        $quotation_items = new Quotationitems;
+        $quotation_items->quotation_id = $request->quotation_id;
+        $quotation_items->product_id = $request->product_id;
+        $quotation_items->vendor_id = $request->vendor;
+        $quotation_items->quantity = $request->quantity;
+        $quotation_items->save();
+        return back()->with('_success','Meterial add successfully.');
+    }
+    public function udpate_materail(Request $request){
+        $items = Quotationitems::find($request->id);
+        $items->product_id = $request->product_id;
+        $items->vendor_id = $request->vendor;
+        $items->quantity = $request->quantity;
+        $items->save();
+        return back()->with('_success','Meterial update successfully.');
+    }
+    public function delete_materail($id){
+        Quotationitems::where('id',$id)->delete();
+        return back()->with('_success','Meterial deleted successfully.');
+    }
+    public function add_addonmaterail(REQUEST $request){
+        $quotation_addonsitems = new Quotationaddons;
+        $quotation_addonsitems->quotation_id = $request->quotation_id;
+        $quotation_addonsitems->product_name = $request->name;
+        $quotation_addonsitems->product_description = $request->detail;
+        $quotation_addonsitems->quantity = $request->quantity;
+        $quotation_addonsitems->save();
+        return back()->with('_success','Add-Ons Meterial add successfully.');
+    }
+    public function udpate_addonmaterail(REQUEST $request){
+        $items = Quotationaddons::find($request->id);
+        $items->product_name = $request->name;
+        $items->product_description = $request->detail;
+        $items->quantity = $request->quantity;
+        $items->save();
+        return back()->with('_success','Add-Ons Meterial update successfully.');
+    }
+    public function delete_addonmaterail($id){
+        Quotationaddons::where('id',$id)->delete();
+        return back()->with('_success','Add-Ons Meterial deleted successfully.');
     }
 
 }

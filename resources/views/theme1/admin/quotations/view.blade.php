@@ -1,6 +1,7 @@
 @extends('theme1.admin.layout')
 @section('header')
-
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
 @stop
 @section('content')
@@ -14,25 +15,19 @@
                                 <div class="row mb-3">
                                     <div class="col-md">
                                         <div class="row align-items-center g-3">
-                                            <div class="col-md-auto">
-                                                <div class="avatar-md">
-                                                    <div class="avatar-title bg-white rounded-circle">
-                                                        <img src="{{ asset('assets/images/brands/slack.png') }}" alt="" class="avatar-xs">
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col-md">
                                                 <div>
-                                                    <h4 class="fw-bold">Velzon - Admin & Dashboard</h4>
+                                                    <h4 class="fw-bold">{{ $quotation->name }}</h4>
                                                     <div class="hstack gap-3 flex-wrap">
-                                                        <div><i class="ri-building-line align-bottom me-1"></i> Themesbrand</div>
+                                                        <div>Phone : <span class="fw-medium">{{ $quotation->phone; }}</span></div>
                                                         <div class="vr"></div>
-                                                        <div>Create Date : <span class="fw-medium">15 Sep, 2021</span></div>
+                                                        <div>Email : <span class="fw-medium">{{ $quotation->email; }}</span></div>
                                                         <div class="vr"></div>
-                                                        <div>Due Date : <span class="fw-medium">29 Dec, 2021</span></div>
+                                                        <div>City : <span class="fw-medium">{{ $quotation->city; }}</span></div>
                                                         <div class="vr"></div>
-                                                        <div class="badge rounded-pill bg-info fs-12">New</div>
-                                                        <div class="badge rounded-pill bg-danger fs-12">High</div>
+                                                        <div>State : <span class="fw-medium">{{ $quotation->state; }}</span></div>
+                                                        <div class="vr"></div>
+                                                        <div>Country : <span class="fw-medium">{{ $quotation->email; }}</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -63,11 +58,11 @@
                                             Comments
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#project-documents" role="tab">
                                             Documents
                                         </a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                             <!-- end card body -->
@@ -90,28 +85,22 @@
                                                 <h6 class="mb-3 fw-semibold text-uppercase">Summary</h6>
                                                 <div class="pt-3 border-top border-top-dashed mt-4">
                                                     <div class="row">
-                                                        <div class="col-lg-3 col-sm-6">
+                                                        <div class="col-lg-4 col-sm-6">
                                                             <div>
-                                                                <p class="mb-2 text-uppercase fw-medium">Create Date :</p>
-                                                                <h5 class="fs-15 mb-0">15 Sep, 2021</h5>
+                                                                <p class="mb-2 text-uppercase fw-medium">Reference No:</p>
+                                                                <h5 class="fs-15 mb-0">{{ $quotation->reference_no }}</h5>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3 col-sm-6">
+                                                        <div class="col-lg-4 col-sm-6">
                                                             <div>
-                                                                <p class="mb-2 text-uppercase fw-medium">Due Date :</p>
-                                                                <h5 class="fs-15 mb-0">29 Dec, 2021</h5>
+                                                                <p class="mb-2 text-uppercase fw-medium">Create Date:</p>
+                                                                <h5 class="fs-15 mb-0">{{ $quotation->created_at }}</h5>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3 col-sm-6">
-                                                            <div>
-                                                                <p class="mb-2 text-uppercase fw-medium">Priority :</p>
-                                                                <div class="badge bg-danger fs-12">High</div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-sm-6">
+                                                        <div class="col-lg-4 col-sm-6">
                                                             <div>
                                                                 <p class="mb-2 text-uppercase fw-medium">Status :</p>
-                                                                <div class="badge bg-warning fs-12">Inprogess</div>
+                                                                <div class="badge bg-warning fs-12">{{ $quotation->status }}</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -119,6 +108,9 @@
                                                 <div class="pt-3 border-top border-top-dashed mt-4">
                                                     <h6 class="mb-3 fw-semibold text-uppercase">Materials</h6>
                                                     <div class="pt-3 border-top border-top-dashed mt-4">
+                                                        <div class="action-btn mb-3">
+                                                            <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#addmeterialModule">Add New Meterial</button>
+                                                        </div>
                                                         <table id="QuotationsTable" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
                                                             <thead>
                                                                 <tr>
@@ -127,6 +119,8 @@
                                                                     <th>Vendor</th>
                                                                     <th>Material Quantity</th>
                                                                     <th>Vendor Price</th>
+                                                                    <th>Estimated Delivery Date</th>
+                                                                    <th>Quote Expiry Date</th>
                                                                     <th>Action</th>
                                                                 </tr>
                                                             </thead>
@@ -138,13 +132,20 @@
                                                                         <td>{{ $item->vendor_name}}</td>
                                                                         <td>{{ $item->quantity }}</td>
                                                                         <td>{{ $item->vendor_price }}</td>
+                                                                        <td>{{ $item->estimated_delivery_date }}</td>
+                                                                        <td>{{ $item->quote_expiry_date }}</td>
                                                                         <td>
                                                                             <div class="dropdown d-inline-block">
                                                                                 <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                                                     <i class="ri-more-fill align-middle"></i>
                                                                                 </button>
                                                                                 <ul class="dropdown-menu dropdown-menu-end">
-                                                                                    <li><a class="dropdown-item submit-price-btn" href="#" data-id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"><i class="ri-money align-bottom me-2 text-muted"></i> Submit Price</a></li>
+                                                                                    <li><a class="dropdown-item submit-price-btn" href="#" data-id="{{ $item->id }}" data-vendor_price="{{ $item->vendor_price }}" data-estimated_delivery_date="{{ $item->estimated_delivery_date }}" data-quote_expiry_date="{{ $item->quote_expiry_date }}" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"><i class="ri-money-dollar-circle-line align-bottom me-2 text-muted"></i> Submit Price</a></li>
+                                                                                    <li>
+                                                                                        <button type="button" class="dropdown-item remove-item-btn edit_meterial" data-bs-toggle="modal" data-bs-target="#updatemeterialModule" data-id="{{ $item->id }}" data-product_name="{{ $item->product_name }}" data-product_id="{{ $item->product_id }}" data-vendor_id="{{ $item->vendor_id }}" data-quantity="{{ $item->quantity }}" ><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</button>
+                                                                                    </li>
+                                                                                    <li><a class="dropdown-item remove-item-btn" href="{{ route('admin.quotations.delete_materail',$item->id) }}"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a></li>
+
                                                                                 </li>
                                                                                 </ul>
                                                                             </div>
@@ -159,6 +160,9 @@
                                                 <div class="pt-3 border-top border-top-dashed mt-4">
                                                     <h6 class="mb-3 fw-semibold text-uppercase">Add-Ons Materials</h6>
                                                     <div class="pt-3 border-top border-top-dashed mt-4">
+                                                        <div class="action-btn mb-3">
+                                                            <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#addaddonmeterialModule">Add New Add-Ons Meterial</button>
+                                                        </div>
                                                         <table id="QuotationsTable" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
                                                             <thead>
                                                                 <tr>
@@ -166,6 +170,7 @@
                                                                     <th>Material Name</th>
                                                                     <th>Material Description</th>
                                                                     <th>Material Quantity</th>
+                                                                    <th>Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -175,6 +180,18 @@
                                                                         <td>{{ $item->product_name}}</td>
                                                                         <td>{{ $item->product_description}}</td>
                                                                         <td>{{ $item->quantity }}</td>
+                                                                        <td>
+                                                                            <div class="dropdown d-inline-block">
+                                                                                <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                                    <i class="ri-more-fill align-middle"></i>
+                                                                                </button>
+                                                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                                                    <li><button type="button" class="dropdown-item remove-item-btn edit_addonmeterial" data-bs-toggle="modal" data-bs-target="#updateaddonmeterialModule" data-id="{{ $item->id }}" data-product_description="{{ $item->product_description }}" data-product_name="{{ $item->product_name }}" data-quantity="{{ $item->quantity }}" ><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</button></li>
+                                                                                    <li><a class="dropdown-item remove-item-btn" href="{{ route('admin.quotations.delete_addonmaterail',$item->id) }}"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a></li>
+                                                                                </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </td>
                                                                     </tr>
                                                                 @endforeach
                                                             </tbody>
@@ -192,181 +209,16 @@
                                 <!-- ene col -->
                                 <div class="col-xl-3 col-lg-4">
                                     <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title mb-4">Skills</h5>
-                                            <div class="d-flex flex-wrap gap-2 fs-16">
-                                                <div class="badge fw-medium badge-soft-secondary">UI/UX</div>
-                                                <div class="badge fw-medium badge-soft-secondary">Figma</div>
-                                                <div class="badge fw-medium badge-soft-secondary">HTML</div>
-                                                <div class="badge fw-medium badge-soft-secondary">CSS</div>
-                                                <div class="badge fw-medium badge-soft-secondary">Javascript</div>
-                                                <div class="badge fw-medium badge-soft-secondary">C#</div>
-                                                <div class="badge fw-medium badge-soft-secondary">Nodejs</div>
-                                            </div>
-                                        </div>
-                                        <!-- end card body -->
-                                    </div>
-                                    <!-- end card -->
-
-                                    <div class="card">
                                         <div class="card-header align-items-center d-flex border-bottom-dashed">
-                                            <h4 class="card-title mb-0 flex-grow-1">Members</h4>
+                                            <h4 class="card-title mb-0 flex-grow-1">Orders</h4>
                                             <div class="flex-shrink-0">
-                                                <button type="button" class="btn btn-soft-danger btn-sm" data-bs-toggle="modal" data-bs-target="#inviteMembersModal"><i class="ri-share-line me-1 align-bottom"></i> Invite Member</button>
+                                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#inviteMembersModal">Create Order</button>
                                             </div>
                                         </div>
 
                                         <div class="card-body">
                                             <div data-simplebar style="height: 235px;" class="mx-n3 px-3">
                                                 <div class="vstack gap-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-xs flex-shrink-0 me-3">
-                                                            <img src="{{ asset('') }}assets/images/users/avatar-2.jpg" alt="" class="img-fluid rounded-circle">
-                                                        </div>
-                                                        <div class="flex-grow-1">
-                                                            <h5 class="fs-13 mb-0"><a href="#" class="text-body d-block">Nancy Martino</a></h5>
-                                                        </div>
-                                                        <div class="flex-shrink-0">
-                                                            <div class="d-flex align-items-center gap-1">
-                                                                <button type="button" class="btn btn-light btn-sm">Message</button>
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-icon btn-sm fs-16 text-muted dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                        <i class="ri-more-fill"></i>
-                                                                    </button>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end member item -->
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-xs flex-shrink-0 me-3">
-                                                            <div class="avatar-title bg-soft-danger text-danger rounded-circle">
-                                                                HB
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-grow-1">
-                                                            <h5 class="fs-13 mb-0"><a href="#" class="text-body d-block">Henry Baird</a></h5>
-                                                        </div>
-                                                        <div class="flex-shrink-0">
-                                                            <div class="d-flex align-items-center gap-1">
-                                                                <button type="button" class="btn btn-light btn-sm">Message</button>
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-icon btn-sm fs-16 text-muted dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                        <i class="ri-more-fill"></i>
-                                                                    </button>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end member item -->
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-xs flex-shrink-0 me-3">
-                                                            <img src="{{ asset('') }}assets/images/users/avatar-3.jpg" alt="" class="img-fluid rounded-circle">
-                                                        </div>
-                                                        <div class="flex-grow-1">
-                                                            <h5 class="fs-13 mb-0"><a href="#" class="text-body d-block">Frank Hook</a></h5>
-                                                        </div>
-                                                        <div class="flex-shrink-0">
-                                                            <div class="d-flex align-items-center gap-1">
-                                                                <button type="button" class="btn btn-light btn-sm">Message</button>
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-icon btn-sm fs-16 text-muted dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                        <i class="ri-more-fill"></i>
-                                                                    </button>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end member item -->
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-xs flex-shrink-0 me-3">
-                                                            <img src="{{ asset('') }}assets/images/users/avatar-4.jpg" alt="" class="img-fluid rounded-circle">
-                                                        </div>
-                                                        <div class="flex-grow-1">
-                                                            <h5 class="fs-13 mb-0"><a href="#" class="text-body d-block">Jennifer Carter</a></h5>
-                                                        </div>
-                                                        <div class="flex-shrink-0">
-                                                            <div class="d-flex align-items-center gap-1">
-                                                                <button type="button" class="btn btn-light btn-sm">Message</button>
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-icon btn-sm fs-16 text-muted dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                        <i class="ri-more-fill"></i>
-                                                                    </button>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end member item -->
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-xs flex-shrink-0 me-3">
-                                                            <div class="avatar-title bg-soft-success text-success rounded-circle">
-                                                                AC
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-grow-1">
-                                                            <h5 class="fs-13 mb-0"><a href="#" class="text-body d-block">Alexis Clarke</a></h5>
-                                                        </div>
-                                                        <div class="flex-shrink-0">
-                                                            <div class="d-flex align-items-center gap-1">
-                                                                <button type="button" class="btn btn-light btn-sm">Message</button>
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-icon btn-sm fs-16 text-muted dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                        <i class="ri-more-fill"></i>
-                                                                    </button>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end member item -->
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-xs flex-shrink-0 me-3">
-                                                            <img src="{{ asset('') }}assets/images/users/avatar-7.jpg" alt="" class="img-fluid rounded-circle">
-                                                        </div>
-                                                        <div class="flex-grow-1">
-                                                            <h5 class="fs-13 mb-0"><a href="#" class="text-body d-block">Joseph Parker</a></h5>
-                                                        </div>
-                                                        <div class="flex-shrink-0">
-                                                            <div class="d-flex align-items-center gap-1">
-                                                                <button type="button" class="btn btn-light btn-sm">Message</button>
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-icon btn-sm fs-16 text-muted dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                        <i class="ri-more-fill"></i>
-                                                                    </button>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- end member item -->
                                                 </div>
                                                 <!-- end list -->
                                             </div>
@@ -382,7 +234,6 @@
                                                 <button type="button" class="btn btn-soft-info btn-sm"><i class="ri-upload-2-fill me-1 align-bottom"></i> Upload</button>
                                             </div>
                                         </div>
-
                                         <div class="card-body">
 
                                             <div class="vstack gap-2">
@@ -738,90 +589,26 @@
                                         <div class="card-header align-items-center d-flex">
                                             <h4 class="card-title mb-0 flex-grow-1">Comments</h4>
                                             <div class="flex-shrink-0">
-                                                <div class="dropdown card-header-dropdown">
-                                                    <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="text-muted">Recent<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item" href="#">Recent</a>
-                                                        <a class="dropdown-item" href="#">Top Rated</a>
-                                                        <a class="dropdown-item" href="#">Previous</a>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div><!-- end card header -->
 
                                         <div class="card-body">
-
                                             <div data-simplebar style="height: 300px;" class="px-3 mx-n3 mb-2">
-                                                <div class="d-flex mb-4">
-                                                    <div class="flex-shrink-0">
-                                                        <img src="{{ asset('') }}assets/images/users/avatar-8.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <h5 class="fs-13">Joseph Parker <small class="text-muted ms-2">20 Dec 2021 - 05:47AM</small></h5>
-                                                        <p class="text-muted">I am getting message from customers that when they place order always get error message .</p>
-                                                        <a href="javascript: void(0);" class="badge text-muted bg-light"><i class="mdi mdi-reply"></i> Reply</a>
-                                                        <div class="d-flex mt-4">
-                                                            <div class="flex-shrink-0">
-                                                                <img src="{{ asset('') }}assets/images/users/avatar-10.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-3">
-                                                                <h5 class="fs-13">Alexis Clarke <small class="text-muted ms-2">22 Dec 2021 - 02:32PM</small></h5>
-                                                                <p class="text-muted">Please be sure to check your Spam mailbox to see if your email filters have identified the email from Dell as spam.</p>
-                                                                <a href="javascript: void(0);" class="badge text-muted bg-light"><i class="mdi mdi-reply"></i> Reply</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex mb-4">
-                                                    <div class="flex-shrink-0">
-                                                        <img src="{{ asset('') }}assets/images/users/avatar-6.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <h5 class="fs-13">Donald Palmer <small class="text-muted ms-2">24 Dec 2021 - 05:20PM</small></h5>
-                                                        <p class="text-muted">If you have further questions, please contact Customer Support from the “Action Menu” on your <a href="javascript:void(0);" class="text-decoration-underline">Online Order Support</a>.</p>
-                                                        <a href="javascript: void(0);" class="badge text-muted bg-light"><i class="mdi mdi-reply"></i> Reply</a>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0">
-                                                        <img src="{{ asset('') }}assets/images/users/avatar-10.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-3">
-                                                        <h5 class="fs-13">Alexis Clarke <small class="text-muted ms-2">26 min ago</small></h5>
-                                                        <p class="text-muted">Your <a href="javascript:void(0)" class="text-decoration-underline">Online Order Support</a> provides you with the most current status of your order. To help manage your order refer to the “Action Menu” to initiate return, contact Customer Support and more.</p>
-                                                        <div class="row g-2 mb-3">
-                                                            <div class="col-lg-1 col-sm-2 col-6">
-                                                                <img src="{{ asset('') }}assets/images/small/img-4.jpg" alt="" class="img-fluid rounded">
-                                                            </div>
-                                                            <div class="col-lg-1 col-sm-2 col-6">
-                                                                <img src="{{ asset('') }}assets/images/small/img-5.jpg" alt="" class="img-fluid rounded">
-                                                            </div>
-                                                        </div>
-                                                        <a href="javascript: void(0);" class="badge text-muted bg-light"><i class="mdi mdi-reply"></i> Reply</a>
-                                                        <div class="d-flex mt-4">
-                                                            <div class="flex-shrink-0">
-                                                                <img src="{{ asset('') }}assets/images/users/avatar-6.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-3">
-                                                                <h5 class="fs-13">Donald Palmer <small class="text-muted ms-2">8 sec ago</small></h5>
-                                                                <p class="text-muted">Other shipping methods are available at checkout if you want your purchase delivered faster.</p>
-                                                                <a href="javascript: void(0);" class="badge text-muted bg-light"><i class="mdi mdi-reply"></i> Reply</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                             <form class="mt-4">
                                                 <div class="row g-3">
                                                     <div class="col-12">
-                                                        <label for="exampleFormControlTextarea1" class="form-label text-body">Leave a Comments</label>
-                                                        <textarea class="form-control bg-light border-light" id="exampleFormControlTextarea1" rows="3" placeholder="Enter your comment..."></textarea>
+                                                        <label for="messageText" class="form-label text-body">Leave a Comments</label>
+                                                        <textarea class="form-control bg-light border-light" id="messageText" rows="3" placeholder="Enter your message..."></textarea>
                                                     </div>
-                                                    <div class="col-12 text-end">
-                                                        <button type="button" class="btn btn-ghost-secondary btn-icon waves-effect me-1"><i class="ri-attachment-line fs-16"></i></button>
-                                                        <a href="javascript:void(0);" class="btn btn-success">Post Comments</a>
+                                                    <div class="col-12">
+                                                        <div class="form-check mb-2">
+                                                            <input class="form-check-input" type="checkbox" id="marked_private" value="marked" >
+                                                            <label class="form-check-label" for="marked_private">
+                                                                Mark Private
+                                                            </label>
+                                                        </div>
+                                                        <a href="javascript:void(0);" id="sendMessageBtn" class="btn btn-success">Send Message</a>
                                                     </div>
                                                 </div>
                                             </form>
@@ -831,9 +618,6 @@
                                     <!-- end card -->
                             </div>
                         </div>
-
-
-
                     </div>
                 </div>
                 <!-- end col -->
@@ -842,46 +626,312 @@
         </div>
         <!-- container-fluid -->
     </div>
-
-    <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+    <div class="modal fade bs-example-modal-center" id="princeModule" tabindex="-1" aria-labelledby="princeModuleLabel" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <form action="{{ route('admin.quotations.submit_price') }}" method="post" enctype="multipart/form-data" >
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">Submit Price</h5>
+                        <h5 class="modal-title" id="princeModuleLabel"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body p-5">
-                        <div class="row">
-                            <div class="col-xxl-12 col-md-12">
-                                <div>
-                                    <label for="name" class="form-label">Price Per Unit</label>
-                                    <input type="hidden" name="id" value="0" id="price_item_id">
-                                    <input type="text" class="form-control" value="0" id="price_per_unit" name="price" required>
-                                </div>
-                            </div>
-                            <!--end col-->
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Price Per Unit</label>
+                            <input type="hidden" name="id" value="0" id="price_item_id">
+                            <input type="text" class="form-control" value="0" id="vendor_price" name="price" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Estimated Delivery Date</label>
+                            <input type="text" name="estimated_delivery_date" id="estimated_delivery_date" required="required" class="form-control bg-light border-0" data-provider="flatpickr" data-time="true" placeholder="Select Date" value="{{ date('Y-m-d') }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Quote Expiry Date</label>
+                            <input type="text" name="quote_expiry_date" id="quote_expiry_date" required="required" class="form-control bg-light border-0" data-provider="flatpickr" data-time="true" placeholder="Select Date" value="{{ date('Y-m-d') }}">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary ">Save</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Back</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addmeterialModule" tabindex="-1" aria-labelledby="addmeterialModuleLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('admin.quotations.add_materail') }}" method="post" enctype="multipart/form-data" >
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addmeterialModuleLabel">Add New Meterial</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <input type="hidden" name="quotation_id" value="{{ $quotation->id }}">
+                            <label for="autoCompleteFruit">Select Raw Material</label><br>
+                            <input type="text" class="form-control bg-light border-0 searchproduct"  placeholder="Enter Name or Barcode" dir="ltr" spellcheck=false autocomplete="off" autocapitalize="off">
+                            <div id="suggesstion-box"></div>
+                            <input type="hidden" name="product_id" id="product_id">
+                        </div>
+                        <div class="mb-3">
+                            <label>Vendor</label><br>
+                            <select name="vendor" id="vendors" class="form-control bg-light border-0">
+                                <option value="">Select Vendor</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label>Quantity</label><br>
+                            <input type="text" name="quantity" id="quantity" value="1" class="form-control bg-light border-0" >
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Back</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+     <div class="modal fade" id="addaddonmeterialModule" tabindex="-1" aria-labelledby="addaddonmeterialModuleLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('admin.quotations.add_addonmaterail') }}" method="post" enctype="multipart/form-data" >
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addaddonmeterialModuleLabel">Add New Meterial</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="quotation_id" value="{{ $quotation->id }}">
+                        <div class="mb-3">
+                            <label>Material Name</label><br>
+                            <input type="text" name="name" id="addons_name" class="form-control bg-light border-0" >
+                        </div>
+                        <div class="mb-3">
+                            <label>Material Details</label><br>
+                            <textarea name="detail" id="addons_detail" class="form-control bg-light border-0"  rows="5"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label>Quantity</label><br>
+                            <input type="text" name="quantity" id="addons_quantity" value="1" class="form-control bg-light border-0" >
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Back</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+     <div class="modal fade" id="updateaddonmeterialModule" tabindex="-1" aria-labelledby="updateaddonmeterialModule" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('admin.quotations.udpate_addonmaterail') }}" method="post" enctype="multipart/form-data" >
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateaddonmeterialModule">Update Add-Ons Meterial</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label>Material Name</label><br>
+                            <input type="text" name="name" id="edit_addons_name" class="form-control bg-light border-0" >
+                            <input type="hidden" name="id" id="edit_addons_id">
+                        </div>
+                        <div class="mb-3">
+                            <label>Material Details</label><br>
+                            <textarea name="detail" id="edit_addons_detail" class="form-control bg-light border-0"  rows="5"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label>Quantity</label><br>
+                            <input type="text" name="quantity" id="edit_addons_quantity" value="1" class="form-control bg-light border-0" >
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Back</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="updatemeterialModule" tabindex="-1" aria-labelledby="updatemeterialModuleLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('admin.quotations.udpate_materail') }}" method="post" enctype="multipart/form-data" >
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updatemeterialModuleLabel">Update Meterial</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="autoCompleteFruit">Select Raw Material</label><br>
+                            <input type="hidden" name="id" id="edit_item_id" value="0">
+                            <input type="text" class="form-control bg-light border-0 searchproduct" id="editProductName"  placeholder="Enter Name or Barcode" dir="ltr" spellcheck=false autocomplete="off" autocapitalize="off">
+                            <div id="suggesstion-box"></div>
+                            <input type="hidden" name="product_id" id="edi_product_id">
+                        </div>
+                        <div class="mb-3">
+                            <label>Vendor</label><br>
+                            <select name="vendor" id="edit_vendors" class="form-control bg-light border-0">
+                                <option value="">Select Vendor</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label>Quantity</label><br>
+                            <input type="text" name="quantity" id="edit_quantity" value="1" class="form-control bg-light border-0" >
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Back</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+     </div>
+
 
 @stop
 @section('footer')
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
 
 <script>
     $(document).ready(function(){
         $('.submit-price-btn').click(function(){
             var id = $(this).data('id');
             $('#price_item_id').val(id);
-            $('#price_per_unit').val(0);
+            $('#vendor_price').val($(this).data('vendor_price'));
+            $('#estimated_delivery_date').val($(this).data('estimated_delivery_date'));
+            $('#quote_expiry_date').val($(this).data('quote_expiry_date'));
+        });
+
+        setInterval(function () {
+            // chat_syn();
+        }, 60000);
+        function chat_syn(){
+            var id = {{ $quotation->id }};
+            $.ajax({
+                url: "{{ route('conversations.syn') }}",
+                type: 'GET',
+                data: {id:id},
+                success: function(data) {
+                    // var obj = jQuery.parseJSON(data);
+                }
+            });
+        }
+        $('#sendMessageBtn').click(function(){
+            var marked_private = 0;
+            var message = $('#messageText').val();
+            var id = {{ $quotation->id }};
+            if ($('#marked_private').is(':checked')) {
+                marked_private = 1;
+            }
+            $.ajax({
+                url: "{{ route('conversations.send_message') }}",
+                type: 'POST',
+                data: {id:id,marked_private:marked_private,message:message},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    // var obj = jQuery.parseJSON(data);
+                    $('#messageText').val("");
+                    // chat_syn();
+                }
+            });
+        });
+
+        $(".searchproduct").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: 'get',
+                    url: '{{ route("admin.general.searching.products") }}',
+                    dataType: "json",
+                    data: {
+                        term: request.term
+                    },
+                    success: function (data) {
+                        $(this).removeClass('ui-autocomplete-loading');
+                        response(data);
+                    }
+                });
+            },
+            minLength: 1,
+            autoFocus: false,
+            delay: 250,
+            response: function (event, ui) {
+                if ($(this).val().length >= 16 && ui.content[0].id == 0) {
+                    $(this).removeClass('ui-autocomplete-loading');
+                    $(this).val('');
+                }
+                else if (ui.content.length == 1 && ui.content[0].id != 0) {
+                    ui.item = ui.content[0];
+                    $(this).data('ui-autocomplete')._trigger('select', 'autocompleteselect', ui);
+                    $(this).autocomplete('close');
+                    $(this).removeClass('ui-autocomplete-loading');
+                }
+                else if (ui.content.length == 1 && ui.content[0].id == 0) {
+                    $(this).removeClass('ui-autocomplete-loading');
+                    $(this).val('');
+                }
+            },
+            select: function (event, ui) {
+                event.preventDefault();
+                $('#product_id').val(ui.item.item_id);
+                var vendor_opts = '<option value="">Select Vendor</option>';
+                $.each(ui.item.vendors, function(index) {
+                    var vendor = this;
+                    vendor_opts += '<option value="'+vendor.id+'" >'+vendor.name+'</option>';
+                });
+                $('#vendors').html(vendor_opts);
+            }
+        });
+        $(document).on('click','.edit_meterial',function(){
+            var id = $(this).data('id');
+            var product_id = $(this).data('product_id');
+            var product_name = $(this).data('product_name');
+            var vendor_id = $(this).data('vendor_id');
+            var quantity = $(this).data('quantity');
+            $.ajax({
+                url: "{{ route('admin.general.list.product_vendors') }}",
+                type: 'get',
+                data: {product_id:product_id},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    var obj = jQuery.parseJSON(data);
+                    var vendor_opts = '<option value="">Select Vendor</option>';
+                    $.each(obj.vendors, function(index) {
+                        var vendor = this;
+                        vendor_opts += '<option value="'+vendor.id+'" >'+vendor.name+'</option>';
+                    });
+                    $('#edit_vendors').html(vendor_opts);
+                    $('#edit_item_id').val(id);
+                    $('#edi_product_id').val(product_id);
+                    $('#editProductName').val(product_name);
+                    $('#edit_vendors').val(vendor_id);
+                    $('#edit_quantity').val(quantity);
+                }
+            });
+
+        });
+        $(document).on('click','.edit_addonmeterial',function(){
+            var id = $(this).data('id');
+            var product_description = $(this).data('product_description');
+            var product_name = $(this).data('product_name');
+            var quantity = $(this).data('quantity');
+            $('#edit_addons_id').val(id);
+            $('#edit_addons_name').val(product_name);
+            $('#edit_addons_detail').text(product_description);
+            $('#edit_addons_quantity').val(quantity);
+
         });
     });
 </script>

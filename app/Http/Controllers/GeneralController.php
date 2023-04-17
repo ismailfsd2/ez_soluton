@@ -56,4 +56,10 @@ class GeneralController extends BaseController
 		}
 		echo json_encode($products);
    } 
+   public function product_vendors(REQUEST $request){
+        $vendors = Productvendors::select('vendors.id','vendors.name')->leftJoin('vendors', 'vendors.id', '=', 'product_vendors.vendor_id')->where('product_vendors.product_id',$request->product_id)->get();
+        $data['vendors'] = $vendors;
+		echo json_encode($data);
+
+   }
 }

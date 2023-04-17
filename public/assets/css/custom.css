@@ -13,5 +13,7 @@ label span.required {
 .itemstable {
 
 }
-
+.select2-container,.ui-autocomplete {
+    z-index: 9999 !important;
+}
 

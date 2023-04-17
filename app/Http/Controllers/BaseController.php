@@ -16,5 +16,9 @@ class BaseController extends Controller {
         $request = new Request;
         $this->data['active_theme'] = 'theme1';
         $this->data['page_title'] = 'EZ Solution';
+        $this->middleware(function ($request, $next){
+            $this->data['autdata'] = Users::find(Session::get('AdminSession'));
+            return $next($request);
+        });
     }
 }
