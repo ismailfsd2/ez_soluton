@@ -58,11 +58,6 @@
                                             Comments
                                         </a>
                                     </li>
-                                    <!-- <li class="nav-item">
-                                        <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#project-documents" role="tab">
-                                            Documents
-                                        </a>
-                                    </li> -->
                                 </ul>
                             </div>
                             <!-- end card body -->
@@ -371,252 +366,39 @@
                             <!-- end row -->
                         </div>
                         <!-- end tab pane -->
-                        <div class="tab-pane fade" id="project-documents" role="tabpanel">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center mb-4">
-                                        <h5 class="card-title flex-grow-1">Documents</h5>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="table-responsive table-card">
-                                                <table class="table table-borderless align-middle mb-0">
-                                                    <thead class="table-light">
-                                                        <tr>
-                                                            <th scope="col">File Name</th>
-                                                            <th scope="col">Type</th>
-                                                            <th scope="col">Size</th>
-                                                            <th scope="col">Upload Date</th>
-                                                            <th scope="col" style="width: 120px;">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="avatar-sm">
-                                                                        <div class="avatar-title bg-light text-secondary rounded fs-24">
-                                                                            <i class="ri-folder-zip-line"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="ms-3 flex-grow-1">
-                                                                        <h5 class="fs-14 mb-0"><a href="javascript:void(0)" class="text-dark">Artboard-documents.zip</a></h5>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>Zip File</td>
-                                                            <td>4.57 MB</td>
-                                                            <td>12 Dec 2021</td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="btn btn-soft-secondary btn-sm btn-icon" data-bs-toggle="dropdown" aria-expanded="true">
-                                                                        <i class="ri-more-fill"></i>
-                                                                    </a>
-                                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-bottom text-muted"></i>View</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-bottom text-muted"></i>Download</a></li>
-                                                                        <li class="dropdown-divider"></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill me-2 align-bottom text-muted"></i>Delete</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="avatar-sm">
-                                                                        <div class="avatar-title bg-light text-danger rounded fs-24">
-                                                                            <i class="ri-file-pdf-fill"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="ms-3 flex-grow-1">
-                                                                        <h5 class="fs-14 mb-0"><a href="javascript:void(0);" class="text-dark">Bank Management System</a></h5>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>PDF File</td>
-                                                            <td>8.89 MB</td>
-                                                            <td>24 Nov 2021</td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="btn btn-soft-secondary btn-sm btn-icon" data-bs-toggle="dropdown" aria-expanded="true">
-                                                                        <i class="ri-more-fill"></i>
-                                                                    </a>
-                                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-bottom text-muted"></i>View</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-bottom text-muted"></i>Download</a></li>
-                                                                        <li class="dropdown-divider"></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill me-2 align-bottom text-muted"></i>Delete</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="avatar-sm">
-                                                                        <div class="avatar-title bg-light text-secondary rounded fs-24">
-                                                                            <i class="ri-video-line"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="ms-3 flex-grow-1">
-                                                                        <h5 class="fs-14 mb-0"><a href="javascript:void(0);" class="text-dark">Tour-video.mp4</a></h5>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>MP4 File</td>
-                                                            <td>14.62 MB</td>
-                                                            <td>19 Nov 2021</td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="btn btn-soft-secondary btn-sm btn-icon" data-bs-toggle="dropdown" aria-expanded="true">
-                                                                        <i class="ri-more-fill"></i>
-                                                                    </a>
-                                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-bottom text-muted"></i>View</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-bottom text-muted"></i>Download</a></li>
-                                                                        <li class="dropdown-divider"></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill me-2 align-bottom text-muted"></i>Delete</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="avatar-sm">
-                                                                        <div class="avatar-title bg-light text-success rounded fs-24">
-                                                                            <i class="ri-file-excel-fill"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="ms-3 flex-grow-1">
-                                                                        <h5 class="fs-14 mb-0"><a href="javascript:void(0);" class="text-dark">Account-statement.xsl</a></h5>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>XSL File</td>
-                                                            <td>2.38 KB</td>
-                                                            <td>14 Nov 2021</td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="btn btn-soft-secondary btn-sm btn-icon" data-bs-toggle="dropdown" aria-expanded="true">
-                                                                        <i class="ri-more-fill"></i>
-                                                                    </a>
-                                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-bottom text-muted"></i>View</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-bottom text-muted"></i>Download</a></li>
-                                                                        <li class="dropdown-divider"></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill me-2 align-bottom text-muted"></i>Delete</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="avatar-sm">
-                                                                        <div class="avatar-title bg-light text-warning rounded fs-24">
-                                                                            <i class="ri-folder-fill"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="ms-3 flex-grow-1">
-                                                                        <h5 class="fs-14 mb-0"><a href="javascript:void(0);" class="text-dark">Project Screenshots Collection</a></h5>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>Floder File</td>
-                                                            <td>87.24 MB</td>
-                                                            <td>08 Nov 2021</td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="btn btn-soft-secondary btn-sm btn-icon" data-bs-toggle="dropdown" aria-expanded="true">
-                                                                        <i class="ri-more-fill"></i>
-                                                                    </a>
-                                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-bottom text-muted"></i>View</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-bottom text-muted"></i>Download</a></li>
-                                                                        <li class="dropdown-divider"></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill me-2 align-bottom text-muted"></i>Delete</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="avatar-sm">
-                                                                        <div class="avatar-title bg-light text-danger rounded fs-24">
-                                                                            <i class="ri-image-2-fill"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="ms-3 flex-grow-1">
-                                                                        <h5 class="fs-14 mb-0"><a href="javascript:void(0);" class="text-dark">Velzon-logo.png</a></h5>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>PNG File</td>
-                                                            <td>879 KB</td>
-                                                            <td>02 Nov 2021</td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <a href="javascript:void(0);" class="btn btn-soft-secondary btn-sm btn-icon" data-bs-toggle="dropdown" aria-expanded="true">
-                                                                        <i class="ri-more-fill"></i>
-                                                                    </a>
-                                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-bottom text-muted"></i>View</a></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-bottom text-muted"></i>Download</a></li>
-                                                                        <li class="dropdown-divider"></li>
-                                                                        <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-fill me-2 align-bottom text-muted"></i>Delete</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="text-center mt-3">
-                                                <a href="javascript:void(0);" class="text-success "><i class="mdi mdi-loading mdi-spin fs-20 align-middle me-2"></i> Load more </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end tab pane -->
 
                         <div class="tab-pane fade" id="project-activities" role="tabpanel">
-                                    <div class="card">
-                                        <div class="card-header align-items-center d-flex">
-                                            <h4 class="card-title mb-0 flex-grow-1">Comments</h4>
-                                            <div class="flex-shrink-0">
-                                            </div>
-                                        </div><!-- end card header -->
-
-                                        <div class="card-body">
-                                            <div data-simplebar style="height: 300px;" class="px-3 mx-n3 mb-2">
-                                            </div>
-                                            <form class="mt-4">
-                                                <div class="row g-3">
-                                                    <div class="col-12">
-                                                        <label for="messageText" class="form-label text-body">Leave a Comments</label>
-                                                        <textarea class="form-control bg-light border-light" id="messageText" rows="3" placeholder="Enter your message..."></textarea>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-check mb-2">
-                                                            <input class="form-check-input" type="checkbox" id="marked_private" value="marked" >
-                                                            <label class="form-check-label" for="marked_private">
-                                                                Mark Private
-                                                            </label>
-                                                        </div>
-                                                        <a href="javascript:void(0);" id="sendMessageBtn" class="btn btn-success">Send Message</a>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <!-- end card body -->
+                            <div class="card">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="card-title mb-0 flex-grow-1">Comments</h4>
+                                    <div class="flex-shrink-0">
                                     </div>
-                                    <!-- end card -->
+                                </div><!-- end card header -->
+
+                                <div class="card-body">
+                                    <div data-simplebar style="height: 300px;overflow-x: hidden;overflow-y: scroll;" class="px-3 mx-n3 mb-2" id="conversation_box">
+                                    </div>
+                                    <form class="mt-4">
+                                        <div class="row g-3">
+                                            <div class="col-12">
+                                                <label for="messageText" class="form-label text-body">Leave a Message</label>
+                                                <textarea class="form-control bg-light border-light" id="messageText" rows="3" placeholder="Enter your message..."></textarea>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" id="intenal_message" value="marked" >
+                                                    <label class="form-check-label" for="intenal_message">
+                                                        Internal Message (Only Staff Visibility)
+                                                    </label>
+                                                </div>
+                                                <button type="button" id="sendMessageBtn" class="btn btn-success">Send Message</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- end card body -->
                             </div>
+                            <!-- end card -->
                         </div>
                     </div>
                 </div>
@@ -810,43 +592,47 @@
             $('#estimated_delivery_date').val($(this).data('estimated_delivery_date'));
             $('#quote_expiry_date').val($(this).data('quote_expiry_date'));
         });
-
-        setInterval(function () {
-            // chat_syn();
-        }, 60000);
-        function chat_syn(){
+        chat_syn(true);
+        // setInterval(function () {
+        //     chat_syn();
+        // }, 2000);
+        function chat_syn(down = false){
             var id = {{ $quotation->id }};
             $.ajax({
                 url: "{{ route('conversations.syn') }}",
                 type: 'GET',
                 data: {id:id},
                 success: function(data) {
-                    // var obj = jQuery.parseJSON(data);
+                    $('#conversation_box').html(data);
+                    if(down){
+                        $('#conversation_box').animate({ scrollTop: $("#conversation_box").height() }, 50);
+                    }
+                    setTimeout(chat_syn, 2000);
                 }
             });
         }
         $('#sendMessageBtn').click(function(){
-            var marked_private = 0;
+            var type = 1;
+            var intenal_message = 0;
             var message = $('#messageText').val();
             var id = {{ $quotation->id }};
-            if ($('#marked_private').is(':checked')) {
-                marked_private = 1;
+            if ($('#intenal_message').is(':checked')) {
+                intenal_message = 1;
             }
             $.ajax({
                 url: "{{ route('conversations.send_message') }}",
                 type: 'POST',
-                data: {id:id,marked_private:marked_private,message:message},
+                data: {id:id,type:type,intenal_message:intenal_message,message:message},
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data) {
-                    // var obj = jQuery.parseJSON(data);
+                    var obj = jQuery.parseJSON(data);
                     $('#messageText').val("");
-                    // chat_syn();
+                    chat_syn(true);
                 }
             });
         });
-
         $(".searchproduct").autocomplete({
             source: function (request, response) {
                 $.ajax({
