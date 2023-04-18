@@ -43,7 +43,7 @@
                                     <th>Category</th>
                                     <th>Unit</th>
                                     <th>Brand</th>
-                                    <th>Alert Quantity</th>
+                                    <th>Product Type</th>
                                     <th>Created At</th>
                                     <th>Status</th>
                                     <th>Action</th>

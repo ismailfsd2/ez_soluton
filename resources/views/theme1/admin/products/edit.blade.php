@@ -33,6 +33,15 @@
                                     </div>
                                     <div class="col-xxl-4 col-md-6">
                                         <div>
+                                            <label for="product_type" class="form-label">Porduct Type</label>
+                                            <select name="type" id="product_type" class="form-control">
+                                                <option value="1" <?php if($product->type == 1){ echo 'selected'; } ?> >Material</option>
+                                                <option value="2" <?php if($product->tax_method == 2){ echo 'selected'; } ?> >Finish Good</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-md-6">
+                                        <div>
                                             <label for="barcode" class="form-label">Barcode</label>
                                             <input type="text" class="form-control" id="barcode" name="barcode" required value="{{ $product->barcode }}" >
                                         </div>

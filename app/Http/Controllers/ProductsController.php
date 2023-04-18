@@ -123,7 +123,7 @@ class ProductsController extends BaseController
                 $row->category,
                 $row->unit,
                 $row->brand,
-                $row->alert_quantity,
+                $row->type == 1 ? 'Material' : 'Finish Good',
                 $row->created_at->format('Y-m-d'),
                 $row->status == 1 ? 'Active' : 'Deactive',
                 $button
@@ -169,6 +169,7 @@ class ProductsController extends BaseController
         $product = new Products;
         $product->image = $image;
         $product->name = $request->input('name');
+        $product->type = $request->input('type');
         $product->barcode = $request->input('barcode');
         $product->company_code = $request->input('company_code');
         $product->cost = $request->input('cost');
@@ -216,6 +217,7 @@ class ProductsController extends BaseController
             $product->image = $logo;
         }
         $product->name = $request->input('name');
+        $product->type = $request->input('type');
         $product->barcode = $request->input('barcode');
         $product->company_code = $request->input('company_code');
         $product->cost = $request->input('cost');
