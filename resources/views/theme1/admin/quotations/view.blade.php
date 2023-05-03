@@ -75,10 +75,16 @@
                             <div class="row">
                                 <div class="col-xl-9 col-lg-8">
                                     <div class="card">
+                                        <div class="card-header align-items-center d-flex border-bottom-dashed">
+                                            <h4 class="card-title mb-0 flex-grow-1">Summary</h4>
+                                            <div class="flex-shrink-0">
+                                                <button type="button" class="btn btn-success btn-md" data-bs-toggle="modal" data-bs-target="#acceptPriceModal">Accept Price</button>
+                                            </div>
+                                        </div>
+
                                         <div class="card-body">
                                             <div class="text-muted">
-                                                <h6 class="mb-3 fw-semibold text-uppercase">Summary</h6>
-                                                <div class="pt-3 border-top border-top-dashed mt-4">
+                                                <div class="pt-3 mt-4">
                                                     <div class="row">
                                                         <div class="col-lg-4 col-sm-6">
                                                             <div>
@@ -453,9 +459,9 @@
                         <div class="mb-3">
                             <input type="hidden" name="quotation_id" value="{{ $quotation->id }}">
                             <label for="autoCompleteFruit">Select Raw Material</label><br>
-                            <input type="text" class="form-control bg-light border-0 searchproduct"  placeholder="Enter Name or Barcode" dir="ltr" spellcheck=false autocomplete="off" autocapitalize="off">
+                            <input type="text" class="form-control bg-light border-0 searchmaterials"  placeholder="Enter Name or Barcode" dir="ltr" spellcheck=false autocomplete="off" autocapitalize="off">
                             <div id="suggesstion-box"></div>
-                            <input type="hidden" name="product_id" id="product_id">
+                            <input type="hidden" name="product_id" id="product_id" class="ac_product_id" >
                         </div>
                         <div class="mb-3">
                             <label>Vendor</label><br>
@@ -540,7 +546,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="updatemeterialModule" tabindex="-1" aria-labelledby="updatemeterialModuleLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -554,9 +559,45 @@
                         <div class="mb-3">
                             <label for="autoCompleteFruit">Select Raw Material</label><br>
                             <input type="hidden" name="id" id="edit_item_id" value="0">
-                            <input type="text" class="form-control bg-light border-0 searchproduct" id="editProductName"  placeholder="Enter Name or Barcode" dir="ltr" spellcheck=false autocomplete="off" autocapitalize="off">
+                            <input type="text" class="form-control bg-light border-0 searchmaterials" id="editProductName"  placeholder="Enter Name or Barcode" dir="ltr" spellcheck=false autocomplete="off" autocapitalize="off">
                             <div id="suggesstion-box"></div>
-                            <input type="hidden" name="product_id" id="edi_product_id">
+                            <input type="hidden" name="product_id" id="edi_product_id" class="ac_product_id" >
+                        </div>
+                        <div class="mb-3">
+                            <label>Vendor</label><br>
+                            <select name="vendor" id="edit_vendors" class="form-control bg-light border-0">
+                                <option value="">Select Vendor</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label>Quantity</label><br>
+                            <input type="text" name="quantity" id="edit_quantity" value="1" class="form-control bg-light border-0" >
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Back</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+     </div>
+    <div class="modal fade" id="acceptPriceModal" tabindex="-1" aria-labelledby="updatemeterialModuleLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('admin.quotations.accept_price') }}" method="post" enctype="multipart/form-data" >
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updatemeterialModuleLabel">Accept Price & Create Project</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="autoCompleteFruit">Select Raw Material</label><br>
+                            <input type="hidden" name="id" id="edit_item_id" value="0">
+                            <input type="text" class="form-control bg-light border-0 searchfinishgoods" id="FinishGoodtName"  placeholder="Enter Name or Barcode" dir="ltr" spellcheck=false autocomplete="off" autocapitalize="off">
+                            <div id="suggesstion-box"></div>
+                            <input type="hidden" name="product_id" id="edi_product_id" class="ac_product_id">
                         </div>
                         <div class="mb-3">
                             <label>Vendor</label><br>
@@ -633,11 +674,11 @@
                 }
             });
         });
-        $(".searchproduct").autocomplete({
+        $(".searchmaterials").autocomplete({
             source: function (request, response) {
                 $.ajax({
                     type: 'get',
-                    url: '{{ route("admin.general.searching.products") }}',
+                    url: '{{ route("admin.general.searching.materials") }}',
                     dataType: "json",
                     data: {
                         term: request.term
@@ -669,13 +710,52 @@
             },
             select: function (event, ui) {
                 event.preventDefault();
-                $('#product_id').val(ui.item.item_id);
+                $('.ac_product_id').val(ui.item.item_id);
                 var vendor_opts = '<option value="">Select Vendor</option>';
                 $.each(ui.item.vendors, function(index) {
                     var vendor = this;
                     vendor_opts += '<option value="'+vendor.id+'" >'+vendor.name+'</option>';
                 });
                 $('#vendors').html(vendor_opts);
+            }
+        });
+        $(".searchfinishgoods").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: 'get',
+                    url: '{{ route("admin.general.searching.finish_goods") }}',
+                    dataType: "json",
+                    data: {
+                        term: request.term
+                    },
+                    success: function (data) {
+                        $(this).removeClass('ui-autocomplete-loading');
+                        response(data);
+                    }
+                });
+            },
+            minLength: 1,
+            autoFocus: false,
+            delay: 250,
+            response: function (event, ui) {
+                if ($(this).val().length >= 16 && ui.content[0].id == 0) {
+                    $(this).removeClass('ui-autocomplete-loading');
+                    $(this).val('');
+                }
+                else if (ui.content.length == 1 && ui.content[0].id != 0) {
+                    ui.item = ui.content[0];
+                    $(this).data('ui-autocomplete')._trigger('select', 'autocompleteselect', ui);
+                    $(this).autocomplete('close');
+                    $(this).removeClass('ui-autocomplete-loading');
+                }
+                else if (ui.content.length == 1 && ui.content[0].id == 0) {
+                    $(this).removeClass('ui-autocomplete-loading');
+                    $(this).val('');
+                }
+            },
+            select: function (event, ui) {
+                event.preventDefault();
+                $('.ac_product_id').val(ui.item.item_id);
             }
         });
         $(document).on('click','.edit_meterial',function(){

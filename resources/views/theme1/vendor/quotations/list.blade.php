@@ -22,7 +22,7 @@
                             </ul>
                             <ul class="nav nav-pills card-header-pills" role="tablist" style="float: right;">
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" href="{{ route('vendor.quotations.create') }}" style="background: #009edc;" ><i class="bx bx-user-plus"></i> Add Quotation</a>
+                                    <!-- <a class="nav-link active" href="{{ route('vendor.quotations.create') }}" style="background: #009edc;" ><i class="bx bx-user-plus"></i> Add Quotation</a> -->
                                 </li>
                             </ul>
                         </div>
@@ -56,7 +56,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-end">
                                                     <li><a class="dropdown-item remove-item-btn" href="{{ route('vendor.quotations.detail',$row->id) }}"><i class=" ri-file-list-fill align-bottom me-2 text-muted"></i> view</a></li>
-                                                    <li><a class="dropdown-item remove-item-btn" href="{{ route('vendor.quotations.destroy',$row->id) }}"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a></li>
+                                                    <!-- <li><a class="dropdown-item remove-item-btn" href="{{ route('vendor.quotations.destroy',$row->id) }}"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a></li> -->
                                                 </ul>
                                             </div>
                                         </td>

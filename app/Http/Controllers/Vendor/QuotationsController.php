@@ -22,14 +22,15 @@ class QuotationsController extends BaseController
         parent::__construct();
     }
     public function index(){
-
-
-        $this->data['rows'] = Quotations::select('quotations.*','customers.name as customer',DB::raw('COUNT(quotation_items.quotation_id)'))
-                                ->LeftJoin('customers', 'customers.id', '=', 'quotations.customer_id')
-                                ->LeftJoin('quotation_items', 'quotation_items.quotation_id', '=', 'quotations.id')
-                                ->where('quotation_items.vendor_id',$this->data['autdata']->related_id)
-                                ->groupby('quotations.id','quotations.reference_no','quotations.date','quotations.customer_id','quotations.created_at','quotations.updated_at','quotations.status','customers.name')
-                                ->orderBy('quotations.date','desc')
+        $this->data['rows'] = Quotations::select('quotations.*', 'customers.name as customer')
+                                ->leftJoin('customers', 'customers.id', '=', 'quotations.customer_id')
+                                ->whereIn('quotations.id', function ($query) {
+                                    $query->select(DB::raw('quotation_items.quotation_id'))
+                                          ->from('quotation_items')
+                                          ->where('quotation_items.vendor_id',$this->data['autdata']->related_id)
+                                          ->groupBy('quotation_items.quotation_id');
+                                })
+                                ->orderBy('quotations.date', 'desc')
                                 ->get();
 
         return view($this->data['active_theme'].'/vendor/quotations/list',$this->data);
@@ -79,7 +80,7 @@ class QuotationsController extends BaseController
         ->with('_success','Quotation deleted successfully.');
     }
     public function detail($id){
-        $this->data['quotation'] = Quotations::select('customers.*','quotations.*')->join('customers', 'customers.id', '=', 'quotations.customer_id')->where('quotations.id',$id)->get();
+        $this->data['quotation'] = Quotations::select('customers.*','quotations.*')->join('customers', 'customers.id', '=', 'quotations.customer_id')->where('quotations.id',$id)->get()[0];
         $this->data['items'] = Quotationitems::select('quotation_items.*','p.name as product_name','v.name as vendor_name')
                                     ->join('products as p','p.id','=','quotation_items.product_id')
                                     ->join('vendors as v','v.id','=','quotation_items.vendor_id')
@@ -90,8 +91,11 @@ class QuotationsController extends BaseController
     public function submit_price(Request $request){
         $item = Quotationitems::find($request['id']);
         $item->vendor_price = $request['price'];
+        $item->estimated_delivery_date = $request['estimated_delivery_date'];
+        $item->quote_expiry_date = $request['quote_expiry_date'];
         $item->save();
-        return redirect()->route('admin.quotations.detail',$item->quotation_id)
+        return redirect()->route('vendor.quotations.detail',$item->quotation_id)
         ->with('_success','Price submit successfully.');
     }
+
 }

@@ -17,7 +17,22 @@ class BaseController extends Controller {
         $this->data['active_theme'] = 'theme1';
         $this->data['page_title'] = 'EZ Solution';
         $this->middleware(function ($request, $next){
-            $this->data['autdata'] = Users::find(Session::get('AdminSession'));
+            $admin = Users::find(Session::get('AdminSession'));
+            if($admin){
+                $this->data['autdata'] = $admin;
+            }
+            else{
+                $vendor = Users::find(Session::get('VendorSession'));
+                if($vendor){
+                    $this->data['autdata'] = $vendor;
+                }
+                else{
+                    $customer = Users::find(Session::get('CustomerSession'));
+                    if($customer){
+                        $this->data['autdata'] = $customer;
+                    }
+                }
+            }
             return $next($request);
         });
     }

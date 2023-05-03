@@ -56,6 +56,48 @@ class GeneralController extends BaseController
 		}
 		echo json_encode($products);
    } 
+   public function searching_materials(Request $request){
+        $pq = Products::select('id','name','barcode');
+        $pq->where('type',1);
+        $pq->where('status',1);
+        $pq->where('name','like','%'.$request->term.'%');
+        $pq->limit(10);
+		$rows =  $pq->get();
+		$products = array();
+		foreach($rows as $row){
+            $vendors = Productvendors::select('vendors.id','vendors.name')->leftJoin('vendors', 'vendors.id', '=', 'product_vendors.vendor_id')->where('product_vendors.product_id',$row->id)->get();
+			$products[] = array(
+				'id' => sha1($row->id), 
+				'item_id' => $row->id, 
+				'label' => $row->name, 
+				'row' => $row,
+				'vendors' => $vendors,
+				'qty' => 1
+			);
+		}
+		echo json_encode($products);
+   }
+   public function searching_finish_goods(Request $request){
+        $pq = Products::select('id','name','barcode');
+        $pq->where('type',2);
+        $pq->where('status',1);
+        $pq->where('name','like','%'.$request->term.'%');
+        $pq->limit(10);
+		$rows =  $pq->get();
+		$products = array();
+		foreach($rows as $row){
+            $vendors = Productvendors::select('vendors.id','vendors.name')->leftJoin('vendors', 'vendors.id', '=', 'product_vendors.vendor_id')->where('product_vendors.product_id',$row->id)->get();
+			$products[] = array(
+				'id' => sha1($row->id), 
+				'item_id' => $row->id, 
+				'label' => $row->name, 
+				'row' => $row,
+				'vendors' => $vendors,
+				'qty' => 1
+			);
+		}
+		echo json_encode($products);
+   }
    public function product_vendors(REQUEST $request){
         $vendors = Productvendors::select('vendors.id','vendors.name')->leftJoin('vendors', 'vendors.id', '=', 'product_vendors.vendor_id')->where('product_vendors.product_id',$request->product_id)->get();
         $data['vendors'] = $vendors;

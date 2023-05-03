@@ -26,6 +26,12 @@ class LoginController extends BaseController
         if(Session::has('AdminSession')) {
             return redirect()->route('admin.dashboard');
         }
+        else if(Session::has('VendorSession')) {
+            return redirect()->route('vendor.dashboard');
+        }
+        else if(Session::has('CustomerSession')) {
+            return redirect()->route('customer.dashboard');
+        }
         else{
             return view($this->data['active_theme'].'/login',$this->data);
         }
@@ -73,11 +79,19 @@ class LoginController extends BaseController
     }
     public function logout(){
         Session::forget('AdminSession');
+        Session::forget('VendorSession');
+        Session::forget('CustomerSession');
         return redirect()->route('login');
     }
     public function forget_password(){
         if(Session::has('AdminSession')) {
             return redirect()->route('admin.dashboard');
+        }
+        else if(Session::has('VendorSession')) {
+            return redirect()->route('vendor.dashboard');
+        }
+        else if(Session::has('CustomerSession')) {
+            return redirect()->route('customer.dashboard');
         }
         else{
             return view($this->data['active_theme'].'/forget_password',$this->data);

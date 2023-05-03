@@ -19,20 +19,24 @@ class ConversationController extends BaseController
     public function __construct(){
         parent::__construct();
     }
-    public function syn_data(){
-        $this->data['rows'] = Conversations::select(
-                                    'conversations.*',
-                                    'users.type as user_type',
-                                    DB::raw('CONCAT(employees.first_name," ",employees.last_name) as employee'),
-                                    'vendors.name as vendor',
-                                    'customers.name as customer'
-                                )
-                                ->join('users', 'users.id', '=', 'conversations.relative_id')
-                                ->leftJoin('employees', 'employees.id', '=', 'users.related_id')
-                                ->leftJoin('vendors', 'vendors.id', '=', 'users.related_id')
-                                ->leftJoin('customers', 'customers.id', '=', 'users.related_id')
-                                // ->orderBy('conversations.created_at','desc')
-                                ->get();
+    public function syn_data(Request $request){
+        $query = Conversations::select(
+            'conversations.*',
+            'users.type as user_type',
+            DB::raw('CONCAT(employees.first_name," ",employees.last_name) as employee'),
+            'vendors.name as vendor',
+            'customers.name as customer'
+        );
+        $query->join('users', 'users.id', '=', 'conversations.user_id');
+        $query->leftJoin('employees', 'employees.id', '=', 'users.related_id');
+        $query->leftJoin('vendors', 'vendors.id', '=', 'users.related_id');
+        $query->leftJoin('customers', 'customers.id', '=', 'users.related_id');
+        if($this->data['autdata']->type == "customer" || $this->data['autdata']->type == "vendor"){
+            $query->where('conversations.only_staff',0);
+        }
+        $query->where('conversations.type',1);
+        $query->where('conversations.relative_id',$request->id);
+        $this->data['rows'] = $query->get();
         return view($this->data['active_theme'].'/conversations/messages',$this->data);
 
 

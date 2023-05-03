@@ -32,6 +32,8 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
         });
         Route::group(['prefix'=>'searching','as' => 'searching.'],function () {
             Route::get('products', [App\Http\Controllers\GeneralController::class, 'searching_products'])->name('products');
+            Route::get('materials', [App\Http\Controllers\GeneralController::class, 'searching_materials'])->name('materials');
+            Route::get('finish_goods', [App\Http\Controllers\GeneralController::class, 'searching_finish_goods'])->name('finish_goods');
         });
         Route::group(['prefix'=>'searching','as' => 'list.'],function () {
             Route::get('product_vendors', [App\Http\Controllers\GeneralController::class, 'product_vendors'])->name('product_vendors');
@@ -250,6 +252,9 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
         Route::post('/udpate_addonmaterail', [App\Http\Controllers\QuotationsController::class, 'udpate_addonmaterail'])->name('udpate_addonmaterail');
         Route::get('/delete_addonmaterail/{id}', [App\Http\Controllers\QuotationsController::class, 'delete_addonmaterail'])->name('delete_addonmaterail');
 
+        Route::post('/accept_price', [App\Http\Controllers\QuotationsController::class, 'accept_price'])->name('accept_price');
+
+
     });
 
 
@@ -265,6 +270,11 @@ Route::group(['middleware'=>['customerpanel'],'prefix'=>'customer','as' => 'cust
         });
         Route::group(['prefix'=>'searching','as' => 'searching.'],function () {
             Route::get('products', [App\Http\Controllers\GeneralController::class, 'searching_products'])->name('products');
+            Route::get('materials', [App\Http\Controllers\GeneralController::class, 'searching_materials'])->name('materials');
+            Route::get('finish_goods', [App\Http\Controllers\GeneralController::class, 'searching_finish_goods'])->name('finish_goods');
+        });
+        Route::group(['prefix'=>'searching','as' => 'list.'],function () {
+            Route::get('product_vendors', [App\Http\Controllers\GeneralController::class, 'product_vendors'])->name('product_vendors');
         });
     });
     // Dashbaord
@@ -298,7 +308,7 @@ Route::group(['middleware'=>['customerpanel'],'prefix'=>'customer','as' => 'cust
         Route::get('/', [App\Http\Controllers\Customer\ProductsController::class, 'index'])->name('list');
         Route::post('/data', [App\Http\Controllers\Customer\ProductsController::class, 'data'])->name('data');
     });
-    // Brands
+    // Quotations
     Route::group(['prefix'=>'quotations','as' => 'quotations.'],function () {
         Route::get('/', [App\Http\Controllers\Customer\QuotationsController::class, 'index'])->name('list');
         Route::get('/create', [App\Http\Controllers\Customer\QuotationsController::class, 'create'])->name('create');
@@ -306,6 +316,19 @@ Route::group(['middleware'=>['customerpanel'],'prefix'=>'customer','as' => 'cust
 
         Route::get('/detail/{id}', [App\Http\Controllers\Customer\QuotationsController::class, 'detail'])->name('detail');
         Route::get('/destroy/{id}', [App\Http\Controllers\Customer\QuotationsController::class, 'destroy'])->name('destroy');
+        Route::post('/submit_price', [App\Http\Controllers\Customer\QuotationsController::class, 'submit_price'])->name('submit_price');
+        
+        Route::post('/add_materail', [App\Http\Controllers\Customer\QuotationsController::class, 'add_materail'])->name('add_materail');
+        Route::post('/udpate_materail', [App\Http\Controllers\Customer\QuotationsController::class, 'udpate_materail'])->name('udpate_materail');
+        Route::get('/delete_materail/{id}', [App\Http\Controllers\Customer\QuotationsController::class, 'delete_materail'])->name('delete_materail');
+        
+        Route::post('/add_addonmaterail', [App\Http\Controllers\Customer\QuotationsController::class, 'add_addonmaterail'])->name('add_addonmaterail');
+        Route::post('/udpate_addonmaterail', [App\Http\Controllers\Customer\QuotationsController::class, 'udpate_addonmaterail'])->name('udpate_addonmaterail');
+        Route::get('/delete_addonmaterail/{id}', [App\Http\Controllers\Customer\QuotationsController::class, 'delete_addonmaterail'])->name('delete_addonmaterail');
+
+        Route::post('/accept_price', [App\Http\Controllers\Customer\QuotationsController::class, 'accept_price'])->name('accept_price');
+
+
     
     });
 });

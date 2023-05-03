@@ -74,7 +74,7 @@ class QuotationsController extends BaseController
         ->with('_success','Quotation deleted successfully.');
     }
     public function detail($id){
-        $this->data['quotation'] = Quotations::select('customers.*','quotations.*')->join('customers', 'customers.id', '=', 'quotations.customer_id')->where('quotations.id',$id)->get();
+        $this->data['quotation'] = Quotations::select('customers.*','quotations.*')->join('customers', 'customers.id', '=', 'quotations.customer_id')->where('quotations.id',$id)->get()[0];
         $this->data['items'] = Quotationitems::select('quotation_items.*','p.name as product_name','v.name as vendor_name')
                                     ->join('products as p','p.id','=','quotation_items.product_id')
                                     ->join('vendors as v','v.id','=','quotation_items.vendor_id')

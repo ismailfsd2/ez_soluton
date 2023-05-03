@@ -17,6 +17,7 @@ class CustomerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+
         if(!Session::has('CustomerSession')) {
             return redirect()->route('login');
         }
