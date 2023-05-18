@@ -5,11 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Session;
+use Redirect;
 use Illuminate\Support\Facades\DB;
 use App\Models\Quotations;
 use App\Models\Customers;
 use App\Models\Quotationitems;
 use App\Models\Quotationaddons;
+use App\Models\Manufacturers;
+use App\Models\Finishedgoods;
+use App\Models\Orders;
+use App\Models\Orderitems;
+use App\Models\Documents;
 
 class QuotationsController extends BaseController
 {
@@ -74,6 +80,10 @@ class QuotationsController extends BaseController
     }
     public function detail($id){
 
+
+        $this->data['factories'] = Manufacturers::select('id','name')->where('status',1)->get();
+        $this->data['fgs'] = Finishedgoods::select('id','name')->where('status',1)->get();
+
         $this->data['quotation'] = Quotations::select('customers.*','quotations.*')->join('customers', 'customers.id', '=', 'quotations.customer_id')->where('quotations.id',$id)->get()[0];
         $this->data['items'] = Quotationitems::select('quotation_items.*','p.name as product_name','v.name as vendor_name')
                                     ->join('products as p','p.id','=','quotation_items.product_id')
@@ -83,9 +93,22 @@ class QuotationsController extends BaseController
         $this->data['addons'] = Quotationaddons::where('quotation_id',$id)->get();
         
 
+        $this->data['orders'] = Orders::select('vendors.name as vendor_name','orders.*')->join('vendors', 'vendors.id', '=', 'orders.vendor_id')->where('orders.quotation_id',$id)->get();
+
+        $this->data['documents'] = Documents::where('type','quotation')->where('related_id',$id)->get();
 
         return view($this->data['active_theme'].'/admin/quotations/view',$this->data);
 
+    }
+    public function project_detail_submit(Request $request){
+        $quotation = Quotations::find($request->input('quotation_id'));
+        $quotation->project_name = $request->input('projectname');
+        $quotation->finish_good_id = $request->input('finishgood');
+        $quotation->production_factory_id =$request->input('productionfactory');
+        $quotation->packaging_factory_id = $request->input('packagingfactory');
+        $quotation->save();
+        return redirect()->route('admin.quotations.detail',$item->id)
+        ->with('_success','Project Detail submit successfully.');
     }
     public function submit_price(Request $request){
         $item = Quotationitems::find($request['id']);
@@ -138,5 +161,104 @@ class QuotationsController extends BaseController
         Quotationaddons::where('id',$id)->delete();
         return back()->with('_success','Add-Ons Meterial deleted successfully.');
     }
+    public function order_create(REQUEST $request){
+        $quotation = Quotations::select('quotations.*')->where('quotations.id',$request->input('quotation_id'))->get()[0];
+        if($quotation->finish_good_id != 0){
+            $qu = Quotations::find($request->input('quotation_id'));
+            $qu->ponumber = $request->input('ponumber');
+            $qu->billaddress = $request->input('billaddress');
+            $qu->shippingaddress = $request->input('shippingaddress');
+            if($request->input('ponumber')){
+                $qu->status = "accept";
+            }
+            $qu->save();
+            $vendors = Quotationitems::select('quotation_items.vendor_id')
+                            ->where('quotation_items.quotation_id',$request->input('quotation_id'))
+                            ->groupBy('quotation_items.vendor_id')
+                            ->get();
+            foreach($vendors as $vendor){
+                $order = new Orders;
+                $order->quotation_id = $quotation->id;
+                $order->customer_id = $quotation->customer_id;
+                $order->vendor_id = $vendor->vendor_id;
+                $order->save();
 
+                $items = Quotationitems::select('quotation_items.*')
+                            ->where('quotation_items.quotation_id',$request->input('quotation_id'))
+                            ->where('quotation_items.vendor_id',$vendor->vendor_id)
+                            ->get();
+                $order_subtotal = 0;
+                $order_total_items = 0;
+                foreach($items as $item){
+                    $orderitem = new Orderitems;
+                    $orderitem->order_id = $order->id;
+                    $orderitem->item_id = $item->product_id;
+                    $orderitem->price = $item->vendor_price;
+                    $orderitem->quantity = $item->quantity;
+                    $orderitem->total = $item->quantity*$item->vendor_price;
+                    $orderitem->save();
+                    $order_subtotal += $item->quantity*$item->vendor_price;
+                    $order_total_items++;
+                }
+                $order = Orders::find($order->id);
+                $order->total_items = $order_total_items;
+                $order->sub_total = $order_subtotal;
+                $order->save();
+            }
+            return redirect()->route('admin.quotations.detail',$request->input('quotation_id'))
+            ->with('_success','Order Create Successfully');
+        }
+        else{
+            return redirect()->route('admin.quotations.detail',$request->input('quotation_id'))
+            ->with('_error','You cannot create order.');
+        }
+    }
+
+    public function submit_ponumber(REQUEST $request){
+        $quotation = Quotations::select('quotations.*')->where('quotations.id',$request->input('quotation_id'))->get()[0];
+        if($quotation->finish_good_id != 0){
+            $qu = Quotations::find($request->input('quotation_id'));
+            $qu->ponumber = $request->input('ponumber');
+            $qu->billaddress = $request->input('billaddress');
+            $qu->shippingaddress = $request->input('shippingaddress');
+            if($request->input('ponumber')){
+                $qu->status = "accept";
+            }
+            $qu->save();
+            return redirect()->route('admin.quotations.detail',$request->input('quotation_id'))->with('_success','Order Create Successfully');
+        }
+        else{
+            return redirect()->route('admin.quotations.detail',$request->input('quotation_id'))
+            ->with('_error','You cannot create order.');
+        }
+    }
+    public function attachmentupload(REQUEST $request){
+        $validated = $request->validate([
+            'title' => ['required']
+        ]);
+        if($request->hasFile('file')){
+            $file = $request->file('file');
+            $logo = time().'_'.$file->getClientOriginalName();
+            $destinationPath = 'public/uploads/quotations/';
+            $file->move($destinationPath,$logo);
+
+            $document = new Documents;
+            $document->type = $request->type;
+            $document->related_id = $request->relative_id;
+            $document->title = $request->title;
+            $document->file_url = $logo;
+            $document->file_type = $file->getClientOriginalExtension();
+            $document->file_size = 0;
+            $document->save();
+
+            return redirect()->route('admin.quotations.detail',$request->input('relative_id'))->with('_success','Attachment Upload Successfully');
+
+        }
+        
+    }
+    public function delete_file($id){
+        Documents::where('id',$id)->delete(); 
+        return Redirect::back()
+        ->with('_success','Document deleted.');
+    }
 }

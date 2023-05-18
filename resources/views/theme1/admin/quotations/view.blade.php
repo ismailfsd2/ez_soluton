@@ -78,7 +78,7 @@
                                         <div class="card-header align-items-center d-flex border-bottom-dashed">
                                             <h4 class="card-title mb-0 flex-grow-1">Summary</h4>
                                             <div class="flex-shrink-0">
-                                                <button type="button" class="btn btn-success btn-md" data-bs-toggle="modal" data-bs-target="#acceptPriceModal">Accept Price</button>
+                                                <button type="button" class="btn btn-success btn-md" data-bs-toggle="modal" data-bs-target="#acceptPriceModal">Submit Project Detail</button>
                                             </div>
                                         </div>
 
@@ -101,7 +101,7 @@
                                                         <div class="col-lg-4 col-sm-6">
                                                             <div>
                                                                 <p class="mb-2 text-uppercase fw-medium">Status :</p>
-                                                                <div class="badge bg-warning fs-12">{{ $quotation->status }}</div>
+                                                                <div class="badge @if($quotation->status == 'open') bg-warning @elseif($quotation->status == 'accept') bg-success @endif fs-12">{{ $quotation->status }}</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -209,19 +209,47 @@
                                 </div>
                                 <!-- ene col -->
                                 <div class="col-xl-3 col-lg-4">
+
                                     <div class="card">
                                         <div class="card-header align-items-center d-flex border-bottom-dashed">
                                             <h4 class="card-title mb-0 flex-grow-1">Orders</h4>
                                             <div class="flex-shrink-0">
-                                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#inviteMembersModal">Create Order</button>
+                                                @if(count($orders) == 0)
+                                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#OrderCreateModal">Create Order</button>
+                                                @else
+                                                    @if($quotation->ponumber == "")
+                                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#SubmitPONumberModal">Submit PO Number</button>
+                                                    @endif
+                                                @endif
                                             </div>
                                         </div>
-
                                         <div class="card-body">
-                                            <div data-simplebar style="height: 235px;" class="mx-n3 px-3">
-                                                <div class="vstack gap-3">
-                                                </div>
-                                                <!-- end list -->
+                                            <div class="vstack gap-2">
+
+                                                @foreach($orders as $order)
+
+                                                    <div class="border rounded border-dashed p-2">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-grow-1 overflow-hidden">
+                                                                <h5 class="fs-13 mb-1"><a href="#" class="text-body text-truncate d-block">#{{ Helper::decimal_val($order->id) }}</a></h5>
+                                                                <div>Vendor: {{ $order->vendor_name }}</div>
+                                                            </div>
+                                                            <div class="flex-shrink-0 ms-2">
+                                                                <div class="d-flex gap-1">
+                                                                    <div class="dropdown">
+                                                                        <button class="btn btn-icon text-muted btn-sm fs-18 dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                            <i class="ri-more-fill"></i>
+                                                                        </button>
+                                                                        <ul class="dropdown-menu">
+                                                                            <li><a class="dropdown-item" href="{{ route('admin.orders.detail',$order->id) }}"><i class=" ri-file-list-fill align-bottom me-2 text-muted"></i> View</a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                @endforeach
                                             </div>
                                         </div>
                                         <!-- end card body -->
@@ -230,137 +258,37 @@
 
                                     <div class="card">
                                         <div class="card-header align-items-center d-flex border-bottom-dashed">
-                                            <h4 class="card-title mb-0 flex-grow-1">Attachments</h4>
+                                            <h4 class="card-title mb-0 flex-grow-1">Attachment Files</h4>
                                             <div class="flex-shrink-0">
-                                                <button type="button" class="btn btn-soft-info btn-sm"><i class="ri-upload-2-fill me-1 align-bottom"></i> Upload</button>
+                                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#qAttachmentModal">Upload File</button>
                                             </div>
                                         </div>
                                         <div class="card-body">
-
                                             <div class="vstack gap-2">
-                                                <div class="border rounded border-dashed p-2">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0 me-3">
-                                                            <div class="avatar-sm">
-                                                                <div class="avatar-title bg-light text-secondary rounded fs-24">
-                                                                    <i class="ri-folder-zip-line"></i>
-                                                                </div>
+                                                @foreach($documents as $document)
+                                                    <div class="border rounded border-dashed p-2">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-grow-1 overflow-hidden">
+                                                                <h5 class="fs-13 mb-1"><a href="#" class="text-body text-truncate d-block">{{ $document->title }}</a></h5>
+                                                                <div>Type: {{ $document->file_type }}</div>
                                                             </div>
-                                                        </div>
-                                                        <div class="flex-grow-1 overflow-hidden">
-                                                            <h5 class="fs-13 mb-1"><a href="#" class="text-body text-truncate d-block">App-pages.zip</a></h5>
-                                                            <div>2.2MB</div>
-                                                        </div>
-                                                        <div class="flex-shrink-0 ms-2">
-                                                            <div class="d-flex gap-1">
-                                                                <button type="button" class="btn btn-icon text-muted btn-sm fs-18"><i class="ri-download-2-line"></i></button>
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-icon text-muted btn-sm fs-18 dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                        <i class="ri-more-fill"></i>
-                                                                    </button>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li><a class="dropdown-item" href="#"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Rename</a></li>
-                                                                        <li><a class="dropdown-item" href="#"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a></li>
-                                                                    </ul>
+                                                            <div class="flex-shrink-0 ms-2">
+                                                                <div class="d-flex gap-1">
+                                                                    <div class="dropdown">
+                                                                        <button class="btn btn-icon text-muted btn-sm fs-18 dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                            <i class="ri-more-fill"></i>
+                                                                        </button>
+                                                                        <ul class="dropdown-menu">
+                                                                            <li><a class="dropdown-item" href="{{ asset('') }}uploads/documents/ {{ $document->file_url }}" download="download" target="_blank"> Download</a></li>
+                                                                            <li><a class="dropdown-item" href="{{ route('admin.quotations.delete_file',$document->id) }}"> Delete</a></li>
+                                                                        </ul>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                @endforeach
 
-                                                <div class="border rounded border-dashed p-2">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0 me-3">
-                                                            <div class="avatar-sm">
-                                                                <div class="avatar-title bg-light text-secondary rounded fs-24">
-                                                                    <i class="ri-file-ppt-2-line"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-grow-1 overflow-hidden">
-                                                            <h5 class="fs-13 mb-1"><a href="#" class="text-body text-truncate d-block">Velzon-admin.ppt</a></h5>
-                                                            <div>2.4MB</div>
-                                                        </div>
-                                                        <div class="flex-shrink-0 ms-2">
-                                                            <div class="d-flex gap-1">
-                                                                <button type="button" class="btn btn-icon text-muted btn-sm fs-18"><i class="ri-download-2-line"></i></button>
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-icon text-muted btn-sm fs-18 dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                        <i class="ri-more-fill"></i>
-                                                                    </button>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li><a class="dropdown-item" href="#"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Rename</a></li>
-                                                                        <li><a class="dropdown-item" href="#"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="border rounded border-dashed p-2">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0 me-3">
-                                                            <div class="avatar-sm">
-                                                                <div class="avatar-title bg-light text-secondary rounded fs-24">
-                                                                    <i class="ri-folder-zip-line"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-grow-1 overflow-hidden">
-                                                            <h5 class="fs-13 mb-1"><a href="#" class="text-body text-truncate d-block">Images.zip</a></h5>
-                                                            <div>1.2MB</div>
-                                                        </div>
-                                                        <div class="flex-shrink-0 ms-2">
-                                                            <div class="d-flex gap-1">
-                                                                <button type="button" class="btn btn-icon text-muted btn-sm fs-18"><i class="ri-download-2-line"></i></button>
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-icon text-muted btn-sm fs-18 dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                        <i class="ri-more-fill"></i>
-                                                                    </button>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li><a class="dropdown-item" href="#"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Rename</a></li>
-                                                                        <li><a class="dropdown-item" href="#"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="border rounded border-dashed p-2">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0 me-3">
-                                                            <div class="avatar-sm">
-                                                                <div class="avatar-title bg-light text-secondary rounded fs-24">
-                                                                    <i class="ri-image-2-line"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-grow-1 overflow-hidden">
-                                                            <h5 class="fs-13 mb-1"><a href="#" class="text-body text-truncate d-block">bg-pattern.png</a></h5>
-                                                            <div>1.1MB</div>
-                                                        </div>
-                                                        <div class="flex-shrink-0 ms-2">
-                                                            <div class="d-flex gap-1">
-                                                                <button type="button" class="btn btn-icon text-muted btn-sm fs-18"><i class="ri-download-2-line"></i></button>
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-icon text-muted btn-sm fs-18 dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                        <i class="ri-more-fill"></i>
-                                                                    </button>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li><a class="dropdown-item" href="#"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Rename</a></li>
-                                                                        <li><a class="dropdown-item" href="#"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="mt-2 text-center">
-                                                    <button type="button" class="btn btn-success">View more</button>
-                                                </div>
                                             </div>
                                         </div>
                                         <!-- end card body -->
@@ -582,32 +510,143 @@
             </div>
         </div>
      </div>
-    <div class="modal fade" id="acceptPriceModal" tabindex="-1" aria-labelledby="updatemeterialModuleLabel" aria-hidden="true">
+    <div class="modal fade" id="acceptPriceModal" tabindex="-1" aria-labelledby="acceptpriceModuleLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{ route('admin.quotations.accept_price') }}" method="post" enctype="multipart/form-data" >
+                <form action="{{ route('admin.quotations.project_detail_submit') }}" method="post" enctype="multipart/form-data" >
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="updatemeterialModuleLabel">Accept Price & Create Project</h5>
+                        <h5 class="modal-title" id="acceptpriceModuleLabel">Submit Project Detail</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="autoCompleteFruit">Select Raw Material</label><br>
-                            <input type="hidden" name="id" id="edit_item_id" value="0">
-                            <input type="text" class="form-control bg-light border-0 searchfinishgoods" id="FinishGoodtName"  placeholder="Enter Name or Barcode" dir="ltr" spellcheck=false autocomplete="off" autocapitalize="off">
-                            <div id="suggesstion-box"></div>
-                            <input type="hidden" name="product_id" id="edi_product_id" class="ac_product_id">
+                            <label for="autoCompleteFruit">Project Name</label><br>
+                            <input type="hidden" name="quotation_id" value="{{ $quotation->id }}">
+                            <input type="text" name="projectname" class="form-control bg-light border-0" placeholder="Enter Project Name" value="{{ $quotation->project_name }}">
                         </div>
                         <div class="mb-3">
-                            <label>Vendor</label><br>
-                            <select name="vendor" id="edit_vendors" class="form-control bg-light border-0">
-                                <option value="">Select Vendor</option>
+                            <label>Finish Good</label><br>
+                            <select name="finishgood" class="form-control bg-light border-0">
+                                <option value="">Select Finish Good</option>
+                                @foreach($fgs as $fg)
+                                        <option value="{{ $fg->id }}" <?php if($fg->id == $quotation->finish_good_id){ echo 'selected'; } ?> >{{ $fg->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label>Quantity</label><br>
-                            <input type="text" name="quantity" id="edit_quantity" value="1" class="form-control bg-light border-0" >
+                            <label>Production Factory</label><br>
+                            <select name="productionfactory" class="form-control bg-light border-0">
+                                <option value="">Select Production Factory</option>
+                                @foreach($factories as $factorie)
+                                        <option value="{{ $factorie->id }}" <?php if($factorie->id == $quotation->production_factory_id){ echo 'selected'; } ?> >{{ $factorie->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label>Packaging Factory</label><br>
+                            <select name="packagingfactory" class="form-control bg-light border-0">
+                                <option value="">Select Packaging Factory</option>
+                                @foreach($factories as $factorie)
+                                        <option value="{{ $factorie->id }}" <?php if($factorie->id == $quotation->packaging_factory_id){ echo 'selected'; } ?> >{{ $factorie->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Back</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+     </div>
+    <div class="modal fade" id="OrderCreateModal" tabindex="-1" aria-labelledby="OrderCreateModuleLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('admin.quotations.order_create') }}" method="post" enctype="multipart/form-data" >
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="OrderCreateModuleLabel">Create Quotation Order</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label>Purcahse Order Number</label><br>
+                            <input type="hidden" name="quotation_id" value="{{ $quotation->id }}">
+                            <input type="text" name="ponumber" class="form-control bg-light border-0" placeholder="Enter Purcahse Order Number" value="{{ $quotation->ponumber }}">
+                        </div>
+                        <div class="mb-3">
+                            <label>Bill Address</label><br>
+                            <input type="text" name="billaddress" class="form-control bg-light border-0" placeholder="Enter Bill Address" value="{{ $quotation->billaddress }}">
+                        </div>
+                        <div class="mb-3">
+                            <label>Shipping Address</label><br>
+                            <input type="text" name="shippingaddress" class="form-control bg-light border-0" placeholder="Enter Shipping Address" value="{{ $quotation->shippingaddress }}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Back</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+     </div>
+    <div class="modal fade" id="SubmitPONumberModal" tabindex="-1" aria-labelledby="SubmitPONumberModuleLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('admin.quotations.submit_ponumber') }}" method="post" enctype="multipart/form-data" >
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="SubmitPONumberModuleLabel">Submit PO Number</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label>Purcahse Order Number</label><br>
+                            <input type="hidden" name="quotation_id" value="{{ $quotation->id }}">
+                            <input type="text" name="ponumber" class="form-control bg-light border-0" placeholder="Enter Purcahse Order Number" value="{{ $quotation->ponumber }}">
+                        </div>
+                        <div class="mb-3">
+                            <label>Bill Address</label><br>
+                            <input type="text" name="billaddress" class="form-control bg-light border-0" placeholder="Enter Bill Address" value="{{ $quotation->billaddress }}">
+                        </div>
+                        <div class="mb-3">
+                            <label>Shipping Address</label><br>
+                            <input type="text" name="shippingaddress" class="form-control bg-light border-0" placeholder="Enter Shipping Address" value="{{ $quotation->shippingaddress }}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Back</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+     </div>
+    <div class="modal fade" id="qAttachmentModal" tabindex="-1" aria-labelledby="AttachmentModuleLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('admin.quotations.attachmentupload') }}" method="post" enctype="multipart/form-data" >
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="AttachmentModuleLabel">Attachment Files</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xxl-12 col-md-12">
+                                <input type="hidden" name="type" value="quotation" >
+                                <input type="hidden" name="relative_id" value="{{ $quotation->id }}" >
+                                <label for="title" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="title" name="title" required>
+                            </div>
+                            <div class="col-xxl-12 col-md-12 mt-2">
+                                <label for="file" class="form-label">File</label>
+                                <input type="file" class="form-control" id="file" name="file" required>
+                            </div>
+                            <!--end col-->
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -620,6 +659,13 @@
      </div>
 
 
+
+
+
+
+
+
+     
 @stop
 @section('footer')
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
@@ -717,45 +763,6 @@
                     vendor_opts += '<option value="'+vendor.id+'" >'+vendor.name+'</option>';
                 });
                 $('#vendors').html(vendor_opts);
-            }
-        });
-        $(".searchfinishgoods").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    type: 'get',
-                    url: '{{ route("admin.general.searching.finish_goods") }}',
-                    dataType: "json",
-                    data: {
-                        term: request.term
-                    },
-                    success: function (data) {
-                        $(this).removeClass('ui-autocomplete-loading');
-                        response(data);
-                    }
-                });
-            },
-            minLength: 1,
-            autoFocus: false,
-            delay: 250,
-            response: function (event, ui) {
-                if ($(this).val().length >= 16 && ui.content[0].id == 0) {
-                    $(this).removeClass('ui-autocomplete-loading');
-                    $(this).val('');
-                }
-                else if (ui.content.length == 1 && ui.content[0].id != 0) {
-                    ui.item = ui.content[0];
-                    $(this).data('ui-autocomplete')._trigger('select', 'autocompleteselect', ui);
-                    $(this).autocomplete('close');
-                    $(this).removeClass('ui-autocomplete-loading');
-                }
-                else if (ui.content.length == 1 && ui.content[0].id == 0) {
-                    $(this).removeClass('ui-autocomplete-loading');
-                    $(this).val('');
-                }
-            },
-            select: function (event, ui) {
-                event.preventDefault();
-                $('.ac_product_id').val(ui.item.item_id);
             }
         });
         $(document).on('click','.edit_meterial',function(){

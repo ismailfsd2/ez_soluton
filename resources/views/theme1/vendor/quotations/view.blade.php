@@ -337,6 +337,9 @@
                                                 <label for="messageText" class="form-label text-body">Leave a Message</label>
                                                 <textarea class="form-control bg-light border-light" id="messageText" rows="3" placeholder="Enter your message..."></textarea>
                                             </div>
+                                            <div class="col-12">
+                                                <button type="button" id="sendMessageBtn" class="btn btn-success">Send Message</button>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>

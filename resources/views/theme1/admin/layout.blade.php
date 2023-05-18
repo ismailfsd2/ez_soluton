@@ -783,8 +783,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('admin.finishedgoods.list') }}">
+                                <i class="bx bx-user"></i> <span data-key="t-users">Finished Goods</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link menu-link" href="{{ route('admin.quotations.list') }}">
                                 <i class="bx bx-user"></i> <span data-key="t-users">Quotations</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('admin.orders.list') }}">
+                                <i class="bx bx-user"></i> <span data-key="t-users">Orders</span>
                             </a>
                         </li>
                         <!-- <li class="nav-item">

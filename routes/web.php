@@ -234,6 +234,19 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
         Route::get('vendors/destroy/{id}', [App\Http\Controllers\ProductsController::class, 'vendor_destroy'])->name('vendors.destroy');
 
     });
+    // Finished Goods
+    Route::group(['prefix'=>'finsihs','as' => 'finishedgoods.'],function () {
+        Route::get('/', [App\Http\Controllers\FinishedgoodsController::class, 'index'])->name('list');
+        Route::post('/data', [App\Http\Controllers\FinishedgoodsController::class, 'data'])->name('data');
+    
+        Route::get('/add', [App\Http\Controllers\FinishedgoodsController::class, 'add'])->name('add');
+        Route::post('/store', [App\Http\Controllers\FinishedgoodsController::class, 'store'])->name('store');
+    
+        Route::get('/edit/{id}', [App\Http\Controllers\FinishedgoodsController::class, 'edit'])->name('edit');
+        Route::post('/update', [App\Http\Controllers\FinishedgoodsController::class, 'update'])->name('update');
+    
+        Route::get('/destroy/{id}', [App\Http\Controllers\FinishedgoodsController::class, 'destroy'])->name('destroy');
+    });
     // Quotations
     Route::group(['prefix'=>'quotations','as' => 'quotations.'],function () {
         Route::get('/', [App\Http\Controllers\QuotationsController::class, 'index'])->name('list');
@@ -252,9 +265,20 @@ Route::group(['middleware'=>['adminpanel'],'prefix'=>'admin','as' => 'admin.'],f
         Route::post('/udpate_addonmaterail', [App\Http\Controllers\QuotationsController::class, 'udpate_addonmaterail'])->name('udpate_addonmaterail');
         Route::get('/delete_addonmaterail/{id}', [App\Http\Controllers\QuotationsController::class, 'delete_addonmaterail'])->name('delete_addonmaterail');
 
-        Route::post('/accept_price', [App\Http\Controllers\QuotationsController::class, 'accept_price'])->name('accept_price');
+        Route::post('/project_detail_submit', [App\Http\Controllers\QuotationsController::class, 'project_detail_submit'])->name('project_detail_submit');
+        Route::post('/order_create', [App\Http\Controllers\QuotationsController::class, 'order_create'])->name('order_create');
+        Route::post('/submit_ponumber', [App\Http\Controllers\QuotationsController::class, 'submit_ponumber'])->name('submit_ponumber');
+        Route::post('/attachmentupload', [App\Http\Controllers\QuotationsController::class, 'attachmentupload'])->name('attachmentupload');
+        Route::get('/delete_file/{id}', [App\Http\Controllers\QuotationsController::class, 'delete_file'])->name('delete_file');
 
 
+    });
+    // Orders
+    Route::group(['prefix'=>'orders','as' => 'orders.'],function () {
+        Route::get('/', [App\Http\Controllers\OrdersController::class, 'index'])->name('list');
+        Route::get('/detail/{id}', [App\Http\Controllers\OrdersController::class, 'detail'])->name('detail');
+        Route::post('/submit_estimated_date', [App\Http\Controllers\OrdersController::class, 'submit_estimated_date'])->name('submit_estimated_date');
+        Route::post('/submit_deliverydate_date', [App\Http\Controllers\OrdersController::class, 'submit_deliverydate_date'])->name('submit_deliverydate_date');
     });
 
 
@@ -326,7 +350,9 @@ Route::group(['middleware'=>['customerpanel'],'prefix'=>'customer','as' => 'cust
         Route::post('/udpate_addonmaterail', [App\Http\Controllers\Customer\QuotationsController::class, 'udpate_addonmaterail'])->name('udpate_addonmaterail');
         Route::get('/delete_addonmaterail/{id}', [App\Http\Controllers\Customer\QuotationsController::class, 'delete_addonmaterail'])->name('delete_addonmaterail');
 
-        Route::post('/accept_price', [App\Http\Controllers\Customer\QuotationsController::class, 'accept_price'])->name('accept_price');
+        Route::post('/project_detail_submit', [App\Http\Controllers\Customer\QuotationsController::class, 'project_detail_submit'])->name('project_detail_submit');
+        Route::post('/order_create', [App\Http\Controllers\Customer\QuotationsController::class, 'order_create'])->name('order_create');
+
 
 
     
